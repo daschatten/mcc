@@ -3,3 +3,4 @@ www/protected/runtime/
 www/protected/config/main.php
 www/protected/config/console.php
 www/themes/classic/views/
+*.swp
