@@ -39,10 +39,18 @@ return array(
             ),
 		),
 		*/
+        'auth',
 	),
 
 	// application components
 	'components'=>array(
+        'authManager' => array(
+            'behaviors' => array(
+                'auth' => array(
+                'class' => 'auth.components.AuthBehavior',
+                ),
+            ),
+        ),
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
