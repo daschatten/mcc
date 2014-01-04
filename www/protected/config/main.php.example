@@ -12,11 +12,17 @@ return array(
 	// preloading 'log' component
 	'preload'=>array('log'),
 
+    // path aliases
+    'aliases' => array(
+        'bootstrap' => realpath(__DIR__ . '/../extensions/bootstrap'), // yiistrap alias
+    ),
+
 	// autoloading model and component classes
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
         'ext.giix-components.*', // giix components
+        'bootstrap.helpers.TbHtml', // yiistrap components
 	),
 
 	'modules'=>array(
@@ -29,6 +35,7 @@ return array(
 			'ipFilters'=>array('127.0.0.1','::1'),
             'generatorPaths' => array(
                         'ext.giix-core', // giix generators
+                        'bootstrap.gii' // yiistrap generators
             ),
 		),
 		*/
@@ -83,6 +90,10 @@ return array(
 				*/
 			),
 		),
+        'bootstrap' => array(
+            'class' => 'bootstrap.components.TbApi',   
+        ),
+
 	),
 
 	// application-level parameters that can be accessed
