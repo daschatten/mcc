@@ -23,6 +23,9 @@ return array(
 		'application.components.*',
         'ext.giix-components.*', // giix components
         'bootstrap.helpers.TbHtml', // yiistrap components
+        'application.modules.auth.*',
+        'application.modules.auth.components.*',
+
 	),
 
 	'modules'=>array(
@@ -54,6 +57,7 @@ return array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+            'class' => 'auth.components.AuthWebUser',
 		),
 		// uncomment the following to enable URLs in path-format
 		/*
