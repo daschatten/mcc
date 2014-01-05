@@ -16,7 +16,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'filter' => false,
         ),
         array(
-            'name' => 'chanid',
+            'name' => 'channel.name',
         ),
         array(
             'name' => 'title',
@@ -31,7 +31,6 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array(
             'name' => 'FilesizeGb',
             'filter' => false,
-            'header' => 'Size (GB)',
         ),
     ),
 ));

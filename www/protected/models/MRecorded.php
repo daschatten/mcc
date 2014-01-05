@@ -27,6 +27,23 @@ class MRecorded extends BaseMRecorded
 		));
 	}
 
+    public function relations()
+    {
+        return array(
+            'channel'=>array(self::BELONGS_TO, 'MChannel', 'chanid'),
+        );
+    }
+
+    public function attributeLabels() {
+        $a = array(
+            'channel.name' => Yii::t('app', 'Channel'),
+            'FilesizeGb' => Yii::t('app', 'Size (GB)'),
+        );
+        
+        $m = array_merge(parent::attributeLabels(), $a);
+        return $m;
+    }
+
     public static function getRecgroups()
     {
         $mr = new MRecorded();
