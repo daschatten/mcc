@@ -37,6 +37,7 @@
                         array('label' => Yii::t('app', 'Recordings'),'url' => array('/Recording/index')),
                         array('label' => Yii::t('app', 'Guide'),'url' => array('/Guide/index')),
                         array('label' => Yii::t('app', 'Users'), 'items' => array(
+                            array('label' => Yii::t('app', 'Users'), 'url' => array('/user/admin')),
                             array('label' => Yii::t('app', 'Assignments'), 'url' => array('/auth/assignment/index')),
                             array('label' => Yii::t('app', 'Roles'), 'url' => array('/auth/role/index')),
                             array('label' => Yii::t('app', 'Tasks'), 'url' => array('/auth/task/index')),
