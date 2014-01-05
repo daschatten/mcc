@@ -21,6 +21,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.controllers.*',
         'ext.giix-components.*', // giix components
         'bootstrap.helpers.TbHtml', // yiistrap components
         'application.modules.auth.*',
