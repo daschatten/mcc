@@ -27,16 +27,30 @@
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 	</div><!-- header -->
 
-	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		)); ?>
+	<div>
+        <?php $this->widget('bootstrap.widgets.TbNavbar', array(
+            'brandLabel' => 'MCC - MythTV Control Center',
+            'items' => array(
+                array(
+                    'class' => 'bootstrap.widgets.TbNav',
+                    'items' => array(
+                        array('label' => Yii::t('app', 'Recordings'),'url' => array('/Recording/index')),
+                        array('label' => Yii::t('app', 'Guide'),'url' => array('/Guide/index')),
+                        array('label' => Yii::t('app', 'Users'), 'items' => array(
+                            array('label' => Yii::t('app', 'Assignments'), 'url' => array('/auth/assignment/index')),
+                            array('label' => Yii::t('app', 'Roles'), 'url' => array('/auth/role/index')),
+                            array('label' => Yii::t('app', 'Tasks'), 'url' => array('/auth/task/index')),
+                            array('label' => Yii::t('app', 'Operations'), 'url' => array('/auth/operation/index')),
+                        )),
+				        array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+				        array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+                    ),
+                ),
+            ),
+
+            )); 
+        ?>
+
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
