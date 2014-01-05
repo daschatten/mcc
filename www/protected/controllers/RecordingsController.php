@@ -4,33 +4,14 @@ class RecordingsController extends MController
 {
 	public function actionIndex()
 	{
-		$this->render('index');
-	}
+        $model = new MRecorded();
+        $model->unsetAttributes(); // clear any default values
+        $model->recgroup = ""; // set default recgroup to all
 
-	// Uncomment the following methods and override them if needed
-	/*
-	public function filters()
-	{
-		// return the filter configuration for this controller, e.g.:
-		return array(
-			'inlineFilterName',
-			array(
-				'class'=>'path.to.FilterClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
+        if(isset($_GET['MRecorded']))
+        {
+            $model->attributes=$_GET['MRecorded'];
+        }
+		$this->render('index', array('recorded' => $model));
 	}
-
-	public function actions()
-	{
-		// return external action classes, e.g.:
-		return array(
-			'action1'=>'path.to.ActionClass',
-			'action2'=>array(
-				'class'=>'path.to.AnotherActionClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
-	*/
 }
