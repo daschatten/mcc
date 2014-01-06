@@ -1,0 +1,27 @@
+.modal.modal-wide{
+    width: 80%;
+    margin-left: -40%;
+}
+
+.modal.modal-wide .modal-body{
+    max-height: 70%
+}
+
+#recordingInfoMain{
+    float: left;
+    width: 60%;
+    margin-right: 9%
+}
+
+#recordingInfoImage{
+    float: left;
+    width: 30%;
+
+}
+
+#recordingInfoDescription{
+    clear: both;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
