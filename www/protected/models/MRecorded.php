@@ -38,6 +38,8 @@ class MRecorded extends BaseMRecorded
         $a = array(
             'channel.name' => Yii::t('app', 'Channel'),
             'FilesizeGb' => Yii::t('app', 'Size (GB)'),
+            'episodeString' => Yii::t('app', 'Season/Episode'),
+            'length' => Yii::t('app', 'Length'),
         );
         
         $m = array_merge(parent::attributeLabels(), $a);
@@ -72,6 +74,30 @@ class MRecorded extends BaseMRecorded
     public function getFilesizeGb()
     {
         return round($this->filesize / (1024 * 1024 * 1024), 2);
+    }
+
+    /**
+     * Returns length of recording
+     */
+    public function getLength()
+    {
+        $sec = strtotime($this->endtime) - strtotime($this->starttime);   
+        $min = ceil($sec/60);
+        return $min;
+    }
+
+    /**
+     * Return combined season/episode string
+     */
+    public function getEpisodeString()
+    {
+        if($this->episode <> 0)
+        {
+            return $this->season."x".$this->episode;
+        }else
+        {
+            return "";
+        }
     }
 
 }

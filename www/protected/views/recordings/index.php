@@ -25,11 +25,19 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'name' => 'subtitle',
         ),
         array(
+            'name' => 'episodeString',
+            'filter' => false,
+        ),
+        array(
             'name' => 'recgroup',
             'filter' => MRecorded::getRecgroups(),
         ),
         array(
             'name' => 'FilesizeGb',
+            'filter' => false,
+        ),
+        array(
+            'name' => 'length',
             'filter' => false,
         ),
     ),
