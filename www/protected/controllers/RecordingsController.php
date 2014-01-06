@@ -2,6 +2,13 @@
 
 class RecordingsController extends MController
 {
+    public function accessRules()
+    {
+        return array(
+            array('deny', 'users' => array('?')),
+        );
+    }
+
 	public function actionIndex()
 	{
         $model = new MRecorded();
