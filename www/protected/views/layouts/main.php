@@ -32,7 +32,10 @@
                 array(
                     'class' => 'bootstrap.widgets.TbNav',
                     'items' => array(
-                        array('label' => Yii::t('app', 'Recordings'),'url' => array('/Recordings/index')),
+                        array('label' => Yii::t('app', 'Recordings'),'items' => array(
+                            array('label' => Yii::t('app', 'Recorded'),'url' => array('/Recordings/index')),
+                            array('label' => Yii::t('app', 'Upcoming'),'url' => array('/Recordings/upcoming')),
+                        )),
                         array('label' => Yii::t('app', 'Guide'),'url' => array('/Guide/index')),
                         array('label' => Yii::t('app', 'Users'), 'items' => array(
                             array('label' => Yii::t('app', 'Users'), 'url' => array('/user/admin')),

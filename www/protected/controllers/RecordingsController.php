@@ -54,4 +54,9 @@ class RecordingsController extends MController
             'filesize' => $model->filesizeGb,
         ));
     }
+
+    public function actionUpcoming()
+    {
+        $this->render('upcoming');
+    }
 }
