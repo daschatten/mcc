@@ -1,0 +1,3 @@
+[submodule "www/protected/extensions/efullcalendar"]
+	path = www/protected/extensions/efullcalendar
+	url = https://github.com/reinsle/efullcalendar.git
