@@ -57,6 +57,29 @@ class RecordingsController extends MController
 
     public function actionUpcoming()
     {
-        $this->render('upcoming');
+        $s = new ServiceDvr();
+        $dp = $s->GetUpcomingList(true);
+        $this->render('upcoming', array('dataProvider' => $dp));
+    }
+
+    public function actionUpcomingFeed()
+    {
+        $s = new ServiceDvr();
+        $data = $s->GetUpcomingList(false, 0, 300, false);
+
+        $items = array();
+
+        foreach($data->Programs->Program as $p)
+        {
+            $items[] = array(
+                'title' => "$p->Title",
+                'start' => "$p->StartTime",
+                'end' => "$p->EndTime",
+                'allDay' => false,
+            );
+        }
+
+        echo CJSON::encode($items);
+        Yii::app()->end();
     }
 }

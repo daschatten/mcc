@@ -26,7 +26,7 @@ return array(
         'bootstrap.helpers.TbHtml', // yiistrap components
         'application.modules.auth.*',
         'application.modules.auth.components.*',
-
+		'application.components.mythservices.*',
 	),
 
 	'modules'=>array(
@@ -119,5 +119,6 @@ return array(
 		'adminEmail'=>'webmaster@example.com',
         'defaultPageSize' => 10,
         'mediaUrl' => 'http://media.example.com/media/',
+        'mythbackendUri' => 'http://127.0.0.1:6544',
 	),
 );
