@@ -29,3 +29,15 @@
     padding-top: 10px;
     border-top: 1px solid #ddd;
 }
+
+.tooltipevent{
+    position: absolute;
+    width: 400px;
+    max-height: 300px;
+    overflow: hidden;
+    background: white;
+    padding: 10px;
+    z-index: 10001;
+    border-radius: 5px;
+    border: 1px solid grey;
+}

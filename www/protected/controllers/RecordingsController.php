@@ -76,6 +76,8 @@ class RecordingsController extends MController
                 'start' => "$p->StartTime",
                 'end' => "$p->EndTime",
                 'allDay' => false,
+                'description' => "$p->Description" ,
+                'channel' => (string) $p->Channel->ChannelName,
             );
         }
 
