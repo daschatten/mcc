@@ -1,8 +1,8 @@
 <?php
 
-Yii::import('application.models._base.BaseMChannel');
+Yii::import('application.models.mythtv._base.BaseWebsites');
 
-class MChannel extends BaseMChannel
+class Websites extends BaseWebsites
 {
 	public static function model($className=__CLASS__) {
 		return parent::model($className);

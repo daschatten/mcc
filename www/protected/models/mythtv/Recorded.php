@@ -1,14 +1,14 @@
 <?php
 
-Yii::import('application.models._base.BaseMRecorded');
+Yii::import('application.models.mythtv._base.BaseRecorded');
 
-class MRecorded extends BaseMRecorded
+class Recorded extends BaseRecorded
 {
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
 	}
 
-	public function search() {
+    public function search() {
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('chanid', $this->chanid, true);
@@ -99,5 +99,4 @@ class MRecorded extends BaseMRecorded
             return "";
         }
     }
-
 }

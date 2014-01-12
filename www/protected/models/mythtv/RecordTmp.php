@@ -1,8 +1,8 @@
 <?php
 
-Yii::import('application.models._base.BaseMChannel');
+Yii::import('application.models.mythtv._base.BaseRecordTmp');
 
-class MChannel extends BaseMChannel
+class RecordTmp extends BaseRecordTmp
 {
 	public static function model($className=__CLASS__) {
 		return parent::model($className);

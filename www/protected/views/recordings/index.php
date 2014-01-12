@@ -50,7 +50,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         array(
             'name' => 'recgroup',
-            'filter' => MRecorded::getRecgroups(),
+            'filter' => Recorded::getRecgroups(),
         ),
         array(
             'name' => 'FilesizeGb',

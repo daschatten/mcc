@@ -11,13 +11,13 @@ class RecordingsController extends MController
 
 	public function actionIndex()
 	{
-        $model = new MRecorded();
+        $model = new Recorded();
         $model->unsetAttributes(); // clear any default values
         $model->recgroup = ""; // set default recgroup to all
 
-        if(isset($_GET['MRecorded']))
+        if(isset($_GET['Recorded']))
         {
-            $model->attributes=$_GET['MRecorded'];
+            $model->attributes=$_GET['Recorded'];
         }
 		$this->render('index', array('recorded' => $model));
 	}
@@ -30,9 +30,9 @@ class RecordingsController extends MController
             array('chanid' => $values[0], 'starttime' => $values[1]),
         );
 
-        $model = MRecorded::model()->findByPk($pk);
+        $model = Recorded::model()->findByPk($pk);
 
-        if(! $model instanceof MRecorded)
+        if(! $model instanceof Recorded)
         {
             echo "false";
         }
