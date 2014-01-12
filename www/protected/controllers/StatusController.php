@@ -24,7 +24,32 @@ class StatusController extends MController
         $dvr = new ServiceDvr();
         $encoderlist = $dvr->GetEncoderList(true);
 
-        $this->render('tuner', array('dataProvider' => $encoderlist));
+        $capturecardlist = new CActiveDataProvider('Capturecard', array(
+            'pagination' => false,
+            'criteria' => array(
+                'order' => 'cardid ASC',
+            ),
+        ));
+        $cardinputlist = new CActiveDataProvider('Cardinput', array(
+            'pagination' => false,
+            'criteria' => array(
+                'order' => 'cardinputid ASC',
+            ),
+        ));
+        $videosourcelist = new CActiveDataProvider('Videosource', array(
+            'pagination' => false,
+            'criteria' => array(
+                'order' => 'sourceid ASC',
+            ),
+        ));
+
+        $this->render('tuner', array(
+            'encoderlist' => $encoderlist,
+            'capturecardlist' => $capturecardlist,
+            'cardinputlist' => $cardinputlist,
+            'videosourcelist' => $videosourcelist,
+            )
+        );
     }
 
     public function actionStorage()
