@@ -54,6 +54,19 @@ class StatusController extends MController
 
     public function actionStorage()
     {
-        $this->render('storage');
+        $storagegrouplist = new CActiveDataProvider('Storagegroup', array(
+            'pagination' => false,
+            'criteria' => array(
+                'order' => 'groupname ASC',
+            ),
+        ));
+
+        $recgrouplist = array();
+
+         $this->render('storage', array(
+            'storagegrouplist' => $storagegrouplist,
+            'recgrouplist' => $recgrouplist,
+            )
+        );
     }
 }
