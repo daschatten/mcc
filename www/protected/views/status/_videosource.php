@@ -18,6 +18,14 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array(
             'name' => 'useeit',
         ),
+        array(
+            'header' => 'Multiplexes (visible/all)',
+            'value' => '$data->visibleMultiplexes." / ".$data->multiplexes',
+        ),
+        array(
+            'header' => 'Channels (visible/all)',
+            'value' => '$data->visibleChannels." / ".$data->channels',
+        ),
     ),
 ));
 
