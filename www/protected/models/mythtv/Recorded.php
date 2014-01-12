@@ -30,7 +30,7 @@ class Recorded extends BaseRecorded
     public function relations()
     {
         return array(
-            'channel'=>array(self::BELONGS_TO, 'MChannel', 'chanid'),
+            'channel'=>array(self::BELONGS_TO, 'Channel', 'chanid'),
         );
     }
 
@@ -48,7 +48,7 @@ class Recorded extends BaseRecorded
 
     public static function getRecgroups()
     {
-        $mr = new MRecorded();
+        $mr = new Recorded();
 
         $recgroups = Yii::app()->db->createCommand()
             ->selectDistinct('recgroup')
