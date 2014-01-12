@@ -20,7 +20,6 @@ class ServiceDvr extends MythService
                 return $response->body;
             }else{
                 $dataProvider=new CArrayDataProvider($response->body->Programs->Program, array(
-                    'id'=>'false',
                     'pagination'=>false,
                 ));
                 return $dataProvider;
@@ -36,14 +35,16 @@ class ServiceDvr extends MythService
 
         Yii::trace("[ServiceDvr::GetEncoderList] uri: '$uri'");
 
+
+
         try{
-            $response = \Httpful\Request::get($uri)->expectsXml()->send();
+            $response = \Httpful\Request::get($uri)->addHeader('Accept', 'application/json')->send();
             if(!$dataprovider)
             {
                 return $response->body;
             }else{
-                $dataProvider=new CArrayDataProvider($response->body->Encoders, array(
-                    'id'=>'false',
+                $dataProvider=new CArrayDataProvider($response->body->EncoderList->Encoders, array(
+                    'keyField'=>'Id',
                     'pagination'=>false,
                 ));
                 return $dataProvider;

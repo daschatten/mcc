@@ -37,6 +37,11 @@
                             array('label' => Yii::t('app', 'Recorded'),'url' => array('/Recordings/index')),
                             array('label' => Yii::t('app', 'Upcoming'),'url' => array('/Recordings/upcoming')),
                         )),
+                        array('label' => Yii::t('app', 'Status'),'items' => array(
+                            array('label' => Yii::t('app', 'Backend'),'url' => array('/status/backend')),
+                            array('label' => Yii::t('app', 'Tuner'),'url' => array('/status/tuner')),
+                            array('label' => Yii::t('app', 'Storage'),'url' => array('/status/storage')),
+                        )),
                         array('label' => Yii::t('app', 'Guide'),'url' => array('/Guide/index')),
                         array('label' => Yii::t('app', 'Users'), 'items' => array(
                             array('label' => Yii::t('app', 'Users'), 'url' => array('/user/admin')),
