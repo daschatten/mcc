@@ -4,6 +4,8 @@ Yii::import('application.models.mythtv._base.BaseRecorded');
 
 class Recorded extends BaseRecorded
 {
+    public $episodeCount;
+
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
 	}
@@ -30,7 +32,7 @@ class Recorded extends BaseRecorded
     public function relations()
     {
         return array(
-            'channel'=>array(self::BELONGS_TO, 'Channel', 'chanid'),
+            'channel'=>array(self::BELONGS_TO, 'MChannel', 'chanid'),
         );
     }
 

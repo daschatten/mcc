@@ -61,11 +61,37 @@ class StatusController extends MController
             ),
         ));
 
-        $recgrouplist = array();
+        $recgrouplist = Recorded::getRecgroups();
 
-         $this->render('storage', array(
+        $recgroupSummary = new CActiveDataProvider('Recorded', array(
+                'pagination' => false,
+                'criteria' => array(
+                    'select' => 'recgroup, sum(filesize) as filesize, count(*) as episodeCount',
+                    'group' => 'recgroup',
+                ),
+            ));
+
+        $recgroupDataproviderList = array();
+
+        foreach($recgrouplist as $recgroup)
+        {
+           $recgroupDataproviderList[$recgroup] = new CActiveDataProvider('Recorded', array(
+                'pagination' => false,
+                'criteria' => array(
+                    'select' => 'title, sum(filesize) as filesize, count(*) as episodeCount',
+                    'condition' => 'recgroup = :recgroup',
+                    'params' => array(':recgroup' => $recgroup),
+                    'group' => 'title',
+                    'having' => 'count(*) > 1',
+                ),
+            ));
+        }
+
+        $this->render('storage', array(
             'storagegrouplist' => $storagegrouplist,
             'recgrouplist' => $recgrouplist,
+            'recgroupDataproviderList' => $recgroupDataproviderList,
+            'recgroupSummary' => $recgroupSummary,
             )
         );
     }

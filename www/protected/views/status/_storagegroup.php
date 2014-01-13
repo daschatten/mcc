@@ -23,7 +23,6 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         array(
             'header' => Yii::t('app', 'Used space'),
-            //'value' => '$data->spaceused',
             'value' => 'ByteHelper::getString($data->spaceused)',
         ),
     ),
