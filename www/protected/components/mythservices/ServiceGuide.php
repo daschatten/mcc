@@ -11,7 +11,7 @@ class ServiceGuide extends MythService
     {
         if($ChanId == null)
         {
-            $chan = MChannel::model()->visible()->order()->find();
+            $chan = Channel::model()->visible()->order()->find();
             $ChanId = $chan->chanid;
         }
 
@@ -52,7 +52,7 @@ class ServiceGuide extends MythService
     {
         if($StartChanId == null)
         {
-            $chan = MChannel::model()->visible()->order()->find();
+            $chan = Channel::model()->visible()->order()->find();
             $StartChanId = $chan->chanid;
         }
 

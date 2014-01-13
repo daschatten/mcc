@@ -32,7 +32,7 @@ class Recorded extends BaseRecorded
     public function relations()
     {
         return array(
-            'channel'=>array(self::BELONGS_TO, 'MChannel', 'chanid'),
+            'channel'=>array(self::BELONGS_TO, 'Channel', 'chanid'),
         );
     }
 
