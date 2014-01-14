@@ -16,7 +16,10 @@ class StatusController extends MController
 
     public function actionBackend()
     {
-        $this->render('backend');
+
+        $backendstatus = MythService::staticGet('/Status/GetStatus');
+
+        $this->render('backend', array('backendstatus' => $backendstatus));
     }
 
 	public function actionTuner()
