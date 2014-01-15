@@ -41,3 +41,53 @@
     border-radius: 5px;
     border: 1px solid grey;
 }
+
+#programGuide{
+
+}
+
+.programRow{
+    float: left;
+    width: 18%;
+    padding: 1%;
+}
+
+.programRowChannel{
+    font-weight: bold;
+    text-align: center;
+}
+
+.programRowItem
+{
+    border-top: 1px dashed #bbb;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.programRowItemTitle{
+    font-weight: bold;
+    font-size: 9px;
+    max-height: 20px;
+    overflow: hidden;
+}
+
+.programRowItemSubtitle{
+    font-size: 8px;
+    max-height: 19px;
+    overflow: hidden;
+}
+.programRowItemStarttime{
+    font-size: 8px;
+    max-height: 20px;
+    padding-top: 5px;
+    overflow: hidden;
+}
+.programRowItemDescription{
+    font-size: 7px;
+    overflow: hidden;
+    color: #888;
+}
+
+.programRowItemSpacer{
+    background-color: #eee;
+}
