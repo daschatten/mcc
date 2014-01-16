@@ -91,3 +91,10 @@
 .programRowItemSpacer{
     background-color: #eee;
 }
+
+#loginform{
+}
+
+#loginform * div{
+    text-align: center;
+}

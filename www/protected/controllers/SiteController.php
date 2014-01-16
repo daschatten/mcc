@@ -1,6 +1,6 @@
 <?php
 
-class SiteController extends Controller
+class SiteController extends MController
 {
 	/**
 	 * Declares class-based actions.
@@ -20,6 +20,14 @@ class SiteController extends Controller
 			),
 		);
 	}
+
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'actions' => array('login'), 'users' => array('*')),
+            array('deny', 'users' => array('?')),
+        );
+    }
 
 	/**
 	 * This is the default 'index' action that is invoked

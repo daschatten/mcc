@@ -1,7 +1,14 @@
 <?php
 
-class GuideController extends CController
+class GuideController extends MController
 {
+    public function accessRules()
+    {
+        return array(
+            array('deny', 'users' => array('?')),
+        );
+    }
+
     public function actionIndex()
     {
         $this->actionDaymultiview();

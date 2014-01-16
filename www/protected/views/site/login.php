@@ -4,14 +4,10 @@
 /* @var $form CActiveForm  */
 
 $this->pageTitle=Yii::app()->name . ' - Login';
-$this->breadcrumbs=array(
-	'Login',
-);
+$this->layout = "blank";
 ?>
 
-<h1>Login</h1>
-
-<div class="form">
+<div id="loginform">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
@@ -31,4 +27,12 @@ $this->breadcrumbs=array(
 	</div>
 
 <?php $this->endWidget(); ?>
+
+<?php $this->widget('ext.jcenter.JCenter', array(
+    "Id"=>"loginform",
+    "horizontal"=>true,
+    "vertical"=>true,
+    "resize"=>true,
+)); ?>
+
 </div><!-- form -->
