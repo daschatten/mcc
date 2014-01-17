@@ -98,3 +98,8 @@
 #loginform * div{
     text-align: center;
 }
+
+#app-name{
+    font-size: 0.8em;
+    color: #2E2EFE;
+}

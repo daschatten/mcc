@@ -28,7 +28,7 @@
 
 	<div>
         <?php $this->widget('bootstrap.widgets.TbNavbar', array(
-            'brandLabel' => 'MCC - MythTV Control Center',
+            'brandLabel' => '<span id="app-name">MythTV Control Center</app>',
             'items' => array(
                 array(
                     'class' => 'bootstrap.widgets.TbNav',
