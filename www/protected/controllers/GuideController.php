@@ -48,4 +48,35 @@ class GuideController extends MController
  
         $this->render('daymultiview', array('programlist' => $programlist));
     }
+
+    public function actionDetail($chanid, $starttime)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->condition = "chanid = :chanid AND starttime = :starttime";
+        $criteria->params = array(
+            ':chanid' => $chanid,
+            ':starttime' => $starttime,
+        );
+
+        $model = Program::model()->find($criteria);
+
+        if(!$model instanceof Program)
+        {
+            echo "false";
+            return;
+        }
+
+        $a = array(
+            'channel' => $model->channel->name,
+            'chanid' => $model->chanid,
+            'title' => $model->title,
+            'subtitle' => $model->subtitle,
+            'description' => $model->description,
+            'starttime' => $model->starttime,
+            'endtime' => $model->endtime,
+        );
+
+        echo CJSON::encode($a);
+        Yii::app()->end();
+    }
 }

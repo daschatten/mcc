@@ -19,3 +19,17 @@ function calendarMouseout(calEvent, jsEvent) {
     $(this).css('z-index', 8);
     $('.tooltipevent').remove();
 }
+
+function showProgramModal(uri){
+    console.log(uri);
+
+    $.getJSON(uri, function(data){
+        $('#programChannel').html(data['channel']);
+        $('#programTitle').html(data['title']);
+        $('#programSubtitle').html(data['subtitle']);
+        $('#programTime').html(data['starttime'] + " - " + data['endtime']);
+        $('#programDescription').html(data['description']);
+    });
+    
+    $('#programDetailModal').modal();
+}

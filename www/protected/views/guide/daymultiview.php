@@ -8,3 +8,6 @@
 
 ?>
 </div>
+
+
+<?php $this->renderPartial('_detailpopup'); ?>

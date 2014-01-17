@@ -42,7 +42,7 @@ if($length < 600)
 $height = $height - 6;
 ?>
 
-<div class="programRowItem" style="height: <?php echo $height ?>px">
+<div class="programRowItem" style="height: <?php echo $height ?>px" onclick="showProgramModal('<?php echo Yii::app()->createUrl("guide/detail", array('chanid' => $program->chanid, 'starttime' => $program->starttime)); ?>')">
     <div class="programRowItemStarttime"><?php echo $program->starttime. " :: ".$minutes." ".Yii::t('app', 'Min.') ?></div>
     <div class="programRowItemTitle"><?php echo $program->title ?></div>
     <div class="programRowItemSubtitle"><?php echo $program->subtitle ?></div>
