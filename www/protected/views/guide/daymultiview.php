@@ -13,6 +13,18 @@
 
         return ($a->StartTime < $b->StartTime) ? -1 : 1;
     }
+
+    $listdata = CHtml::listData(Channel::getVisibleChannelList(), 'channum', 'numname');
+    $guideurl = Yii::app()->createUrl('guide/daymultiview');
+
+    echo CHtml::activeDropDownList($searchModel, 'channum', $listdata, array(
+        'id' => 'chanselect',
+        'onChange' => "$(location).attr('href', function(index, attr){
+                channum = $('#chanselect option:selected').val();
+                return '$guideurl' + '/channum/' + channum;
+        })",
+    ));
+
     foreach($programlist as $channelprogram)
     {
         $this->renderPartial('_programRow', array('channelprogram' => $channelprogram));

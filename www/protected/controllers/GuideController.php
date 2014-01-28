@@ -14,19 +14,27 @@ class GuideController extends MController
         $this->actionDaymultiview();
     }
 
-    public function actionDaymultiview()
+    public function actionDaymultiview($channum = null, $daystart = null)
     {
+        if($channum == null)
+        {
+            $startchannelCriteria = new CDbCriteria();
+            $startchannelCriteria->condition = "visible = :visible";
+            $startchannelCriteria->order = "1*channum ASC";
+            $startchannelCriteria->params = array(':visible' => 1);
+            $startchannelCriteria->limit = 1;
+
+            $startchan = Channel::model()->find($startchannelCriteria);
+            $channum = $startchan->channum;
+        }
+
         $channelCriteria = new CDbCriteria();
-        $channelCriteria->condition = "visible = :visible";
+        $channelCriteria->condition = "visible = :visible AND 1*channum >= :channum";
         $channelCriteria->order = "1*channum ASC";
-        $channelCriteria->params = array(':visible' => 1);
+        $channelCriteria->params = array(':visible' => 1, ':channum' => $channum);
         $channelCriteria->limit = 5;
 
         $channellist = Channel::model()->findAll($channelCriteria);
-
-        $programCriteria = new CDbCriteria();
-        $programCriteria->condition = "starttime < :dayend AND endtime >= :daystart AND chanid = :chanid";
-        $programCriteria->order = "starttime ASC";
 
         $programlist = array();
 
@@ -40,8 +48,19 @@ class GuideController extends MController
             $program = $guide->GetProgramGuide(false, date('Y-m-d H:i:s', $daystart), date('Y-m-d H:i:s', $dayend), $channel->chanid, 1, true);
             $programlist[] = $program;
         }
- 
-        $this->render('daymultiview', array('programlist' => $programlist));
+
+        $searchModel = new GuideSearchModel();
+
+        if(isset($_GET['channum']))
+        {
+            $searchModel->channum = $_GET['channum'];
+        }
+        
+
+        $this->render('daymultiview', array(
+            'programlist' => $programlist,
+            'searchModel' => $searchModel,
+        ));
     }
 
     public function actionDetail($chanid, $starttime)

@@ -42,7 +42,7 @@
                             array('label' => Yii::t('app', 'Tuner'),'url' => array('/status/tuner')),
                             array('label' => Yii::t('app', 'Storage'),'url' => array('/status/storage')),
                         )),
-                        array('label' => Yii::t('app', 'Guide'),'url' => array('/Guide/index')),
+                        array('label' => Yii::t('app', 'Guide'),'url' => array('/Guide/daymultiview')),
                         array('label' => Yii::t('app', 'Users'), 'items' => array(
                             array('label' => Yii::t('app', 'Users'), 'url' => array('/user/admin')),
                             array('label' => Yii::t('app', 'Assignments'), 'url' => array('/auth/assignment/index')),
