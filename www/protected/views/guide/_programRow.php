@@ -1,7 +1,6 @@
 <div class="programRow">
     <div class="programRowChannel">
         <?php echo $channelprogram->ProgramGuide->Channels[0]->ChannelName; ?>
-        exit;
     </div>
 <?php
     
