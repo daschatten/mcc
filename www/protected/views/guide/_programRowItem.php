@@ -1,7 +1,7 @@
 <?php 
 
-$start = strtotime($program->starttime);
-$end = strtotime($program->endtime);
+$start = strtotime($program->StartTime);
+$end = strtotime($program->EndTime);
 
 $daystart = strtotime(date('Y-m-d'));
 $dayend = $daystart + 24*3600;
@@ -42,9 +42,9 @@ if($length < 600)
 $height = $height - 6;
 ?>
 
-<div class="programRowItem" style="height: <?php echo $height ?>px" onclick="showProgramModal('<?php echo Yii::app()->createUrl("guide/detail", array('chanid' => $program->chanid, 'starttime' => $program->starttime)); ?>')">
-    <div class="programRowItemStarttime"><?php echo $program->starttime. " :: ".$minutes." ".Yii::t('app', 'Min.') ?></div>
-    <div class="programRowItemTitle"><?php echo $program->title ?></div>
-    <div class="programRowItemSubtitle"><?php echo $program->subtitle ?></div>
-    <div class="programRowItemDescription"><?php echo $program->description ?></div>
+<div class="programRowItem" style="height: <?php echo $height ?>px" onclick="showProgramModal('<?php echo Yii::app()->createUrl("guide/detail", array('chanid' => $chanid, 'starttime' => $program->StartTime)); ?>')">
+    <div class="programRowItemStarttime"><?php echo $program->StartTime. " :: ".$minutes." ".Yii::t('app', 'Min.') ?></div>
+    <div class="programRowItemTitle"><?php echo $program->Title ?></div>
+    <div class="programRowItemSubtitle"><?php echo $program->SubTitle ?></div>
+    <div class="programRowItemDescription"><?php echo $program->Description ?></div>
 </div>    

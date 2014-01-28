@@ -21,7 +21,7 @@ class ServiceGuide extends MythService
             print_r($now);
             $criteria = new CDbCriteria();
             $criteria->condition="chanid=$ChanId and starttime <= '$now' and endtime >= '$now'";
-            $program = MProgram::model()->find($criteria);
+            $program = Program::model()->find($criteria);
 
             $StartTime = MysqlHelper::FixMysqlTimestamp($program->starttime); 
         }
@@ -32,7 +32,6 @@ class ServiceGuide extends MythService
 
         try{
             $response = \Httpful\Request::get($uri)->expectsXml()->send();
-            print_r($response);exit;
             if(!$dataprovider)
             {
                 return $response->body;
@@ -71,13 +70,15 @@ class ServiceGuide extends MythService
             $EndTime = MysqlHelper::Timestamp2Mysql($end);
         }
 
+        $StartTime = urlencode($StartTime);
+        $EndTime = urlencode($EndTime);
 
         $uri = $this->mythbackenduri."/Guide/GetProgramGuide?StartTime=$StartTime&EndTime=$EndTime&StartChanId=$StartChanId&NumChannels=$NumChannels&Details=$Details";
 
         Yii::trace("[ServiceGuide::GetProgramGuide] uri: '$uri'");
 
         try{
-            $response = \Httpful\Request::get($uri)->expectsXml()->send();
+            $response = \Httpful\Request::get($uri)->addHeader('Accept', 'application/json')->send();
             if(!$dataprovider)
             {
                 return $response->body;

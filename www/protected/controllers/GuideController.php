@@ -36,6 +36,7 @@ class GuideController extends MController
             $daystart = strtotime(date('Y-m-d'));
             $dayend = $daystart + 3600*24;
 
+            /*
             $programCriteria->params = array(
                 ':daystart' => date('Y-m-d', $daystart),
                 ':dayend' => date('Y-m-d', $dayend),
@@ -43,6 +44,9 @@ class GuideController extends MController
             );
 
             $program = Program::model()->findAll($programCriteria);
+            */
+            $guide = new ServiceGuide();
+            $program = $guide->GetProgramGuide(false, date('Y-m-d H:i:s', $daystart), date('Y-m-d H:i:s', $dayend), $channel->chanid, 1, true);
             $programlist[] = $program;
         }
  
@@ -51,6 +55,7 @@ class GuideController extends MController
 
     public function actionDetail($chanid, $starttime)
     {
+        /*
         $criteria = new CDbCriteria();
         $criteria->condition = "chanid = :chanid AND starttime = :starttime";
         $criteria->params = array(
@@ -65,15 +70,19 @@ class GuideController extends MController
             echo "false";
             return;
         }
+        */
+
+        $guide = new ServiceGuide();
+        $detail = $guide->GetProgramDetails(false, $starttime, $chanid);
 
         $a = array(
-            'channel' => $model->channel->name,
-            'chanid' => $model->chanid,
-            'title' => $model->title,
-            'subtitle' => $model->subtitle,
-            'description' => $model->description,
-            'starttime' => $model->starttime,
-            'endtime' => $model->endtime,
+            'channel' => (string) $detail->Channel->ChannelName,
+            'chanid' => (int) $detail->Channel->ChanId,
+            'title' => (string) $detail->Title,
+            'subtitle' => (string) $detail->SubTitle,
+            'description' => (string) $detail->Description,
+            'starttime' => (string) $detail->StartTime,
+            'endtime' => (string) $detail->EndTime,
         );
 
         echo CJSON::encode($a);
