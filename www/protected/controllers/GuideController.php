@@ -36,15 +36,6 @@ class GuideController extends MController
             $daystart = strtotime(date('Y-m-d'));
             $dayend = $daystart + 3600*24;
 
-            /*
-            $programCriteria->params = array(
-                ':daystart' => date('Y-m-d', $daystart),
-                ':dayend' => date('Y-m-d', $dayend),
-                ':chanid' => $channel->chanid,
-            );
-
-            $program = Program::model()->findAll($programCriteria);
-            */
             $guide = new ServiceGuide();
             $program = $guide->GetProgramGuide(false, date('Y-m-d H:i:s', $daystart), date('Y-m-d H:i:s', $dayend), $channel->chanid, 1, true);
             $programlist[] = $program;
@@ -55,23 +46,6 @@ class GuideController extends MController
 
     public function actionDetail($chanid, $starttime)
     {
-        /*
-        $criteria = new CDbCriteria();
-        $criteria->condition = "chanid = :chanid AND starttime = :starttime";
-        $criteria->params = array(
-            ':chanid' => $chanid,
-            ':starttime' => $starttime,
-        );
-
-        $model = Program::model()->find($criteria);
-
-        if(!$model instanceof Program)
-        {
-            echo "false";
-            return;
-        }
-        */
-
         $guide = new ServiceGuide();
         $detail = $guide->GetProgramDetails(false, $starttime, $chanid);
 
