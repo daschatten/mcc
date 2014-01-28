@@ -28,6 +28,7 @@ function showProgramModal(uri){
         $('#programTitle').html(data['title']);
         $('#programSubtitle').html(data['subtitle']);
         $('#programTime').html(data['starttime'] + " - " + data['endtime']);
+        $('#programRecStatus').html(data['recstatus']);
         $('#programDescription').html(data['description']);
     });
     
