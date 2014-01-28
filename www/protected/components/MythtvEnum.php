@@ -40,6 +40,95 @@ abstract class MythtvEnum
                 return Yii::t('app', 'Unknown');
         }
     }
+
+    const rsOtherRecording = -13;
+    const rsOtherTuning = -12;
+    const rsMissedFuture = -11;
+    const rsTuning = -10;
+    const rsFailed = -9;
+    const rsTunerBusy = -8;
+    const rsLowDiskSpace = -7;
+    const rsCancelled = -6;
+    const rsMissed = -5;
+    const rsAborted = -4;
+    const rsRecorded = -3;
+    const rsRecording = -2;
+    const rsWillRecord = -1;
+    const rsUnknown = 0;
+    const rsDontRecord = 1;
+    const rsPreviousRecording = 2;
+    const rsCurrentRecording = 3;
+    const rsEarlierShowing = 4;
+    const rsTooManyRecordings = 5;
+    const rsNotListed = 6;
+    const rsConflict = 7;
+    const rsLaterShowing = 8;
+    const rsRepeat = 9;
+    const rsInactive = 10;
+    const rsNeverRecord = 11;
+    const rsOffLine = 12;
+    const rsOtherShowing = 13;
+
+    public static function getRecStatusString($num)
+    {
+        switch($num)
+        {
+            case -13:
+                return Yii::t('app', 'Other recording');
+            case -12:
+                return Yii::t('app', 'Other tuning');
+            case -11:
+                return Yii::t('app', 'Missed future');
+            case -10:
+                return Yii::t('app', 'Tuning');
+            case -9:
+                return Yii::t('app', 'Failed');
+            case -8:
+                return Yii::t('app', 'Tuner busy');
+            case -7:
+                return Yii::t('app', 'Low disk space');
+            case -6:
+                return Yii::t('app', 'Cancelled');
+            case -5:
+                return Yii::t('app', 'Missed');
+            case -4:
+                return Yii::t('app', 'Aborted');
+            case -3:
+                return Yii::t('app', 'Recorded');
+            case -2:
+                return Yii::t('app', 'Recording');
+            case -1:
+                return Yii::t('app', 'Will record');
+            case -0:
+                return Yii::t('app', 'Unknown');
+            case 1:
+                return Yii::t('app', 'Don\'t record');
+            case 2:
+                return Yii::t('app', 'Previous recording');
+            case 3:
+                return Yii::t('app', 'Current recording');
+            case 4:
+                return Yii::t('app', 'Earlier recording');
+            case 5:
+                return Yii::t('app', 'Too many recordings');
+            case 6:
+                return Yii::t('app', 'Not listed');
+            case 7:
+                return Yii::t('app', 'Conflict');
+            case 8:
+                return Yii::t('app', 'Later showing');
+            case 9:
+                return Yii::t('app', 'Repeat');
+            case 10:
+                return Yii::t('app', 'Inactive');
+            case 11:
+                return Yii::t('app', 'Never record');
+            case 12:
+                return Yii::t('app', 'Offline');
+            case 13:
+                return Yii::t('app', 'Other showing');
+        }
+    }
 }
 
 ?>
