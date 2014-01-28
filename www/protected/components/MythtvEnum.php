@@ -129,6 +129,67 @@ abstract class MythtvEnum
                 return Yii::t('app', 'Other showing');
         }
     }
+
+    public static function getRecStatusClass($num)
+    {
+        switch($num)
+        {
+            case -13:
+                return 'rs-other-recording';
+            case -12:
+                return 'rs-other-tuning';
+            case -11:
+                return 'rs-missed-future';
+            case -10:
+                return 'rs-tuning';
+            case -9:
+                return 'rs-failed';
+            case -8:
+                return 'rs-tuner-busy';
+            case -7:
+                return 'rs-low-disk-space';
+            case -6:
+                return 'rs-cancelled';
+            case -5:
+                return 'rs-missed';
+            case -4:
+                return 'rs-aborted';
+            case -3:
+                return 'rs-recorded';
+            case -2:
+                return 'rs-recording';
+            case -1:
+                return 'rs-will-record';
+            case -0:
+                return 'rs-unknown';
+            case 1:
+                return 'rs-dont-record';
+            case 2:
+                return 'rs-previous-recording';
+            case 3:
+                return 'rs-current-recording';
+            case 4:
+                return 'rs-earlier-recording';
+            case 5:
+                return 'rs-too-many-recordings';
+            case 6:
+                return 'rs-not-listed';
+            case 7:
+                return 'rs-conflict';
+            case 8:
+                return 'rs-later-showing';
+            case 9:
+                return 'rs-repeat';
+            case 10:
+                return 'rs-inactive';
+            case 11:
+                return 'rs-never-record';
+            case 12:
+                return 'rs-offline';
+            case 13:
+                return 'rs-other-showing';
+        }
+    }
 }
 
 ?>

@@ -103,3 +103,19 @@
     font-size: 0.8em;
     color: #2E2EFE;
 }
+
+.rs-recording{
+    background-color: #FFEEEE;
+}
+
+.rs-recorded{
+    background-color: #EEFFEE;
+}
+
+.rs-will-record{
+    background-color: #EEEEFF;
+}
+
+.rs-previous-recording, .rs-current-recording, .rs-earlier-recording{
+    background-color: #EEFFFF;
+}

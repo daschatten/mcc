@@ -58,6 +58,7 @@ class GuideController extends MController
             'starttime' => (string) $detail->StartTime,
             'endtime' => (string) $detail->EndTime,
             'recstatus' => ((int) $detail->Recording->Status == 0) ? "" : MythtvEnum::getRecStatusString((int) $detail->Recording->Status),
+            'recstatusclass' => MythtvEnum::getRecStatusClass((int) $detail->Recording->Status),
         );
 
         echo CJSON::encode($a);
