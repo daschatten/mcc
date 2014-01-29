@@ -43,7 +43,11 @@ $height = $height - 6;
 ?>
 
 <div class="programRowItem <?php echo MythtvEnum::getRecStatusClass($program->Recording->Status) ?>" style="height: <?php echo $height ?>px" onclick="showProgramModal('<?php echo Yii::app()->createUrl("guide/detail", array('chanid' => $chanid, 'starttime' => $program->StartTime)); ?>')">
-    <div class="programRowItemStarttime"><?php echo $program->StartTime. " :: ".$minutes." ".Yii::t('app', 'Min.') ?></div>
+    <div class="programRowItemStarttime">
+    <?php
+        echo Yii::app()->dateFormatter->formatDateTime("$program->StartTime",'short', 'short')." :: ".$minutes." ".Yii::t('app', 'Min.')
+    ?>
+    </div>
     <div class="programRowItemTitle"><?php echo $program->Title ?></div>
     <div class="programRowItemSubtitle"><?php echo $program->SubTitle ?></div>
     <div class="programRowItemDescription"><?php echo $program->Description ?></div>

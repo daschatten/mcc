@@ -27,7 +27,7 @@ function showProgramModal(uri){
         $('#programChannel').html(data['channel']);
         $('#programTitle').html(data['title']);
         $('#programSubtitle').html(data['subtitle']);
-        $('#programTime').html(data['starttime'] + " - " + data['endtime']);
+        $('#programTime').html(data['starttimeloc'] + " - " + data['endtimeloc']);
         $('#programRecStatus').html(data['recstatus']);
         $('#programDescription').html(data['description']);
     });
