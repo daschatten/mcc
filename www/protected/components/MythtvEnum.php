@@ -41,6 +41,7 @@ abstract class MythtvEnum
         }
     }
 
+    // http://code.mythtv.org/trac/browser/mythtv/mythtv/libs/libmyth/programtypes.h
     const rsOtherRecording = -13;
     const rsOtherTuning = -12;
     const rsMissedFuture = -11;
