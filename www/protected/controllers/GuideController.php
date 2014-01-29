@@ -82,7 +82,78 @@ class GuideController extends MController
             'recstatusclass' => MythtvEnum::getRecStatusClass((int) $detail->Recording->Status),
         );
 
+        // save selection for easier use of recording buttons
+        Yii::app()->user->setState("rec.title",(string) $detail->Title);
+        Yii::app()->user->setState("rec.starttime",(string) $detail->StartTime);
+        Yii::app()->user->setState("rec.endtime",(string) $detail->EndTime);
+        Yii::app()->user->setState("rec.chanid",(string) $detail->Channel->ChanId);
+
         echo CJSON::encode($a);
         Yii::app()->end();
+    }
+
+    public function actionRecord($template)
+    {
+        //echo Yii::app()->user->getState("rec.title");
+        //echo Yii::app()->user->getState("rec.starttime");
+
+        $criteria = new CDbCriteria();
+        $criteria->condition = "title = :title";
+        $criteria->params = array(
+            ':title' => $template,
+        );
+
+        $model = Record::model()->find($criteria);
+
+        if(!$model instanceof Record)
+        {
+            echo "false";
+            return;
+        }
+
+        /*
+         * via webservice does not work right now...
+         *
+        $dvr = new ServiceDvr();
+        $rule = $dvr->GetRecordSchedule($model->recordid);
+      
+        $rule->RecRule->Id = null;
+        $rule->RecRule->Title = Yii::app()->user->getState("rec.title");
+        $rule->RecRule->StartTime = Yii::app()->user->getState("rec.starttime");
+        $rule->RecRule->EndTime = Yii::app()->user->getState("rec.endtime");
+        $rule->RecRule->FindId = null; 
+
+        $result = $dvr->AddRecordSchedule(CJSON::encode($rule));
+
+        print_r($result);
+        */
+
+        // we use the model as start for our new rule
+        $model->recordid = null;
+        $model->title = Yii::app()->user->getState("rec.title");
+        $model->starttime = date('H:i:s', strtotime(Yii::app()->user->getState("rec.starttime")));
+        $model->startdate = date('Y-m-d', strtotime(Yii::app()->user->getState("rec.starttime")));
+        $model->endtime = date('H:i:s', strtotime(Yii::app()->user->getState("rec.endtime")));
+        $model->enddate = date('Y-m-d', strtotime(Yii::app()->user->getState("rec.endtime")));
+        $model->chanid = Yii::app()->user->getState("rec.chanid");
+        $model->findid = null;
+
+        $model->setIsNewRecord(true);
+
+        if(!$model->save())
+        {
+            echo "save failed";
+            print_r( $model->getErrors());
+            return;
+        }
+
+        $dvr = new ServiceDvr();
+        if($dvr->EnableRecordSchedule($model->recordid))
+        {
+            echo "OK";
+        }else{
+            echo "Failed";
+        }
+
     }
 }
