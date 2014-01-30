@@ -111,38 +111,62 @@ class GuideController extends MController
             return;
         }
 
-        /*
-         * via webservice does not work right now...
-         *
-        $dvr = new ServiceDvr();
-        $rule = $dvr->GetRecordSchedule($model->recordid);
-      
-        $rule->RecRule->Id = null;
-        $rule->RecRule->Title = Yii::app()->user->getState("rec.title");
-        $rule->RecRule->StartTime = Yii::app()->user->getState("rec.starttime");
-        $rule->RecRule->EndTime = Yii::app()->user->getState("rec.endtime");
-        $rule->RecRule->FindId = null; 
+        // fix starttime value for mysql
+        $st = str_replace("T", " ", Yii::app()->user->getState("rec.starttime"));
+        $st = str_replace("Z", " ", $st);
 
-        $result = $dvr->AddRecordSchedule(CJSON::encode($rule));
+        // get program model for recording details
+        $criteria = new CDbCriteria();
+        $criteria->condition = "chanid = :chanid AND starttime = :starttime";
+        $criteria->params = array(
+            ':chanid' => Yii::app()->user->getState("rec.chanid"),
+            ':starttime' => $st,
+        );
 
-        print_r($result);
-        */
+        $program = Program::model()->find($criteria);
+
+        if(!$program instanceof Program)
+        {
+            echo "false p";
+            return;
+        }
+
 
         // we use the model as start for our new rule
         $model->recordid = null;
-        $model->title = Yii::app()->user->getState("rec.title");
+/*        $model->title = Yii::app()->user->getState("rec.title");
         $model->starttime = date('H:i:s', strtotime(Yii::app()->user->getState("rec.starttime")));
         $model->startdate = date('Y-m-d', strtotime(Yii::app()->user->getState("rec.starttime")));
         $model->endtime = date('H:i:s', strtotime(Yii::app()->user->getState("rec.endtime")));
         $model->enddate = date('Y-m-d', strtotime(Yii::app()->user->getState("rec.endtime")));
         $model->chanid = Yii::app()->user->getState("rec.chanid");
-        $model->findid = null;
+        // findid calculation: http://www.mythtv.org/wiki/Record_table
+        // (UNIX_TIMESTAMP(program.starttime)/60/60/24)+719528 
+*/
+        $model->title = $program->title;
+        $model->starttime = $program->starttime;
+        $model->starttime = date('H:i:s', strtotime(Yii::app()->user->getState("rec.starttime")));
+        $model->startdate = date('Y-m-d', strtotime(Yii::app()->user->getState("rec.starttime")));
+        $model->endtime = date('H:i:s', strtotime(Yii::app()->user->getState("rec.endtime")));
+        $model->enddate = date('Y-m-d', strtotime(Yii::app()->user->getState("rec.endtime")));
+        $model->chanid = $program->chanid; 
+        $model->subtitle = $program->subtitle;
+        $model->description = $program->description;
+        $model->station = $program->channel->name;
+        $model->seriesid = $program->seriesid;
+        $model->programid = $program->programid;
+
+        $model->findid = (int) (strtotime(Yii::app()->user->getState("rec.starttime")) / 60 / 60 /24) + 719528;
+        $model->findday = (date('w', strtotime(Yii::app()->user->getState("rec.starttime"))) + 1) % 7;
+        $model->findtime = date('H:i:s', strtotime(Yii::app()->user->getState("rec.starttime")));
+        $model->inactive = 1;
 
         $model->setIsNewRecord(true);
 
         if(!$model->save())
         {
             echo "save failed";
+            print_r($model);
             print_r( $model->getErrors());
             return;
         }

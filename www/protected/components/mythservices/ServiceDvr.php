@@ -91,7 +91,7 @@ class ServiceDvr extends MythService
         Yii::trace("[ServiceDvr::EnableRecordSchedule] uri: '$uri'");
 
         try{
-            $response = \Httpful\Request::get($uri)->addHeader('Accept', 'application/json')->send();
+            $response = \Httpful\Request::post($uri)->addHeader('Accept', 'application/json')->send();
             return $response->body;
             
         }catch (Exception $e){
