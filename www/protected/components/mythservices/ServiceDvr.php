@@ -69,15 +69,36 @@ class ServiceDvr extends MythService
         }
     }
 
-    public function AddRecordSchedule($json)
+    public function AddRecordSchedule($rule)
     {
         $uri = $this->mythbackenduri."/Dvr/AddRecordSchedule";
 
         Yii::trace("[ServiceDvr::AddRecordSchedule] uri: '$uri'");
 
+//        print_r($rule->RecRule);
+
+        $values = array();
+        foreach(get_object_vars($rule->RecRule) as $key => $value)
+        {
+            $values[] = "$key=$value";
+        }
+
+        $params = implode("&", $values);
+
+//        print_r($params);
+
+/*
+        $params = CJSON::encode($rule->RecRule);
+        print_r($params);
+        exit;
+*/
+
+        print_r($uri."?".$params);
+
         try{
-            $response = \Httpful\Request::post($uri)->sendsJson()->addHeader('Accept', 'application/json')->body($json)->send();
-            return $response->body;
+            $response = \Httpful\Request::post($uri."?".$params)->sendsJson()->addHeader('Accept', 'application/json')->send();
+//            return $response->body;
+            print_r( $response->body);;
             
         }catch (Exception $e){
             return false;
