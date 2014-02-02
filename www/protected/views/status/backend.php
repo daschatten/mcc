@@ -7,9 +7,9 @@
 
 <h3>MythTV server load</h3>
     <ul>
-        <li><?php echo Yii::t('app', '1 Minute').": ".$backendstatus->body->MachineInfo->Load{'avg1'} ?></li>
-        <li><?php echo Yii::t('app', '5 Minutes').": ".$backendstatus->body->MachineInfo->Load{'avg2'} ?></li>
-        <li><?php echo Yii::t('app', '15 Minutes').": ".$backendstatus->body->MachineInfo->Load{'avg3'} ?></li>
+        <li><?php echo Yii::t('app', '1 Minute').": ".round((float)str_replace(",", ".", $backendstatus->body->MachineInfo->Load{'avg1'}), 2) ?></li>
+        <li><?php echo Yii::t('app', '5 Minutes').": ".round((float) str_replace(",", ".", $backendstatus->body->MachineInfo->Load{'avg2'}), 2) ?></li>
+        <li><?php echo Yii::t('app', '15 Minutes').": ".round((float) str_replace(",", ".", $backendstatus->body->MachineInfo->Load{'avg3'}), 2) ?></li>
     </ul>
 
 <h3>EPG information</h3>
