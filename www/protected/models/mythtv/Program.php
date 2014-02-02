@@ -14,4 +14,14 @@ class Program extends BaseProgram
             'channel' => array(self::BELONGS_TO, 'Channel', 'chanid'),
         );
     }
+
+    public function record($template, $type = 1)
+    {
+        try{
+           Record::addRecord($template, $this, $type);
+        }catch(Exception $e){
+            throw $e;
+        }
+
+    }
 }

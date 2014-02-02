@@ -24,4 +24,66 @@ class Record extends BaseRecord
 			array('recordid, type, chanid, starttime, startdate, endtime, enddate, title, subtitle, description, season, episode, category, profile, recpriority, autoexpire, maxepisodes, maxnewest, startoffset, endoffset, recgroup, dupmethod, dupin, station, seriesid, programid, inetref, search, autotranscode, autocommflag, autouserjob1, autouserjob2, autouserjob3, autouserjob4, autometadata, findday, findtime, findid, inactive, parentid, transcoder, playgroup, prefinput, next_record, last_record, last_delete, storagegroup, avg_delay, filter', 'safe', 'on'=>'search'),
 		);
 	}
+
+    public static function addRecord($template, $program, $type = 1)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->condition = "title = :title";
+        $criteria->params = array(
+            ':title' => $template,
+        );
+
+        $model = Record::model()->find($criteria);
+
+        if(!$model instanceof Record)
+        {
+            throw new Exception("Record template with name '$template' not found!");
+        }
+        
+
+        $model->recordid = null;
+        $model->setIsNewRecord(true);
+
+        $model->type = $type;
+        $model->title = $program->title;
+        $model->starttime = $program->starttime;
+        $model->starttime = date('H:i:s', strtotime($program->starttime) - 3600);
+        $model->startdate = date('Y-m-d', strtotime($program->starttime) - 3600);
+        $model->endtime = date('H:i:s', strtotime($program->endtime) - 3600);
+        $model->enddate = date('Y-m-d', strtotime($program->endtime) - 3600);
+        $model->chanid = $program->chanid; 
+        $model->subtitle = $program->subtitle;
+        $model->description = $program->description;
+        $model->station = $program->channel->callsign;
+        $model->seriesid = $program->seriesid;
+        $model->programid = $program->programid;
+
+        $model->findid = (int) (strtotime($program->starttime) / 60 / 60 /24) + 719528 + 1;
+        $model->findday = (date('w', strtotime($program->starttime)) + 1) % 7;
+        $model->findtime = date('H:i:s', strtotime($program->starttime));
+        $model->inactive = 1;
+
+        if(!$model->save())
+        {
+        
+            throw new Exception("Record rule save failed!");
+        }
+
+        try{
+            Record::triggerScheduler($model->recordid);
+        }catch(Exception $e){
+            throw $e;
+        }
+
+    }
+
+    public static function triggerScheduler($recordid)
+    {
+        $dvr = new ServiceDvr();
+        if(!$dvr->EnableRecordSchedule($recordid))
+        {
+            throw new Exception("Webservice request '$dvr->EnableRecordSchedule($model->recordid)' failed!");
+        }
+
+    }
 }
