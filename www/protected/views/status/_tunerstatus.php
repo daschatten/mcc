@@ -14,8 +14,16 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'value' => 'MythtvEnum::getTvString($data->State)',
         ),
         array(
+            'name' => 'Recording.Channel.ChannelName',
+            'header' => Yii::t('app', 'Channel'),
+        ),
+        array(
             'name' => 'Recording.Title',
             'header' => Yii::t('app', 'Title'),
+        ),
+        array(
+            'name' => 'Recording.SubTitle',
+            'header' => Yii::t('app', 'Subtitle'),
         ),
         array(
             'name' => 'Recording.EndTime',
