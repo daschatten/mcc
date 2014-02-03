@@ -47,10 +47,10 @@ class Record extends BaseRecord
         $model->type = $type;
         $model->title = $program->title;
         $model->starttime = $program->starttime;
-        $model->starttime = date('H:i:s', strtotime($program->starttime) - 3600);
-        $model->startdate = date('Y-m-d', strtotime($program->starttime) - 3600);
-        $model->endtime = date('H:i:s', strtotime($program->endtime) - 3600);
-        $model->enddate = date('Y-m-d', strtotime($program->endtime) - 3600);
+        $model->starttime = date('H:i:s', strtotime($program->starttime));
+        $model->startdate = date('Y-m-d', strtotime($program->starttime));
+        $model->endtime = date('H:i:s', strtotime($program->endtime));
+        $model->enddate = date('Y-m-d', strtotime($program->endtime));
         $model->chanid = $program->chanid; 
         $model->subtitle = $program->subtitle;
         $model->description = $program->description;
