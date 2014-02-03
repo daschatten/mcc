@@ -120,7 +120,7 @@ class GuideController extends MController
         try{
             $program->record($template, $type);
         }catch(Exception $e){
-            echo $e->message();
+            echo $e->getMessage();
         }
 
         echo "true";
