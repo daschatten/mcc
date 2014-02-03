@@ -5,11 +5,11 @@
     <div id="programRecStatus"></div>
     <div id="programRecOptions">
     <?php
-        foreach(Yii::app()->params['recordItems'] as $name => $templatename)
+        foreach(Yii::app()->params['recordItems'] as $b)
         {
             echo CHtml::ajaxButton(
-                $name, 
-                Yii::app()->createUrl('guide/record', array('template' => $templatename))
+                $b['name'], 
+                Yii::app()->createUrl('guide/record', array('template' => $b['rulename'], 'type' => $b['ruletype']))
             );
         }
     ?>
