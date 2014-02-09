@@ -5,6 +5,8 @@ class GuideController extends MController
     public function accessRules()
     {
         return array(
+            array('allow', 'actions' => array('record'), 'roles' => array('recording_add')),
+            array('deny', 'actions' => array('record'), 'users' => array('*')),
             array('deny', 'users' => array('?')),
         );
     }
