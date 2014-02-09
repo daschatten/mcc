@@ -7,6 +7,8 @@
  */
 class UserIdentity extends CUserIdentity
 {
+    protected $_id;
+
 	/**
 	 * Authenticates a user.
 	 * The example implementation makes sure if the username and password
@@ -25,6 +27,7 @@ class UserIdentity extends CUserIdentity
 
         if($user instanceof User)
         {
+            $this->_id = $user->id;
             $this->username = $user->username;
             $this->errorCode=self::ERROR_NONE;
         }else{
@@ -33,4 +36,9 @@ class UserIdentity extends CUserIdentity
 
         return !$this->errorCode;
 	}
+
+    public function getId()
+    {
+        return $this->_id;
+    }
 }
