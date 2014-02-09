@@ -20,6 +20,7 @@ return array(
 	// autoloading model and component classes
 	'import'=>array(
 		'application.models.*',
+		'application.models.mythtv.*',
 		'application.components.*',
 		'application.controllers.*',
         'ext.giix-components.*', // giix components
@@ -31,18 +32,17 @@ return array(
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
-		/*
+		
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
-			'password'=>'Enter Your Password Here',
+			'password'=>'mygii',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
             'generatorPaths' => array(
                         'ext.giix-core', // giix generators
-                        'bootstrap.gii' // yiistrap generators
+                        'bootstrap.gii', // yiistrap generators
             ),
 		),
-		*/
         'auth' => array(
             'strictMode' => true, // when enabled authorization items cannot be assigned children of the same type.
             'userClass' => 'User', // the name of the user model class.
@@ -56,9 +56,13 @@ return array(
 	// application components
 	'components'=>array(
         'authManager' => array(
+            'class' => 'auth.components.CachedDbAuthManager',
+            'assignmentTable' => 'mcc_authassignment',
+            'itemTable' => 'mcc_authitem',
+            'itemChildTable' => 'mcc_authitemchild',
             'behaviors' => array(
                 'auth' => array(
-                'class' => 'auth.components.AuthBehavior',
+                    'class' => 'auth.components.AuthBehavior',
                 ),
             ),
         ),
@@ -78,12 +82,11 @@ return array(
 			),
 		),
 		
-		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=testdrive',
+			'connectionString' => 'mysql:host=mythtv.db.host;dbname=mythtv',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
+			'username' => 'mcc',
+			'password' => 'mcc',
 			'charset' => 'utf8',
 		),
 		
@@ -96,7 +99,7 @@ return array(
 			'routes'=>array(
 				array(
 					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
+					'levels'=>'error, warning, trace',
 				),
 				// uncomment the following to show log messages on web pages
 				/*
@@ -109,7 +112,6 @@ return array(
         'bootstrap' => array(
             'class' => 'bootstrap.components.TbApi',   
         ),
-
 	),
 
 	// application-level parameters that can be accessed
@@ -118,7 +120,13 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
         'defaultPageSize' => 10,
-        'mediaUrl' => 'http://media.example.com/media/',
-        'mythbackendUri' => 'http://127.0.0.1:6544',
+        'mediaUrl' => 'http://mcc.example.com/media/',
+        'mythbackendUri' => 'http://<mythtv.host>:6544',
+        'recordItems' => array(
+            array(  'name' => 'Default',
+                    'rulename' => 'Default (Template)',
+                    'ruletype' => '1',
+            ),
+        ),
 	),
 );
