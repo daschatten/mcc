@@ -16,6 +16,7 @@ class m140209_122405_addYiiAuthTables extends CDbMigration
         $this->createTable('mcc_authitemchild', array(
             'parent' => 'varchar(64) not null',
             'child' => 'varchar(64) not null',
+            'PRIMARY KEY (parent, child)',
         ));
 
         $this->createTable('mcc_authassignment', array(
@@ -23,7 +24,7 @@ class m140209_122405_addYiiAuthTables extends CDbMigration
             'userid' => 'varchar(64) not null',
             'bizrule' => 'text',
             'data' => 'text',
-            'PRIMARY KEY (userid)',
+            'PRIMARY KEY (itemname, userid)',
         ));
 
 
