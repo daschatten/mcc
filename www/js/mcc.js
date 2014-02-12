@@ -20,6 +20,11 @@ function calendarMouseout(calEvent, jsEvent) {
     $('.tooltipevent').remove();
 }
 
+function calendarClick(calEvent, jsEvent, view)
+{
+    showProgramModal('/index.php/guide/detail?chanid=' + calEvent.chanid + '&starttime=' + encodeURIComponent(calEvent.starttime));
+}
+
 function showProgramModal(uri){
     console.log(uri);
 

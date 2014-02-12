@@ -65,6 +65,63 @@ class GuideController extends MController
         ));
     }
 
+    public function actionWeeksingleview($channum = null, $daystart = null)
+    {
+        if($channum == null)
+        {
+            $startchannelCriteria = new CDbCriteria();
+            $startchannelCriteria->condition = "visible = :visible";
+            $startchannelCriteria->order = "1*channum ASC";
+            $startchannelCriteria->params = array(':visible' => 1);
+
+            $startchan = Channel::model()->find($startchannelCriteria);
+            $channum = $startchan->channum;
+        }
+
+        $channelCriteria = new CDbCriteria();
+        $channelCriteria->condition = "visible = :visible AND 1*channum >= :channum";
+        $channelCriteria->order = "1*channum ASC";
+        $channelCriteria->params = array(':visible' => 1, ':channum' => $channum);
+
+        $channel = Channel::model()->find($channelCriteria);
+
+        $daystart = strtotime(date('Y-m-d'));
+        $dayend = $daystart + 14 * 3600*24;
+
+        $guide = new ServiceGuide();
+        $programlist = $guide->GetProgramGuide(false, date('Y-m-d H:i:s', $daystart), date('Y-m-d H:i:s', $dayend), $channel->chanid, 1, true);
+
+        $searchModel = new GuideSearchModel();
+
+        if(isset($_GET['channum']))
+        {
+            $searchModel->channum = $_GET['channum'];
+        }
+
+        $items = array();
+
+        foreach($programlist->ProgramGuide->Channels[0]->Programs as $p)
+        {
+            $items[] = array(
+                'title' => "$p->Title",
+                'start' => "$p->StartTime",
+                'end' => "$p->EndTime",
+                'allDay' => false,
+                'description' => "$p->Description" ,
+                'channel' => (string) $programlist->ProgramGuide->Channels[0]->ChannelName,
+                'chanid' => (int) $programlist->ProgramGuide->Channels[0]->ChanId,
+                'starttime' =>  "$p->StartTime",
+            );
+        }
+       
+
+        $this->render('weeksingleview', array(
+            'items' => $items,
+            'searchModel' => $searchModel,
+            'channelName' => $channel->name,
+        ));
+    }
+
     public function actionDetail($chanid, $starttime)
     {
         $guide = new ServiceGuide();
