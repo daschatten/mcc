@@ -16,7 +16,7 @@
 
     $listdata = CHtml::listData(Channel::getVisibleChannelList(), 'channum', 'numname');
     $guideurl = Yii::app()->createUrl('guide/daymultiview');
-
+/*
     echo CHtml::activeDropDownList($searchModel, 'channum', $listdata, array(
         'id' => 'chanselect',
         'onChange' => "$(location).attr('href', function(index, attr){
@@ -24,6 +24,21 @@
                 return '$guideurl' + '/channum/' + channum;
         })",
     ));
+*/
+
+    $this->widget('ext.ESelect2.ESelect2',array(
+        'model' => $searchModel,
+        'attribute' => 'channum',
+        'data'=>$listdata,
+        'htmlOptions' => array(
+            'id' => 'chanselect',
+            'onChange' => "$(location).attr('href', function(index, attr){
+                channum = $('#chanselect option:selected').val();
+                return '$guideurl' + '/channum/' + channum;
+            })",
+            'style' => 'width: 250px;',
+        ),
+    )); 
 
     foreach($programlist as $channelprogram)
     {
