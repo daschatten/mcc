@@ -59,8 +59,7 @@ class Record extends BaseRecord
         $model->programid = $program->programid;
 
         $model->findid = (int) (strtotime($program->starttime) / 60 / 60 /24) + 719528 + 1;
-        $model->findday = (date('w', strtotime($program->starttime)) + 1) % 7;
-        $model->findtime = date('H:i:s', strtotime($program->starttime));
+        $model->findtime = date('H:i:s', strtotime($program->starttime." UTC"));
         $model->inactive = 1;
 
         if(!$model->save())
