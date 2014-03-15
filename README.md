@@ -13,12 +13,12 @@ Features
 
 Recordings:
 * Recorded: List recordings. Filter for title, subtitle and recording group are available. Sorting is enabled for some columns.
-* Upcoming: List upcoming recordings. Only next 15 at the moment. Second view is available as calendar view.
+* Upcoming: List upcoming recordings, only next 15 at the moment. Second view with all upcoming recordings is available as calendar view.
 
 Status:
 * Backend: Backend information. Version, Load, EPG Info.
 * Tuner: Tuner status and some information about tuner, card input and video source configuration.
-* Storage: List of storage groups and detailed information about space used total and per recording group (Details only list titles with more than 1 recording).
+* Storage: List of storage groups and detailed information about space used total and per recording group (Details only list titles with a minimum of two recordings).
 
 Guide:
 * Some experimental guide views. Use "Day multi view" to schedule recordings with "one click record" feature.
@@ -31,8 +31,7 @@ Users:
 Requirements
 ------------
 
-* Yii http://www.yiiframework.com
-  Put framework to '/usr/share/frameworks/yii/'. For Yii 1.1.14 the path should be '/usr/share/frameworks/yii/yii-1.1.14.f0fee9'.
+* Yii http://www.yiiframework.com. Put framework to '/usr/share/frameworks/yii/'. For Yii 1.1.14 the path should be '/usr/share/frameworks/yii/yii-1.1.14.f0fee9'.
   Or change path to framework in /var/www/mcc/www/index.php
 * MythTV http://www.mythtv.org/
 * Apache, PHP and MySQL (they should already be installed with mythtv)
@@ -111,11 +110,12 @@ Database modifications:
 /var/www/mcc/www/protected/yiic migrate
 ```
 
+and confirm with 'yes'.
+
 First login
 -----------
 
-Login as 'Admin' with PIN '0000'
-Create users, add roles!
+Login as 'Admin' with PIN '0000'. Create users, add roles!
 
 Have fun!
 
