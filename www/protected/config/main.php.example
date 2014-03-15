@@ -32,7 +32,7 @@ return array(
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
-		
+		/*
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'mygii',
@@ -43,6 +43,7 @@ return array(
                         'bootstrap.gii', // yiistrap generators
             ),
 		),
+        */
         'auth' => array(
             'strictMode' => true, // when enabled authorization items cannot be assigned children of the same type.
             'userClass' => 'User', // the name of the user model class.
@@ -118,10 +119,20 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
-        'defaultPageSize' => 10,
-        'mediaUrl' => 'http://mcc.example.com/media/',
-        'mythbackendUri' => 'http://<mythtv.host>:6544',
+		'adminEmail'=>'webmaster@example.com',              // webmaster mail address (not used ATM)
+        'defaultPageSize' => 10,                            // default paging size
+        'mediaUrl' => 'http://mcc.example.com/media/',      // url where the mythtv recordings dir is available (only one storage group is supported ATM)
+        'mythbackendUri' => 'http://<mythtv.host>:6544',    // url to mythbackend webservice
+        /*
+         * Each array in 'recordItems' defines a "One-Click" recording button.
+         * 'name': Name to be displayed.
+         * 'rulename': Rule name you defined in mythtv. Can also be found in database in table 'record', each entry with type '11' should be a template.
+         * 'ruletype': 
+         *      1 = record this (at the time specified)
+         *      3 = record each (record each episode)
+         *      6 = record once (record once at any time)
+         *      11 = template (should not be used here)
+         */
         'recordItems' => array(
             array(  'name' => 'Default',
                     'rulename' => 'Default (Template)',
