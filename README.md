@@ -8,6 +8,26 @@ Notes
 
 This web application is considered 'alpha' at the moment, use it on your own risk. Regularly backup your mythtv database!
 
+Features
+--------
+
+Recordings:
+* Recorded: List recordings. Filter for title, subtitle and recording group are available. Sorting is enabled for some columns.
+* Upcoming: List upcoming recordings. Only next 15 at the moment. Second view is available as calendar view.
+
+Status:
+* Backend: Backend information. Version, Load, EPG Info.
+* Tuner: Tuner status and some information about tuner, card input and video source configuration.
+* Storage: List of storage groups and detailed information about space used total and per recording group (Details only list titles with more than 1 recording).
+
+Guide:
+* Some experimental guide views. Use "Day multi view" to schedule recordings with "one click record" feature.
+
+Users:
+* Create/Read/Update/Delete Users
+* Assign roles to users
+* Create/Read/Update/Delete roles, tasks and operations. Be careful with these things!
+
 Requirements
 ------------
 
