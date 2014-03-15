@@ -63,7 +63,7 @@ Apache config:
 vim /etc/apache2/sites-available/mcc
 ```
 
-with content:
+Fill with content:
 
 ```
 <VirtualHost *:80>
@@ -84,7 +84,7 @@ with content:
 </VirtualHost>
 ```
 
-Replace 'path-to-mythtv-recordings-dir' with your values.
+Replace 'mcc.mydomain.local' and 'path-to-mythtv-recordings-dir' with your values.
 
 Enable module and reload apache:
 
