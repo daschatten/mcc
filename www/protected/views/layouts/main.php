@@ -43,6 +43,7 @@
                             array('label' => Yii::t('app', 'Storage'),'url' => array('/status/storage')),
                         )),
                         array('label' => Yii::t('app', 'Guide'),'items' => array(
+                            array('label' => Yii::t('app', 'Week single view 2'), 'url' => array('/Guide/weeksingleview2')),
                             array('label' => Yii::t('app', 'Week single view'), 'url' => array('/Guide/weeksingleview')),
                             array('label' => Yii::t('app', 'Day multi view'), 'url' => array('/Guide/daymultiview')),
                         )),

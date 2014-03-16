@@ -119,3 +119,24 @@
 .rs-previous-recording, .rs-current-recording, .rs-earlier-recording{
     background-color: #EEFFFF;
 }
+
+.weeksingleview2 .day{
+    float: left;
+    border: 1px solid black;
+    margin-right: 5px;
+    width: 13%;
+    overflow: hidden;
+    padding: 2px;
+}
+
+.weeksingleview2 .entry{
+    overflow:   hidden;
+    border-bottom: 1px dotted black;
+    font-size: 12px;
+}
+
+.weeksingleview2 .lastentry{
+    overflow: hidden;
+    border: 0;
+    font-size: 12px;
+}
