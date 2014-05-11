@@ -28,11 +28,35 @@ class RecordingsController extends MController
 
     public function actionRecordingInfo($id)
     {
-        // we have a composite key
+         // we have a composite key
         $values = explode(",", $id);
         $pk = array(
             array('chanid' => $values[0], 'starttime' => $values[1]),
         );
+
+       if(isset($_POST['ajax']))
+        {
+            $this->actionRecordingInfoAjax($pk);
+        }else{
+            $this->actionRecordingInfoFull($pk);
+        }
+    }
+
+    public function actionRecordingInfoFull($pk)
+    {
+
+        $model = Recorded::model()->findByPk($pk);
+
+        if(! $model instanceof Recorded)
+        {    
+            throw new CHttpException(404,'The specified recording cannot be found.');
+        }
+
+        $this->render('_recordingDetail', array('model' => $model));
+    }
+
+    public function actionRecordingInfoAjax($pk)
+    {
 
         $model = Recorded::model()->findByPk($pk);
 

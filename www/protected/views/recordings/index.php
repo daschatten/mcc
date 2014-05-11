@@ -13,7 +13,8 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'type' => TbHtml::GRID_TYPE_STRIPED,
     'selectableRows'=>1,
     'selectionChanged'=>'function(id){ 
-                            //location.href = "'.$this->createUrl('view').'/id/"+$.fn.yiiGridView.getSelection(id);
+                            location.href = "'.$this->createUrl('Recordings/recordingInfo').'/id/"+$.fn.yiiGridView.getSelection(id);
+                            return;
                             $("#recordingDetailModal").modal();
                             $.getJSON("'.$this->createUrl('recordingInfo').'", "id="+$.fn.yiiGridView.getSelection(id), function(data){
                                 $("#recordingTitle").html(data["title"])
