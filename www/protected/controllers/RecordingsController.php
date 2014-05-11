@@ -17,8 +17,12 @@ class RecordingsController extends MController
 
         if(isset($_GET['Recorded']))
         {
-            $model->attributes=$_GET['Recorded'];
+            $model->attributes = $_GET['Recorded'];
+            Yii::app()->user->setState('recordings.list.filter', $_GET['Recorded']);
+        }elseif(Yii::app()->user->hasState('recordings.list.filter')){
+            $model->attributes = Yii::app()->user->getState('recordings.list.filter');
         }
+
 		$this->render('index', array('recorded' => $model));
 	}
 
