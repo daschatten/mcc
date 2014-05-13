@@ -123,6 +123,7 @@ return array(
         'defaultPageSize' => 10,                            // default paging size
         'mediaUrl' => 'http://mcc.example.com/media/',      // url where the mythtv recordings dir is available (only one storage group is supported ATM)
         'mythbackendUri' => 'http://<mythtv.host>:6544',    // url to mythbackend webservice
+        'utcoffset' => -3600,
         'archive.source.path' => '/mnt/src/',
         'archive.dest.path' => '/mnt/dest/',
         /*
