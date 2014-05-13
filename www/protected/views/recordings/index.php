@@ -61,6 +61,24 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'name' => 'length',
             'filter' => false,
         ),
+        array(
+            'class' => 'CButtonColumn',
+            'template' => '{download}',
+            'buttons' => array(
+                'download' => array(
+                    'label' => 'DL',
+                    'url' => 'Yii::app()->createUrl("Recordings/addDownload", array("pk"=>$data->chanid.",".$data->starttime))',
+                    'click' => 'js:function(){
+                            $.ajax({
+                                url:$(this).attr("href"),
+                                }).complete(function() {
+                                });
+                            $(this).hide();
+                            return false;
+                        }',
+                    'visible' => '(Yii::app()->user->hasState("recordings.archive")) ? !in_array($data->chanid.",".$data->starttime,Yii::app()->user->getState("recordings.archive")) : true',
+                ),
+            ),
+        ),
     ),
 ));
-

@@ -36,6 +36,7 @@
                         array('label' => Yii::t('app', 'Recordings'),'items' => array(
                             array('label' => Yii::t('app', 'Recorded'),'url' => array('/Recordings/index')),
                             array('label' => Yii::t('app', 'Upcoming'),'url' => array('/Recordings/upcoming')),
+                            array('label' => Yii::t('app', 'Archive'),'url' => array('/Recordings/archive')),
                         )),
                         array('label' => Yii::t('app', 'Status'),'items' => array(
                             array('label' => Yii::t('app', 'Backend'),'url' => array('/status/backend')),

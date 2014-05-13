@@ -112,4 +112,58 @@ class RecordingsController extends MController
         echo CJSON::encode($items);
         Yii::app()->end();
     }
+
+    public function actionAddDownload($pk)
+    {
+        echo $pk;
+        if(!Yii::app()->user->hasState('recordings.archive'))
+        {
+            Yii::app()->user->setState('recordings.archive', array());
+        }
+
+        $list = Yii::app()->user->getState('recordings.archive');
+        $list[] = $pk;
+
+        Yii::app()->user->setState('recordings.archive', $list);
+    }
+
+    public function actionArchive()
+    {
+        $data = array();
+        $isempty = false;
+        $models = array();
+        $errors = array();
+
+        if(!Yii::app()->user->hasState('recordings.archive'))
+        {
+            $isempty = true;
+            $list = array();
+        }else{
+            $list = Yii::app()->user->getState('recordings.archive');
+        }
+
+        foreach($list as $item)
+        {
+            // we have a composite key
+            $values = explode(",", $item);
+            $pk = array(
+                array('chanid' => $values[0], 'starttime' => $values[1]),
+            );
+
+           $model = Recorded::model()->findByPk($pk); 
+
+           if($model instanceof Recorded)
+           {
+                $models[] = $model;
+           }else{
+                $errors[] = $pk;
+           }
+        }
+
+        $this->render("archive", array(
+            'isempty' => $isempty,
+            'models' => array_unique($models),
+            'errors' => array_unique($errors),
+        ));
+    }
 }
