@@ -22,7 +22,7 @@ foreach($models as $model)
         $name = $name." - ".$model->subtitle;
     }
     
-    echo "rsync -avz '".Yii::app()->params['archive.source.path'].$model->basename."' '".Yii::app()->params['archive.dest.path'].$name.".mpeg'\n";
+    echo "rsync -avz --progress '".Yii::app()->params['archive.source.path'].$model->basename."' '".Yii::app()->params['archive.dest.path'].$name.".mpeg'\n";
 }
 
 echo "</pre>";
