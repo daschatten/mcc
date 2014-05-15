@@ -2,19 +2,58 @@
 /* @var $this SiteController */
 
 $this->pageTitle=Yii::app()->name;
-?>
 
-<h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 
-<p>Congratulations! You have successfully created your Yii application.</p>
+echo '<h2>'.Yii::t('app', 'Backend status').'</h2>';
+echo '<ul>';
+echo '<li>'.Yii::t('app', 'Version').": ".$data['backendstatus']->body{'version'}.'</li>';
+echo '<li>'.Yii::t('app', 'Date').": ".$data['backendstatus']->body{'ISODate'}.'</li>';
+echo '<li>'.Yii::t('app', 'Load 1 Minute').": ".round((float)str_replace(",", ".", $data['backendstatus']->body->MachineInfo->Load{'avg1'}), 2).'</li>';
+echo '<li>'.Yii::t('app', 'Load 5 Minutes').": ".round((float)str_replace(",", ".", $data['backendstatus']->body->MachineInfo->Load{'avg5'}), 2).'</li>';
+echo '<li>'.Yii::t('app', 'Load 15 Minutes').": ".round((float)str_replace(",", ".", $data['backendstatus']->body->MachineInfo->Load{'avg15'}), 2).'</li>';
+echo '</ul>';
 
-<p>You may change the content of this page by modifying the following two files:</p>
-<ul>
-	<li>View file: <code><?php echo __FILE__; ?></code></li>
-	<li>Layout file: <code><?php echo $this->getLayoutFile('main'); ?></code></li>
-</ul>
+echo '<h2>'.Yii::t('app', 'Tuner status').'</h2>';
 
-<p>For more details on how to further develop this application, please read
-the <a href="http://www.yiiframework.com/doc/">documentation</a>.
-Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
-should you have any questions.</p>
+echo '<ul>';
+foreach($data['encoderlist']->EncoderList->Encoders as $encoder)
+{
+    echo '<li>'.MythtvEnum::getTvString($encoder->State).' '.$encoder->Recording->Title.'</li>';
+}
+echo '</ul>';
+
+echo '<h2>'.Yii::t('app', 'Last recorded').'</h2>';
+echo '<ul>';
+foreach($data['recordedlist'] as $recorded)
+{
+    $name = $recorded->title;
+    
+    if($recorded->episodeString != '')
+    {
+        $name = $name.' - '.$recorded->episodeString;
+    }
+    
+    if($recorded->subtitle != '')
+    {
+        $name = $name.' - '.$recorded->subtitle;
+    }
+    
+    echo '<li>'.$name.'</li>';
+}
+echo '</ul>';
+
+echo '<h2>'.Yii::t('app', 'Upcoming recordings').'</h2>';
+echo '<ul>';
+foreach($data['upcominglist']->Programs->Program as $upcoming)
+{    
+    $name = $upcoming->Title;
+    
+    if($upcoming->SubTitle != '')
+    {
+        $name = $name.' - '.$upcoming->SubTitle;
+    }
+    
+    echo '<li>'.$name.'</li>';
+}
+echo '</ul>';
+

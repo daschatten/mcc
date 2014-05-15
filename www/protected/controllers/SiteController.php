@@ -37,7 +37,27 @@ class SiteController extends MController
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+
+        $backendstatus = MythService::staticGet('/Status/GetStatus');
+
+        $dvr = new ServiceDvr();
+        $encoderlist = $dvr->GetEncoderList(false);
+ 
+        $upcominglist = $dvr->GetUpcomingList(false, 0, 10);
+
+        $criteria = new CDbCriteria();
+        $criteria->limit = 10;
+        $criteria->order = 'starttime DESC';
+        $recordedlist = Recorded::model()->findAll($criteria); 
+
+		$this->render('index', array(
+            'data' => array(
+                'backendstatus' => $backendstatus,
+                'encoderlist' => $encoderlist,
+                'recordedlist' => $recordedlist,
+                'upcominglist' => $upcominglist,
+            ),
+        ));
 	}
 
 	/**
