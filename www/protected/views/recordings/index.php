@@ -71,9 +71,10 @@ $this->widget('bootstrap.widgets.TbGridView', array(
                     'click' => 'js:function(){
                             $.ajax({
                                 url:$(this).attr("href"),
-                                }).complete(function() {
+                                context: $(this),
+                                }).success(function() {
+                                    $(this).hide();
                                 });
-                            $(this).hide();
                             return false;
                         }',
                     'visible' => '(Yii::app()->user->hasState("recordings.archive")) ? !in_array($data->chanid.",".$data->starttime,Yii::app()->user->getState("recordings.archive")) : true',
