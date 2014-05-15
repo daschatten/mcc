@@ -41,3 +41,14 @@ foreach($models as $model)
 }
 
 echo "</pre>";
+
+if(sizeof($errors) > 0)
+{
+    echo '<strong>The following items generated errors</strong>';
+    echo '<ul>';
+    foreach($errors as $error)
+    {
+        echo '<li>'.$error.'</li>';
+    }
+    echo '</ul>';
+}
