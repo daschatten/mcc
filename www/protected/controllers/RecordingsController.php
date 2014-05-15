@@ -121,6 +121,8 @@ class RecordingsController extends MController
             Yii::app()->user->setState('recordings.archive', array());
         }
 
+//        Yii::app()->user->setState('recordings.archive', array_push(Yii::app()->user->getState('recordings.archive'), $pk));
+
         $list = Yii::app()->user->getState('recordings.archive');
         $list[] = $pk;
 
@@ -162,8 +164,8 @@ class RecordingsController extends MController
 
         $this->render("archive", array(
             'isempty' => $isempty,
-            'models' => array_unique($models),
-            'errors' => array_unique($errors),
+            'models' => $models,
+            'errors' => $errors,
         ));
     }
 }
