@@ -1,3 +1,9 @@
+<?php
+$this->breadcrumbs=array(
+	Yii::t('app', 'Backend'),
+);
+?>
+
 <h3>MythTV general information</h3>
     <ul>
         <li><?php echo Yii::t('app', 'Version').": ".$backendstatus->body{'version'} ?></li>

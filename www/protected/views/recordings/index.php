@@ -2,7 +2,7 @@
 /* @var $this RecordingsController */
 
 $this->breadcrumbs=array(
-	'Recordings',
+	Yii::t('app', 'Recorded'),
 );
 
 echo '<p>';

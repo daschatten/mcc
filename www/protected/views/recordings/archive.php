@@ -1,5 +1,9 @@
 <?php
 
+$this->breadcrumbs=array(
+	Yii::t('app', 'Archive'),
+);
+
 echo '<p>';
 echo Yii::t('app', 'You can add recordings by clicking on the "archive" button in {Recordings->Recorded}.', 
     array(
