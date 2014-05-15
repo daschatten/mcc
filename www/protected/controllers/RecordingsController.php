@@ -129,7 +129,7 @@ class RecordingsController extends MController
         Yii::app()->user->setState('recordings.archive', $list);
     }
 
-    public function actionArchive()
+    public function actionArchive($method = null, $src = null, $dest = null)
     {
         $data = array();
         $isempty = false;
@@ -163,9 +163,14 @@ class RecordingsController extends MController
         }
 
         $this->render("archive", array(
-            'isempty' => $isempty,
-            'models' => $models,
-            'errors' => $errors,
+            'data' => array(
+                'isempty' => $isempty,
+                'models' => $models,
+                'errors' => $errors,
+                'method' => ($method == null) ? Yii::app()->params['archive.method'] : $method,
+                'src' => ($src == null) ? Yii::app()->params['archive.source.path'] : $src,
+                'dest' => ($dest == null) ? Yii::app()->params['archive.dest.path'] : $dest,
+                ),
         ));
     }
 }
