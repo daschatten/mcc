@@ -5,6 +5,18 @@ $this->breadcrumbs=array(
 	'Recordings',
 );
 
+echo '<p>';
+echo Yii::t('app', 'You can add recordings to archive list by clicking on the "archive" button and then go to {Recordings->Archive}.', 
+    array(
+        '{Recordings->Archive}' => CHtml::link(
+            Yii::t('app', 'Recordings')." -> ".Yii::t('app', 'Archive'),
+            $this->createUrl('Recordings/archive')
+        ),
+    )
+    );
+echo '</p>';
+
+
 $this->renderPartial('_recordingInfo');
 
 $this->widget('bootstrap.widgets.TbGridView', array(
@@ -66,7 +78,8 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'template' => '{download}',
             'buttons' => array(
                 'download' => array(
-                    'label' => 'DL',
+                    'label' => Yii::t('app', 'Archive'),
+                    'imageUrl' => '/images/server-database.png',
                     'url' => 'Yii::app()->createUrl("Recordings/addDownload", array("pk"=>$data->chanid.",".$data->starttime))',
                     'click' => 'js:function(){
                             $.ajax({

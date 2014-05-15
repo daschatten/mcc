@@ -1,8 +1,23 @@
 <?php
 
+echo '<p>';
+echo Yii::t('app', 'You can add recordings by clicking on the "archive" button in {Recordings->Recorded}.', 
+    array(
+        '{Recordings->Recorded}' => CHtml::link(
+            Yii::t('app', 'Recordings')." -> ".Yii::t('app', 'Recorded'),
+            $this->createUrl('Recordings/index')
+        ),
+    )
+    );
+echo '</p>';
+
+echo '<p>';
+echo Yii::t('app', 'To archive selected recordings copy the following commands and paste them in your shell. Make sure that source and destination directories are correct.');
+echo '</p>';
+
 if($isempty)
 {
-    echo "No data found";
+    echo '<i>'.Yii::t('app', 'No data found').'</i>';
     return;
 }
 
