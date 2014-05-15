@@ -22,7 +22,7 @@ foreach($models as $model)
         $name = $name." - ".$model->subtitle;
     }
     
-    echo "rsync -avz --progress '".Yii::app()->params['archive.source.path'].$model->basename."' '".Yii::app()->params['archive.dest.path'].$name.".mpg'\n";
+    echo Yii::app()->params['archive.method']." ".Yii::app()->params['archive.source.path'].$model->basename."' '".Yii::app()->params['archive.dest.path'].$name.".mpg'\n";
 }
 
 echo "</pre>";

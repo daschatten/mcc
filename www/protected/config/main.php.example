@@ -124,6 +124,7 @@ return array(
         'mediaUrl' => 'http://mcc.example.com/media/',      // url where the mythtv recordings dir is available (only one storage group is supported ATM)
         'mythbackendUri' => 'http://<mythtv.host>:6544',    // url to mythbackend webservice
         'utcoffset' => -3600,
+        'archive.method' => 'rsync -avz --progress',
         'archive.source.path' => '/mnt/src/',
         'archive.dest.path' => '/mnt/dest/',
         /*
