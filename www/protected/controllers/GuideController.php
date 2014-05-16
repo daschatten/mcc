@@ -180,7 +180,7 @@ class GuideController extends MController
     public function actionWeeksingleview3($channum = null, $start = null, $daycount = 7, $partcount = 3)
     {
         // get timezone offset for date calculations because mythtv treats given time as utc
-        $tzoffset = timezone_offset_get(new DateTimeZone(Yii::app()->params['timezone']), new DateTime(null));
+        $tzoffset = timezone_offset_get(new DateTimeZone(Yii::app()->params['timezone']), new DateTime(null, new DateTimeZone('UTC')));
 
         // fetch channel which should be displayed
         if($channum == null)
