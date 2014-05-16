@@ -169,6 +169,104 @@ class GuideController extends MController
         ));
     }
 
+    /**
+     *  Creates a guide for a single channel for a variable number of days.
+     *  Params:
+     *      $channum:   Channel number
+     *      start:      Startdate in format 'Y-m-d'
+     *      $daycount:  Number of days to display
+     *      $partcount: Number of dayparts to display
+     */
+    public function actionWeeksingleview3($channum = null, $start = null, $daycount = 7, $partcount = 3)
+    {
+        // get timezone offset for date calculations because mythtv treats given time as utc
+        $tzoffset = timezone_offset_get(new DateTimeZone(Yii::app()->params['timezone']), new DateTime(null));
+
+        // fetch channel which should be displayed
+        if($channum == null)
+        {
+            $startchannelCriteria = new CDbCriteria();
+            $startchannelCriteria->condition = "visible = :visible";
+            $startchannelCriteria->order = "1*channum ASC";
+            $startchannelCriteria->params = array(':visible' => 1);
+
+            $startchan = Channel::model()->find($startchannelCriteria);
+            $channum = $startchan->channum;
+        }
+
+        $channelCriteria = new CDbCriteria();
+        $channelCriteria->condition = "visible = :visible AND 1*channum >= :channum";
+        $channelCriteria->order = "1*channum ASC";
+        $channelCriteria->params = array(':visible' => 1, ':channum' => $channum);
+
+        $channel = Channel::model()->find($channelCriteria);
+
+        // create start end end dates for guide
+        // these dates are for the first day only
+        // further calculations are made below
+        if($start == null)
+        {
+            $startdate = strtotime(date('Y-m-d'));
+        }else{
+            $startdate = strtotime($start);
+        }
+
+        // add time offset because mythtv treats given time as utc
+        $startdate = $startdate - $tzoffset;
+
+        // caluculate day parts length in seconds
+        $partlength = round(24 / $partcount) * 3600;
+
+        // fetch guide data
+        $programlist = array();
+        $guide = new ServiceGuide();
+
+        // loop over all days
+        for($i=0;$i<$daycount;$i++)
+        {
+            $partlist = array();
+            $partlist['day'] = date('Y-m-d', $startdate + $i * 24 * 3600); 
+            $partlist['data'] = array();
+
+            // loop over all day parts
+            for($j=0;$j<$partcount;$j++)
+            { 
+                // add 1 second to avoid programs which end at start of period, e.g. 00:00
+                $guidestart = date('Y-m-d H:i:s', $startdate + 1 + $i * 24 * 3600 + $j * $partlength);
+                // subtract 1 second to avoid programs which start at next period, e.g. 00:00
+                $guideend = date('Y-m-d H:i:s', $startdate - 1 + $i * 24 * 3600 + $j * $partlength + $partlength);
+                $part = array();
+                $part['start'] = $guidestart;
+                $part['end'] = $guideend;
+                $part['data'] = $guide->GetProgramGuide(false, $guidestart, $guideend, $channel->chanid, 1, true);
+                $partlist['data'][] = $part;
+            }
+            $programlist[] = $partlist;
+        }
+
+        // set search model
+        $searchModel = new GuideSearchModel();
+
+        // check if a search is already in progress and modify new model according to it
+        if(isset($_GET['channum']))
+        {
+            $searchModel->channum = $_GET['channum'];
+        }
+
+        // render view
+        $this->render('weeksingleview3', array(
+            'data' => array(
+                'programlist' => $programlist,
+                'searchModel' => $searchModel,
+                'channel' => $channel,
+                'startdate' => $startdate,
+                'daycount' => $daycount,
+                'partcount' => $partcount,
+                'partlength' => $partlength,
+                ),
+        ));
+    }
+
     public function actionDetail($chanid, $starttime)
     {
         $guide = new ServiceGuide();
