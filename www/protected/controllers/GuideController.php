@@ -225,7 +225,8 @@ class GuideController extends MController
         for($i=0;$i<$daycount;$i++)
         {
             $partlist = array();
-            $partlist['day'] = date('Y-m-d', $startdate + $i * 24 * 3600); 
+            // to get the correct date we have to add the previous subtracted tzoffset, if not we get all dates off by one
+            $partlist['day'] = date('Y-m-d', $startdate + $i * 24 * 3600 + $tzoffset); 
             $partlist['data'] = array();
 
             // loop over all day parts
