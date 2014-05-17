@@ -31,6 +31,10 @@ echo CHtml::submitButton(Yii::t('app', 'Set'));
 echo CHtml::endForm();
 echo '</p>';
 
+echo '<p>';
+echo CHtml::link(Yii::t('app', 'Clear archive list'), Yii::app()->createUrl('Recordings/clearArchive'));
+echo '</p>';
+
 if($data['isempty'])
 {
     echo '<i>'.Yii::t('app', 'No data found').'</i>';

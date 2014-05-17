@@ -173,4 +173,10 @@ class RecordingsController extends MController
                 ),
         ));
     }
+
+    public function actionClearArchive()
+    {
+        Yii::app()->user->setState('recordings.archive', array());
+        $this->actionArchive();
+    }
 }
