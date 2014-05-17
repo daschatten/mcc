@@ -9,7 +9,7 @@ echo CHtml::link($imghtml, array('Recordings/index'));
 <div id="recordingInfoMain">
     <table>
         <tr>
-            <td><?= Yii::t('app', 'Date') ?></td><td><span id="recordingDate"><?= $model->starttime ?></span></td>
+            <td><?= Yii::t('app', 'Date') ?></td><td><span id="recordingDate"><?= Yii::app()->dateFormatter->formatDateTime($model->starttime, 'short', 'short') ?></span></td>
         </tr>
         <tr>
             <td><?= Yii::t('app', 'Length (Min.)') ?></td><td><span id="recordingLength"><?= $model->length ?></span></td>
