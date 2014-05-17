@@ -1,6 +1,8 @@
-<?= CHtml::link(Yii::t('app', 'back'), array('Recordings/index')) ?>
-
 <div id="recordingInfoMain">
+<?php
+$imghtml=CHtml::image('/images/arrow-left.png', Yii::t('app', 'Back to recordings list')).Yii::t('app', 'Back to recordings list');
+echo CHtml::link($imghtml, array('Recordings/index'));
+?>
     <h3><span id="recordingSubtitle"></span></h3>
     <table>
         <tr>
