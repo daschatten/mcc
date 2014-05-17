@@ -142,6 +142,7 @@ return array(
             array(  'name' => 'Default',
                     'rulename' => 'Default (Template)',
                     'ruletype' => '1',
+                    'description' => 'Put description here',
             ),
         ),
 	),

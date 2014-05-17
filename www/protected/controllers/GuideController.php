@@ -268,6 +268,36 @@ class GuideController extends MController
         ));
     }
 
+    public function actionWsv3Detail($chanid, $starttime)
+    {
+        $guide = new ServiceGuide();
+        $detail = $guide->GetProgramDetails(false, $starttime, $chanid);
+
+        $a = array(
+            'channel' => (string) $detail->Channel->ChannelName,
+            'chanid' => (int) $detail->Channel->ChanId,
+            'title' => (string) $detail->Title,
+            'subtitle' => (string) $detail->SubTitle,
+            'description' => (string) $detail->Description,
+            'starttime' => (string) $detail->StartTime,
+            'endtime' => (string) $detail->EndTime,
+            'starttimeloc' => Yii::app()->dateFormatter->formatDateTime((string) $detail->StartTime, 'short', 'short'),
+            'endtimeloc' => Yii::app()->dateFormatter->formatDateTime((string) $detail->EndTime, 'short', 'short'),
+            'recstatus' => ((int) $detail->Recording->Status == 0) ? "" : MythtvEnum::getRecStatusString((int) $detail->Recording->Status),
+            'recstatusraw' => (int) $detail->Recording->Status,
+            'recstatusclass' => MythtvEnum::getRecStatusClass((int) $detail->Recording->Status),
+            'recruleid' => (int) $detail->Recording->RecordId,
+        );
+
+        // save selection for easier use of recording buttons
+        Yii::app()->user->setState("rec.title",(string) $detail->Title);
+        Yii::app()->user->setState("rec.starttime",(string) $detail->StartTime);
+        Yii::app()->user->setState("rec.endtime",(string) $detail->EndTime);
+        Yii::app()->user->setState("rec.chanid",(string) $detail->Channel->ChanId);
+
+        $this->render('weeksingleview3/detail', array('data' => $a));
+    }
+
     public function actionDetail($chanid, $starttime)
     {
         $guide = new ServiceGuide();
@@ -295,6 +325,14 @@ class GuideController extends MController
 
         echo CJSON::encode($a);
         Yii::app()->end();
+    }
+
+    public function actionDelRecord($ruleid)
+    {
+        $dvr = new ServiceDvr();
+        $dvr->RemoveRecordSchedule($ruleid);
+
+        $this->actionWsv3Detail(Yii::app()->user->getState("rec.chanid"), Yii::app()->user->getState("rec.starttime"));
     }
 
     public function actionRecord($template, $type = 1)

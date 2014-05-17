@@ -71,7 +71,4 @@ $this->widget('bootstrap.widgets.TbTabs', array(
     ));
 
 echo '</div>';
-
-$this->renderPartial('_detailpopup');
-
 ?>

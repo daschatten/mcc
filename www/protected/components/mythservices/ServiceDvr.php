@@ -120,6 +120,23 @@ class ServiceDvr extends MythService
         }
 
     }
+    
+    public function RemoveRecordSchedule($recordid)
+    {
+        $uri = $this->mythbackenduri."/Dvr/RemoveRecordSchedule?RecordId=$recordid";
+
+        Yii::trace("[ServiceDvr::RemoveRecordSchedule] uri: '$uri'");
+
+        try{
+            $response = \Httpful\Request::post($uri)->addHeader('Accept', 'application/json')->send();
+            return $response->body;
+            
+        }catch (Exception $e){
+            return false;
+        }
+
+    }
+
 }
 
 ?>
