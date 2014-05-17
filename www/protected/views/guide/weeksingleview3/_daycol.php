@@ -21,35 +21,12 @@ $min_px = 15;
 
 $timestart_ts = $day + $timestart * 3600;
 $timeend_ts = $day + $timeend * 3600;
-/*
-echo $day.":".$timestart."<br/>";
-echo $day.":".$timeend."<br/>";
-echo $timestart_ts."<br/>";
-echo $timeend_ts."<br/>";
-*/
+
 foreach($programlist as $p)
 {   
     $start = strtotime("$p->StartTime");
     $end = strtotime("$p->EndTime");
-/*
-    echo $start."<br/>";
-    echo $end."<br/>";
-*/
-    // filer out all elements which do not belong
-    // to current day and time period
-/*
-    // element ends at next day and starts after time period
-    if($timestart == 0 AND $end > $day + 24 * 3600 AND $start > $day + 8 * 3600)
-    {
-        continue;
-    }
 
-    // element starts at previous day and ends before time period
-    if($timestart == 16 AND $start < $day AND $end < $day + 16 * 3600)
-    {
-        continue;
-    }
-*/
     if($start < $timestart_ts)
     {
         $start = $timestart_ts;
@@ -59,12 +36,7 @@ foreach($programlist as $p)
     {
         $end = $timeend_ts;
     }
-/*
-    echo $start."<br/>";
-    echo $end;
 
-    exit;
-*/
     $length = $end - $start;
 
     $total_length = $total_length + $length;
