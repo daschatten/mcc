@@ -1,9 +1,12 @@
-<div id="recordingInfoMain">
+
 <?php
 $imghtml=CHtml::image('/images/arrow-left.png', Yii::t('app', 'Back to recordings list')).Yii::t('app', 'Back to recordings list');
 echo CHtml::link($imghtml, array('Recordings/index'));
 ?>
-    <h3><span id="recordingSubtitle"></span></h3>
+
+<h4><?= $model->title ?><?= ($model->subtitle != '') ? ' - '.$model->subtitle : '' ?></span></h4>
+
+<div id="recordingInfoMain">
     <table>
         <tr>
             <td><?= Yii::t('app', 'Date') ?></td><td><span id="recordingDate"><?= $model->starttime ?></span></td>
@@ -25,9 +28,11 @@ echo CHtml::link($imghtml, array('Recordings/index'));
         </tr>    
     </table>
 </div>
+
 <div id="recordingInfoImage">
     <img id="recordingImage" class="img-polaroid" src="<?= Yii::app()->params['mediaUrl'].'/'.$model->basename.'.png' ?>" />
 </div>
+
 <div id="recordingInfoDescription">
     <span id="recordingDescription"><?= $model->description ?></span>
 </div>
