@@ -183,16 +183,24 @@ class GuideController extends MController
         $tzoffset = timezone_offset_get(new DateTimeZone(Yii::app()->params['timezone']), new DateTime(null, new DateTimeZone('UTC')));
 
         // fetch channel which should be displayed
-        if($channum == null)
+        if($channum == null or $channum == '')
         {
-            $startchannelCriteria = new CDbCriteria();
-            $startchannelCriteria->condition = "visible = :visible";
-            $startchannelCriteria->order = "1*channum ASC";
-            $startchannelCriteria->params = array(':visible' => 1);
+            // check wether a state entry for method parameters exists
+            if(Yii::app()->user->hasState('guide.channum'))
+            {
+                $channum = Yii::app()->user->getState('guide.channum');
+            }else{
+                $startchannelCriteria = new CDbCriteria();
+                $startchannelCriteria->condition = "visible = :visible";
+                $startchannelCriteria->order = "1*channum ASC";
+                $startchannelCriteria->params = array(':visible' => 1);
 
-            $startchan = Channel::model()->find($startchannelCriteria);
-            $channum = $startchan->channum;
+                $startchan = Channel::model()->find($startchannelCriteria);
+                $channum = $startchan->channum;
+            }
         }
+                
+        Yii::app()->user->setState('guide.channum', $channum);
 
         $channelCriteria = new CDbCriteria();
         $channelCriteria->condition = "visible = :visible AND 1*channum >= :channum";
@@ -248,11 +256,7 @@ class GuideController extends MController
         // set search model
         $searchModel = new GuideSearchModel();
 
-        // check if a search is already in progress and modify new model according to it
-        if(isset($_GET['channum']))
-        {
-            $searchModel->channum = $_GET['channum'];
-        }
+        $searchModel->channum = $channum;
 
         // render view
         $this->render('weeksingleview3', array(
