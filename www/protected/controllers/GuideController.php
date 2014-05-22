@@ -302,6 +302,14 @@ class GuideController extends MController
         $this->render('weeksingleview3/detail', array('data' => $a));
     }
 
+    public function actionActivetab($tabid)
+    {
+        if($tabid !== 'undefined')
+        {
+            Yii::app()->user->setState('guide.tab.selected', $tabid);
+        }
+    }
+
     public function actionDetail($chanid, $starttime)
     {
         $guide = new ServiceGuide();

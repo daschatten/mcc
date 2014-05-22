@@ -60,14 +60,36 @@ for($i=0;$i<$data['partcount'];$i++)
 }
 
 // set last tab active
-$tabs[sizeof($tabs)-1]['active'] = true;
+if(Yii::app()->user->hasState('guide.tab.selected'))
+{
+    $tabid = Yii::app()->user->getState('guide.tab.selected');
+    $tabnr = substr($tabid, -1);
+    $tabs[$tabnr - 1]['active'] = true;
+}else{
+    $tabs[sizeof($tabs)-1]['active'] = true;
+}
 
+var_dump(Yii::app()->user->getState('guide.tab.selected'));
 
 echo '<div class="weeksingleview2">';
 
 $this->widget('bootstrap.widgets.TbTabs', array(
     'placement' => 'left',
-    'tabs' => $tabs
+    'tabs' => $tabs,
+    'onShown' => 'function(event){ 
+        console.log(event.target);
+        var tabid = undefined
+
+        if($(event.target).is("a"))
+        {
+            tabid = $(event.target).attr("href").replace("#", "");    
+        }
+
+        $.ajax({
+            "url": "'.Yii::app()->createAbsoluteUrl("guide/activetab").'",
+            "data": "tabid=" +  tabid
+        }); 
+    }',
     ));
 
 echo '</div>';
