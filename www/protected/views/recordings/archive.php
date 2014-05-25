@@ -64,7 +64,7 @@ echo "</pre>";
 
 if(sizeof($data['errors']) > 0)
 {
-    echo '<strong>The following items generated errors</strong>';
+    echo '<strong>'.Yii::t('app', 'The following items generated errors').'</strong>';
     echo '<ul>';
     foreach($data['errors'] as $error)
     {
