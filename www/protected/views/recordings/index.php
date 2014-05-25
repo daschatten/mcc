@@ -95,5 +95,10 @@ $this->widget('bootstrap.widgets.TbGridView', array(
                 ),
             ),
         ),
+        array(
+            'class' => 'CCheckBoxColumn',
+            'checked' => '$data->watched',
+            'selectableRows' => false,
+        ),
     ),
 ));
