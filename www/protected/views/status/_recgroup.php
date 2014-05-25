@@ -1,5 +1,11 @@
 <?php
 
+echo '<h3>'.Yii::t('app', 'Recording groups').'</h3>';
+
+echo '<p>';
+echo Yii::t('app', 'In each recording group only titles with a minimum of 2 episodes are shown.');
+echo '</p>';
+
 $tablist = array();
 
 $tablist[] = array(
