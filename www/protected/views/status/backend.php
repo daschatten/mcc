@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
     <ul>
         <li><?php echo Yii::t('app', 'Version').": ".$backendstatus->body{'version'} ?></li>
         <li><?php echo Yii::t('app', 'Protocol version').": ".$backendstatus->body{'protoVer'} ?></li>
-        <li><?php echo Yii::t('app', 'Date').": ".$backendstatus->body{'ISODate'} ?></li>
+        <li><?php echo Yii::t('app', 'Date').": ".Yii::app()->dateFormatter->formatDateTime(strftime($backendstatus->body{'ISODate'}), "short", "short") ?></li>
     </ul>
 
 <h3><?= Yii::t('app', 'MythTV server load') ?></h3>
@@ -23,6 +23,6 @@ $this->breadcrumbs=array(
         <li><?php echo Yii::t('app', 'Last status').": ".$backendstatus->body->MachineInfo->Guide{'status'} ?></li>
         <li><?php echo Yii::t('app', 'Start').": ".$backendstatus->body->MachineInfo->Guide{'start'} ?></li>
         <li><?php echo Yii::t('app', 'End').": ".$backendstatus->body->MachineInfo->Guide{'end'} ?></li>
-        <li><?php echo Yii::t('app', 'EPG available until').": ".$backendstatus->body->MachineInfo->Guide{'guideThru'} ?></li>
+        <li><?php echo Yii::t('app', 'EPG available until').": ".Yii::app()->dateFormatter->formatDateTime(strftime($backendstatus->body->MachineInfo->Guide{'guideThru'}), "short", "short") ?></li>
         <li><?php echo Yii::t('app', 'Available days').": ".$backendstatus->body->MachineInfo->Guide{'guideDays'} ?></li>
     </ul>
