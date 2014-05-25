@@ -75,6 +75,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'filter' => false,
         ),
         array(
+            'header' => 'Archive',
             'class' => 'CButtonColumn',
             'template' => '{download}',
             'buttons' => array(
@@ -96,6 +97,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             ),
         ),
         array(
+            'header' => 'Watched',
             'class' => 'CCheckBoxColumn',
             'checked' => '$data->watched',
             'selectableRows' => false,
