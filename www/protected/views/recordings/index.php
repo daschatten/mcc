@@ -61,6 +61,8 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array(
             'name' => 'episodeString',
             'filter' => false,
+            'htmlOptions' => array('class' => 'tdcenter'),
+            'headerHtmlOptions' => array('class' => 'tdcenter'),
         ),
         array(
             'name' => 'recgroup',
@@ -69,13 +71,17 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array(
             'name' => 'FilesizeGb',
             'filter' => false,
+            'htmlOptions' => array('class' => 'tdcenter'),
+            'headerHtmlOptions' => array('class' => 'tdcenter'),
         ),
         array(
             'name' => 'length',
             'filter' => false,
+            'htmlOptions' => array('class' => 'tdcenter'),
+            'headerHtmlOptions' => array('class' => 'tdcenter'),
         ),
         array(
-            'header' => 'Archive',
+            'header' => Yii::t('app', 'Archive'),
             'class' => 'CButtonColumn',
             'template' => '{download}',
             'buttons' => array(
@@ -95,12 +101,16 @@ $this->widget('bootstrap.widgets.TbGridView', array(
                     'visible' => '(Yii::app()->user->hasState("recordings.archive")) ? !in_array($data->chanid.",".$data->starttime,Yii::app()->user->getState("recordings.archive")) : true',
                 ),
             ),
+            'htmlOptions' => array('class' => 'tdcenter'),
+            'headerHtmlOptions' => array('class' => 'tdcenter'),
         ),
         array(
-            'header' => 'Watched',
+            'header' => Yii::t('app', 'Watched'),
             'class' => 'CCheckBoxColumn',
             'checked' => '$data->watched',
             'selectableRows' => false,
+            'htmlOptions' => array('class' => 'tdcenter'),
+            'headerHtmlOptions' => array('class' => 'tdcenter'),
         ),
     ),
 ));
