@@ -28,7 +28,7 @@
 
 	<div>
         <?php $this->widget('bootstrap.widgets.TbNavbar', array(
-            'brandLabel' => '<span id="app-name">MythTV Control Center</app>',
+            'brandLabel' => '<span id="app-name">MythTV Control Center</span>',
             'items' => array(
                 array(
                     'class' => 'bootstrap.widgets.TbNav',
@@ -56,8 +56,8 @@
                             array('label' => Yii::t('app', 'Tasks'), 'url' => array('/auth/task/index')),
                             array('label' => Yii::t('app', 'Operations'), 'url' => array('/auth/operation/index')),
                         )),
-				        array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				        array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+				        array('label' => Yii::t('app', 'Login'), 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
+				        array('label' => Yii::t('app', 'Logout').' ('.Yii::app()->user->name.')', 'url' => array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
                     ),
                 ),
             ),
