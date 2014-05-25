@@ -8,10 +8,16 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'columns' => array(
         array(
             'name' => 'Id',
+            'header' => Yii::t('app', 'Tuner'),
+            'htmlOptions' => array('class' => 'tdcenter'),
+            'headerHtmlOptions' => array('class' => 'tdcenter'),
         ),
         array(
             'name' => 'State',
+            'header' => Yii::t('app', 'State'),
             'value' => 'MythtvEnum::getTvString($data->State)',
+            'htmlOptions' => array('class' => 'tdcenter'),
+            'headerHtmlOptions' => array('class' => 'tdcenter'),
         ),
         array(
             'name' => 'Recording.Channel.ChannelName',
