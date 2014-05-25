@@ -11,7 +11,7 @@ function cmp($a, $b)
 
 
 $listdata = CHtml::listData(Channel::getVisibleChannelList(), 'channum', 'numname');
-$guideurl = Yii::app()->createUrl('guide/weeksingleview3');
+$guideurl = Yii::app()->createUrl('guide/view');
 
 // create search field
 $this->widget('ext.ESelect2.ESelect2',array(
@@ -53,7 +53,7 @@ $tabs = array();
 
 for($i=0;$i<$data['partcount'];$i++)
 {
-    $content[$i] = '<div class="week">'.$this->renderPartial('weeksingleview3/_weekrow', array('plist' => $partrow[$i], 'channel' => $data['channel'], 'timestart' => $i * $data['partlength'], 'timeend' => $i * $data['partlength'] + $data['partlength'], 'data' => $data), true).'</div>';
+    $content[$i] = '<div class="week">'.$this->renderPartial('view/_weekrow', array('plist' => $partrow[$i], 'channel' => $data['channel'], 'timestart' => $i * $data['partlength'], 'timeend' => $i * $data['partlength'] + $data['partlength'], 'data' => $data), true).'</div>';
     $start = $i * $data['partlength'] / 3600;
     $end = ($i * $data['partlength'] + $data['partlength']) / 3600;
     $tabs[] = array('label' => "$start - $end", 'content' => $content[$i]);

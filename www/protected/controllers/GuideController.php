@@ -13,160 +13,7 @@ class GuideController extends MController
 
     public function actionIndex()
     {
-        $this->actionDaymultiview();
-    }
-
-    public function actionDaymultiview($channum = null, $daystart = null)
-    {
-        if($channum == null)
-        {
-            $startchannelCriteria = new CDbCriteria();
-            $startchannelCriteria->condition = "visible = :visible";
-            $startchannelCriteria->order = "1*channum ASC";
-            $startchannelCriteria->params = array(':visible' => 1);
-            $startchannelCriteria->limit = 1;
-
-            $startchan = Channel::model()->find($startchannelCriteria);
-            $channum = $startchan->channum;
-        }
-
-        $channelCriteria = new CDbCriteria();
-        $channelCriteria->condition = "visible = :visible AND 1*channum >= :channum";
-        $channelCriteria->order = "1*channum ASC";
-        $channelCriteria->params = array(':visible' => 1, ':channum' => $channum);
-        $channelCriteria->limit = 5;
-
-        $channellist = Channel::model()->findAll($channelCriteria);
-
-        $programlist = array();
-
-        foreach($channellist as $channel)
-        {
-            // calculate timestampf to display todays program
-            $daystart = strtotime(date('Y-m-d'));
-            $dayend = $daystart + 3600*24;
-
-            $guide = new ServiceGuide();
-            $program = $guide->GetProgramGuide(false, date('Y-m-d H:i:s', $daystart), date('Y-m-d H:i:s', $dayend), $channel->chanid, 1, true);
-            $programlist[] = $program;
-        }
-
-        $searchModel = new GuideSearchModel();
-
-        if(isset($_GET['channum']))
-        {
-            $searchModel->channum = $_GET['channum'];
-        }
-        
-
-        $this->render('daymultiview', array(
-            'programlist' => $programlist,
-            'searchModel' => $searchModel,
-        ));
-    }
-
-    public function actionWeeksingleview($channum = null, $daystart = null)
-    {
-        if($channum == null)
-        {
-            $startchannelCriteria = new CDbCriteria();
-            $startchannelCriteria->condition = "visible = :visible";
-            $startchannelCriteria->order = "1*channum ASC";
-            $startchannelCriteria->params = array(':visible' => 1);
-
-            $startchan = Channel::model()->find($startchannelCriteria);
-            $channum = $startchan->channum;
-        }
-
-        $channelCriteria = new CDbCriteria();
-        $channelCriteria->condition = "visible = :visible AND 1*channum >= :channum";
-        $channelCriteria->order = "1*channum ASC";
-        $channelCriteria->params = array(':visible' => 1, ':channum' => $channum);
-
-        $channel = Channel::model()->find($channelCriteria);
-
-        $daystart = strtotime(date('Y-m-d'));
-        $dayend = $daystart + 14 * 3600*24;
-
-        $guide = new ServiceGuide();
-        $programlist = $guide->GetProgramGuide(false, date('Y-m-d H:i:s', $daystart), date('Y-m-d H:i:s', $dayend), $channel->chanid, 1, true);
-
-        $searchModel = new GuideSearchModel();
-
-        if(isset($_GET['channum']))
-        {
-            $searchModel->channum = $_GET['channum'];
-        }
-
-        $items = array();
-
-        foreach($programlist->ProgramGuide->Channels[0]->Programs as $p)
-        {
-            $items[] = array(
-                'title' => "$p->Title",
-                'start' => "$p->StartTime",
-                'end' => "$p->EndTime",
-                'allDay' => false,
-                'description' => "$p->Description" ,
-                'channel' => (string) $programlist->ProgramGuide->Channels[0]->ChannelName,
-                'chanid' => (int) $programlist->ProgramGuide->Channels[0]->ChanId,
-                'starttime' =>  "$p->StartTime",
-            );
-        }
-       
-
-        $this->render('weeksingleview', array(
-            'items' => $items,
-            'searchModel' => $searchModel,
-            'channelName' => $channel->name,
-        ));
-    }
-
-    public function actionWeeksingleview2($channum = null, $daystart = null)
-    {
-        if($channum == null)
-        {
-            $startchannelCriteria = new CDbCriteria();
-            $startchannelCriteria->condition = "visible = :visible";
-            $startchannelCriteria->order = "1*channum ASC";
-            $startchannelCriteria->params = array(':visible' => 1);
-
-            $startchan = Channel::model()->find($startchannelCriteria);
-            $channum = $startchan->channum;
-        }
-
-        $channelCriteria = new CDbCriteria();
-        $channelCriteria->condition = "visible = :visible AND 1*channum >= :channum";
-        $channelCriteria->order = "1*channum ASC";
-        $channelCriteria->params = array(':visible' => 1, ':channum' => $channum);
-
-        $channel = Channel::model()->find($channelCriteria);
-
-        // get guide from today on
-        $daystart = strtotime(date('Y-m-d'));
-        // add time offset because mythtv treats given time as utc
-        $guidestart = $daystart + Yii::app()->params['utcoffset'];
-        $guideend = $guidestart + Yii::app()->params['utcoffset'] + 7 * 3600*24;
-        // get guide for seven days
-        $dayend = $daystart + 7 * 3600*24;
-
-        $guide = new ServiceGuide();
-        $programlist = $guide->GetProgramGuide(false, date('Y-m-d H:i:s', $guidestart), date('Y-m-d H:i:s', $guideend), $channel->chanid, 1, true);
-
-        $searchModel = new GuideSearchModel();
-
-        if(isset($_GET['channum']))
-        {
-            $searchModel->channum = $_GET['channum'];
-        }
-
-        $this->render('weeksingleview2', array(
-            'programlist' => $programlist,
-            'searchModel' => $searchModel,
-            'channel' => $channel,
-            'periodstart' => $daystart,
-            'periodend' => $dayend,
-        ));
+        $this->actionView();
     }
 
     /**
@@ -177,7 +24,7 @@ class GuideController extends MController
      *      $daycount:  Number of days to display
      *      $partcount: Number of dayparts to display
      */
-    public function actionWeeksingleview3($channum = null, $start = null, $daycount = 7, $partcount = 3)
+    public function actionView($channum = null, $start = null, $daycount = 7, $partcount = 3)
     {
         // get timezone offset for date calculations because mythtv treats given time as utc
         $tzoffset = timezone_offset_get(new DateTimeZone(Yii::app()->params['timezone']), new DateTime(null, new DateTimeZone('UTC')));
@@ -259,7 +106,7 @@ class GuideController extends MController
         $searchModel->channum = $channum;
 
         // render view
-        $this->render('weeksingleview3', array(
+        $this->render('view', array(
             'data' => array(
                 'programlist' => $programlist,
                 'searchModel' => $searchModel,
@@ -272,7 +119,7 @@ class GuideController extends MController
         ));
     }
 
-    public function actionWsv3Detail($chanid, $starttime)
+    public function actionDetail($chanid, $starttime)
     {
         $guide = new ServiceGuide();
         $detail = $guide->GetProgramDetails(false, $starttime, $chanid);
@@ -299,7 +146,7 @@ class GuideController extends MController
         Yii::app()->user->setState("rec.endtime",(string) $detail->EndTime);
         Yii::app()->user->setState("rec.chanid",(string) $detail->Channel->ChanId);
 
-        $this->render('weeksingleview3/detail', array('data' => $a));
+        $this->render('view/detail', array('data' => $a));
     }
 
     public function actionActivetab($tabid)
@@ -310,41 +157,12 @@ class GuideController extends MController
         }
     }
 
-    public function actionDetail($chanid, $starttime)
-    {
-        $guide = new ServiceGuide();
-        $detail = $guide->GetProgramDetails(false, $starttime, $chanid);
-
-        $a = array(
-            'channel' => (string) $detail->Channel->ChannelName,
-            'chanid' => (int) $detail->Channel->ChanId,
-            'title' => (string) $detail->Title,
-            'subtitle' => (string) $detail->SubTitle,
-            'description' => (string) $detail->Description,
-            'starttime' => (string) $detail->StartTime,
-            'endtime' => (string) $detail->EndTime,
-            'starttimeloc' => Yii::app()->dateFormatter->formatDateTime((string) $detail->StartTime, 'short', 'short'),
-            'endtimeloc' => Yii::app()->dateFormatter->formatDateTime((string) $detail->EndTime, 'short', 'short'),
-            'recstatus' => ((int) $detail->Recording->Status == 0) ? "" : MythtvEnum::getRecStatusString((int) $detail->Recording->Status),
-            'recstatusclass' => MythtvEnum::getRecStatusClass((int) $detail->Recording->Status),
-        );
-
-        // save selection for easier use of recording buttons
-        Yii::app()->user->setState("rec.title",(string) $detail->Title);
-        Yii::app()->user->setState("rec.starttime",(string) $detail->StartTime);
-        Yii::app()->user->setState("rec.endtime",(string) $detail->EndTime);
-        Yii::app()->user->setState("rec.chanid",(string) $detail->Channel->ChanId);
-
-        echo CJSON::encode($a);
-        Yii::app()->end();
-    }
-
     public function actionDelRecord($ruleid)
     {
         $dvr = new ServiceDvr();
         $dvr->RemoveRecordSchedule($ruleid);
 
-        $this->actionWsv3Detail(Yii::app()->user->getState("rec.chanid"), Yii::app()->user->getState("rec.starttime"));
+        $this->actionDetail(Yii::app()->user->getState("rec.chanid"), Yii::app()->user->getState("rec.starttime"));
     }
 
     public function actionRecord($template, $type = 1)

@@ -1,6 +1,6 @@
 <?php
 $imghtml=CHtml::image('/images/arrow-left.png', Yii::t('app', 'Back to program guide')).Yii::t('app', 'Back to program guide');
-echo CHtml::link($imghtml, array('guide/weeksingleview3'));
+echo CHtml::link($imghtml, array('guide/view'));
 ?>
 
 <h4><?= $data['title'] ?></h4>
@@ -18,7 +18,7 @@ echo CHtml::link($imghtml, array('guide/weeksingleview3'));
             echo '<i>';
             echo CHtml::linkButton(
                     Yii::t('app', 'Refresh recording options'), 
-                    array('submit' => Yii::app()->createUrl('guide/wsv3detail', array('chanid' => $data['chanid'], 'starttime' => $data['starttime'])))
+                    array('submit' => Yii::app()->createUrl('guide/detail', array('chanid' => $data['chanid'], 'starttime' => $data['starttime'])))
                 );
             echo ' ';
             echo Yii::t('app', 'after changing them. MythTV takes a while to refresh recording rules.');

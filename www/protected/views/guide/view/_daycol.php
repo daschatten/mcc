@@ -70,7 +70,7 @@ foreach($list as $elem)
     echo '<div 
             class="'.$class.'" 
             style="height: '.$mypx.'px"
-            onclick=\'location.href = "'.$this->createUrl('guide/wsv3detail', array('chanid' => $channel->chanid, 'starttime' => "$p->StartTime")).'"\'
+            onclick=\'location.href = "'.$this->createUrl('guide/detail', array('chanid' => $channel->chanid, 'starttime' => "$p->StartTime")).'"\'
             >';
     echo "<p>$p->Title</p>";
     // echo date("G", strtotime("$p->StartTime")).":".date("G", strtotime("$p->EndTime"));

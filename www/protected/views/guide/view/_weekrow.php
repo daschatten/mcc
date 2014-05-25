@@ -5,7 +5,7 @@ $daylist = array();
 foreach($plist as $programlist)
 {
     echo '<div class="day">';
-    $this->renderPartial('weeksingleview3/_daycol', array(
+    $this->renderPartial('view/_daycol', array(
         'data' => array(
             'programlist' => $programlist,
             'day' => $programlist['day'],
