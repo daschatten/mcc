@@ -1,9 +1,4 @@
 <?php
-/* @var $this RecordingsController */
-
-$this->breadcrumbs=array(
-	Yii::t('app', 'Recorded'),
-);
 
 echo '<p>';
 echo Yii::t('app', 'You can add recordings to archive list by clicking on the "archive" button and then go to {Recordings->Archive}.', 

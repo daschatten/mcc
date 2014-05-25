@@ -1,9 +1,5 @@
 <?php 
 
-$this->breadcrumbs=array(
-	Yii::t('app', 'Upcoming'),
-);
-
 $this->widget('bootstrap.widgets.TbTabs', array(
     'id' => 'upcoming-tabs',
     'tabs' => array(
