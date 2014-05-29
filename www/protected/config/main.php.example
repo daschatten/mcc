@@ -113,7 +113,15 @@ return array(
         'bootstrap' => array(
             'class' => 'bootstrap.components.TbApi',   
         ),
+        'messages' => array(
+            'class' => 'CPhpMessageSource',
+            'language' => 'en_en',
+        ),
 	),
+
+    'behaviors'=>array(
+        'onbeginRequest'=>array('class'=>'application.components.StartupBehavior'),
+    ),
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
