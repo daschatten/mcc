@@ -98,6 +98,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             ),
             'htmlOptions' => array('class' => 'tdcenter'),
             'headerHtmlOptions' => array('class' => 'tdcenter'),
+            'visible' => Yii::app()->user->checkAccess("o_archive_use"),
         ),
         array(
             'header' => Yii::t('app', 'Watched'),

@@ -5,7 +5,10 @@ class RecordingsController extends MController
     public function accessRules()
     {
         return array(
-            array('deny', 'users' => array('?')),
+            array('allow', 'actions' => array('index', 'recordingInfo', 'recordingInfoFull'), 'roles' => array('o_recorded_view')),
+            array('allow', 'actions' => array('upcoming'), 'roles' => array('o_upcoming_view')),
+            array('allow', 'actions' => array('archive', 'addDownload', 'clearArchive'), 'roles' => array('o_archive_use')),
+            array('deny', 'users' => array('*')),
         );
     }
 

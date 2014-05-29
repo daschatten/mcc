@@ -33,26 +33,97 @@
                 array(
                     'class' => 'bootstrap.widgets.TbNav',
                     'items' => array(
-                        array('label' => Yii::t('app', 'Recordings'),'items' => array(
-                            array('label' => Yii::t('app', 'Recorded'),'url' => array('/Recordings/index')),
-                            array('label' => Yii::t('app', 'Upcoming'),'url' => array('/Recordings/upcoming')),
-                            array('label' => Yii::t('app', 'Archive'),'url' => array('/Recordings/archive')),
-                        )),
-                        array('label' => Yii::t('app', 'Status'),'items' => array(
-                            array('label' => Yii::t('app', 'Backend'),'url' => array('/status/backend')),
-                            array('label' => Yii::t('app', 'Tuner'),'url' => array('/status/tuner')),
-                            array('label' => Yii::t('app', 'Storage'),'url' => array('/status/storage')),
-                        )),
-                        array('label' => Yii::t('app', 'Guide'), 'url' => array('/Guide/view')),
-                        array('label' => Yii::t('app', 'Users'), 'items' => array(
-                            array('label' => Yii::t('app', 'Users'), 'url' => array('/user/admin')),
-                            array('label' => Yii::t('app', 'Assignments'), 'url' => array('/auth/assignment/index')),
-                            array('label' => Yii::t('app', 'Roles'), 'url' => array('/auth/role/index')),
-                            array('label' => Yii::t('app', 'Tasks'), 'url' => array('/auth/task/index')),
-                            array('label' => Yii::t('app', 'Operations'), 'url' => array('/auth/operation/index')),
-                        )),
-				        array('label' => Yii::t('app', 'Login'), 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
-				        array('label' => Yii::t('app', 'Logout').' ('.Yii::app()->user->name.')', 'url' => array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+
+                        array(
+                            'label' => Yii::t('app', 'Recordings'),
+                            'items' => array(
+                                array(
+                                    'label' => Yii::t('app', 'Recorded'),
+                                    'url' => array('/Recordings/index'), 
+                                    'visible' => Yii::app()->user->checkAccess('o_recorded_view')
+                                ),
+                                array(
+                                    'label' => Yii::t('app', 'Upcoming'),
+                                    'url' => array('/Recordings/upcoming'), 
+                                    'visible' => Yii::app()->user->checkAccess('o_upcoming_view')
+                                ),
+                                array(
+                                    'label' => Yii::t('app', 'Archive'),
+                                    'url' => array('/Recordings/archive'), 
+                                    'visible' => Yii::app()->user->checkAccess('o_archive_use')
+                                )),
+                            'visible' => (Yii::app()->user->checkAccess('o_recorded_view') or Yii::app()->user->checkAccess('o_upcoming_view') or Yii::app()->user->checkAccess('o_archive_use'))
+                            ),
+
+                        array(
+                            'label' => Yii::t('app', 'Status'),
+                            'items' => array(
+                                array(
+                                    'label' => Yii::t('app', 'Backend'),
+                                    'url' => array('/status/backend'), 
+                                    'visible' => Yii::app()->user->checkAccess('o_status_backend_view')
+                                ),
+                                array(
+                                    'label' => Yii::t('app', 'Tuner'),
+                                    'url' => array('/status/tuner'), 
+                                    'visible' => Yii::app()->user->checkAccess('o_upcoming_view')
+                                ),
+                                array(
+                                    'label' => Yii::t('app', 'Storage'),
+                                    'url' => array('/status/storage'), 
+                                    'visible' => Yii::app()->user->checkAccess('o_status_storage_view')
+                                )),
+                            'visible' => Yii::app()->user->checkAccess('o_status_backend_view') or Yii::app()->user->checkAccess('o_upcoming_view') or Yii::app()->user->checkAccess('o_status_storage_view')
+                        ),
+
+                        array(
+                            'label' => Yii::t('app', 'Guide'), 
+                            'url' => array('/Guide/view'), 
+                            'visible' => Yii::app()->user->checkAccess('o_guide_view')
+                        ),
+
+                        array(
+                            'label' => Yii::t('app', 'Users'), 
+                            'items' => array(
+                                array(
+                                    'label' => Yii::t('app', 'Users'), 
+                                    'url' => array('/user/admin'), 
+                                    'visible' => Yii::app()->user->checkAccess('o_manage_users')
+                                ),
+                                array(
+                                    'label' => Yii::t('app', 'Assignments'), 
+                                    'url' => array('/auth/assignment/index'), 
+                                    'visible' => Yii::app()->user->checkAccess('o_manage_assignments')
+                                ),
+                                array(
+                                    'label' => Yii::t('app', 'Roles'), 
+                                    'url' => array('/auth/role/index'), 
+                                    'visible' => Yii::app()->user->checkAccess('o_manage_roles')
+                                ),
+                                array(
+                                    'label' => Yii::t('app', 'Tasks'), 
+                                    'url' => array('/auth/task/index'), 
+                                    'visible' => Yii::app()->user->checkAccess('o_manage_tasks')
+                                ),
+                                array(
+                                    'label' => Yii::t('app', 'Operations'), 
+                                    'url' => array('/auth/operation/index'), 
+                                    'visible' => Yii::app()->user->checkAccess('o_manage_operations')
+                                )),
+                            'visible' => Yii::app()->user->checkAccess('') or Yii::app()->user->checkAccess('') or Yii::app()->user->checkAccess('')
+                        ),
+
+				        array(
+                            'label' => Yii::t('app', 'Login'), 
+                            'url' => array('/site/login'), 
+                            'visible' => Yii::app()->user->isGuest
+                        ),
+
+				        array(
+                            'label' => Yii::t('app', 'Logout').' ('.Yii::app()->user->name.')', 
+                            'url' => array('/site/logout'), 
+                            'visible'=>!Yii::app()->user->isGuest
+                        ),
                     ),
                 ),
             ),

@@ -23,10 +23,22 @@ class SiteController extends MController
 
     public function accessRules()
     {
-        return array(
+        $rules = array(
             array('allow', 'actions' => array('login'), 'users' => array('*')),
-            array('deny', 'users' => array('?')),
+            array('allow', 'actions' => array('logout'), 'users' => array('@')),
         );
+
+        if(Yii::app()->params['home.public'])
+        {
+            $rules[] = array('allow', 'actions' => array('index'), 'users' => array('*'));
+        }else{
+            $rules[] = array('allow', 'actions' => array('index'), 'users' => array('@'));
+        }
+
+        // deny rule has to be last rule
+        $rules[] = array('deny', 'users' => array('*'));
+
+        return $rules;
     }
 
 	/**

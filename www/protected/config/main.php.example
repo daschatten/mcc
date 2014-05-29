@@ -128,6 +128,7 @@ return array(
         'archive.method' => 'rsync -avz --progress',
         'archive.source.path' => '/mnt/src/',
         'archive.dest.path' => '/mnt/dest/',
+        'status.summary.public' => true,                    // wether status summary page (start page) should be public visible
         /*
          * Each array in 'recordItems' defines a "One-Click" recording button.
          * 'name': Name to be displayed.

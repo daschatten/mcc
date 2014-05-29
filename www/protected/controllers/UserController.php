@@ -1,6 +1,21 @@
 <?php
 
-class UserController extends GxController {
+class UserController extends GxController
+{
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles' => array('o_manage_users')),
+            array('deny', 'users' => array('*')),
+        );
+    }
 
 
 	public function actionView($id) {

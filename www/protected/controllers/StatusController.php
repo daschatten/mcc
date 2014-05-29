@@ -5,7 +5,10 @@ class StatusController extends MController
     public function accessRules()
     {
         return array(
-            array('deny', 'users' => array('?')),
+            array('allow', 'actions' => array('backend'), 'roles' => array('o_status_backend_view')),
+            array('allow', 'actions' => array('tuner'), 'roles' => array('o_status_tuner_view')),
+            array('allow', 'actions' => array('storage'), 'roles' => array('o_status_storage_view')),
+            array('deny', 'users' => array('*')),
         );
     }
 

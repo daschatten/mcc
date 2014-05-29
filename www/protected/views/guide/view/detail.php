@@ -9,37 +9,45 @@ echo CHtml::link($imghtml, array('guide/view'));
     <div id="programTime"><?= $data['starttimeloc'] ?></div>
     <div id="programChannel"><?= $data['channel'] ?></div>
     <div id="programRecStatus"><?= $data['recstatus'] ?></div>
-    <div id="programRecOptions">
-        <p>
-        <?php 
-            echo Yii::t('app', 'Recording options');
-            echo '</p>';
-            echo '<p>';
-            echo '<i>';
-            echo CHtml::linkButton(
-                    Yii::t('app', 'Refresh recording options'), 
-                    array('submit' => Yii::app()->createUrl('guide/detail', array('chanid' => $data['chanid'], 'starttime' => $data['starttime'])))
-                );
-            echo ' ';
-            echo Yii::t('app', 'after changing them. MythTV takes a while to refresh recording rules.');
-            echo '</i>';
-        ?>
-        </p>
-        <p>
-    <?php
+
+<?php 
+    if(Yii::app()->user->checkAccess('o_record_rule_add') or Yii::app()->user->checkAccess('o_record_rule_del'))
+    {
+        echo '<div id="programRecOptions">';
+        echo '<p>';
+        echo Yii::t('app', 'Recording options');
+        echo '</p>';
+        echo '<p>';
+        echo '<i>';
+        echo CHtml::linkButton(
+                Yii::t('app', 'Refresh recording options'), 
+                array('submit' => Yii::app()->createUrl('guide/detail', array('chanid' => $data['chanid'], 'starttime' => $data['starttime'])))
+            );
+        echo ' ';
+        echo Yii::t('app', 'after changing them. MythTV takes a while to refresh recording rules.');
+        echo '</i>';
+        
+        echo '</p>';
+        echo '<p>';
+
         if($data['recstatusraw'] == MythTVEnum::rsUnknown)
         {
-            foreach(Yii::app()->params['recordItems'] as $b)
+            if(Yii::app()->user->checkAccess('o_record_rule_add'))
             {
-                echo '<span class="programRecButton">';
-                echo TbHtml::tooltip( 
-                    CHtml::ajaxButton(
-                    $b['name'], 
-                    Yii::app()->createUrl('guide/record', array('template' => $b['rulename'], 'type' => $b['ruletype']))
-                ), '#', $b['description']);
-                echo '</span>';
+                foreach(Yii::app()->params['recordItems'] as $b)
+                {
+                    echo '<span class="programRecButton">';
+                    echo TbHtml::tooltip( 
+                        CHtml::ajaxButton(
+                        $b['name'], 
+                        Yii::app()->createUrl('guide/record', array('template' => $b['rulename'], 'type' => $b['ruletype']))
+                    ), '#', $b['description']);
+                    echo '</span>';
+                }
             }
         }else{
+            if(Yii::app()->user->checkAccess('o_record_rule_del'))
+            {
                 echo '<span class="programRecButton">';
                 echo TbHtml::tooltip( 
                     CHtml::htmlButton(
@@ -48,9 +56,12 @@ echo CHtml::link($imghtml, array('guide/view'));
                     ), '#', Yii::t('app', 'Delete recording rule')
                 );
                 echo '</span>';
+            }
         }
-    ?>
-        </p>
-    </div>
+    
+        echo '</p>';
+        echo '</div>';
+    }
+?>        
     <div id="programDescription"><?= $data['description'] ?></div>
 </div>

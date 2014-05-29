@@ -5,9 +5,10 @@ class GuideController extends MController
     public function accessRules()
     {
         return array(
-            array('allow', 'actions' => array('record'), 'roles' => array('recording_add')),
-            array('deny', 'actions' => array('record'), 'users' => array('*')),
-            array('deny', 'users' => array('?')),
+            array('allow', 'actions' => array('view', 'detail', 'activeTab'), 'roles' => array('o_guide_view')),
+            array('allow', 'actions' => array('record'), 'roles' => array('o_record_rule_add')),
+            array('allow', 'actions' => array('delRecord'), 'roles' => array('o_record_rule_del')),
+            array('deny', 'users' => array('*')),
         );
     }
 
