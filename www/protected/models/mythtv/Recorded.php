@@ -42,6 +42,7 @@ class Recorded extends BaseRecorded
             'FilesizeGb' => Yii::t('app', 'Size (GB)'),
             'episodeString' => Yii::t('app', 'Season/Episode'),
             'length' => Yii::t('app', 'Length'),
+            'recgroup' => Yii::t('app', 'Group'),
         );
         
         $m = array_merge(parent::attributeLabels(), $a);
