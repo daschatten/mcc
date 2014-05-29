@@ -14,6 +14,7 @@ Features
 Recordings:
 * Recorded: List recordings. Filter for title, subtitle and recording group are available. Sorting is enabled for some columns.
 * Upcoming: List upcoming recordings, only next 15 at the moment. Second view with all upcoming recordings is available as calendar view.
+* Archive: Select recordings and copy them via configurable methods to a selectable destination.
 
 Status:
 * Backend: Backend information. Version, Load, EPG Info.
@@ -21,7 +22,7 @@ Status:
 * Storage: List of storage groups and detailed information about space used total and per recording group (Details only list titles with a minimum of two recordings).
 
 Guide:
-* Some experimental guide views. Use "Day multi view" to schedule recordings with "one click record" feature.
+* Simple guide view with "one click record" feature (configure in main.php!).
 
 Users:
 * Create/Read/Update/Delete Users
@@ -115,7 +116,7 @@ and confirm with 'yes'.
 First login
 -----------
 
-Login as 'Admin' with PIN '0000'. Create users, add roles!
+Login as 'Admin' with PIN '0000'. Create users, assign roles! And change admin PIN!
 
 Have fun!
 
