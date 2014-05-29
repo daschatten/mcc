@@ -83,7 +83,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
                 'download' => array(
                     'label' => Yii::t('app', 'Archive'),
                     'imageUrl' => '/images/server-database.png',
-                    'url' => 'Yii::app()->createUrl("Recordings/addDownload", array("pk"=>$data->chanid.",".$data->starttime))',
+                    'url' => 'Yii::app()->createUrl("Recordings/addToArchive", array("pk"=>$data->chanid.",".$data->starttime))',
                     'click' => 'js:function(){
                             $.ajax({
                                 url:$(this).attr("href"),
