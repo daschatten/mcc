@@ -74,7 +74,7 @@ return array (
   'Last recorded' => 'Letzte Aufnahme',
   'Last status' => 'Letzter Status',
   'Later showing' => 'Spätere Ausstrahlung',
-  'Length' => 'Länge',
+  'Length' => '@@Länge@@',
   'Length (Min.)' => 'Länge (Min.)',
   'List' => 'Liste',
   'List view' => 'Listenansicht',
@@ -168,6 +168,6 @@ return array (
   'You can add recordings by clicking on the "archive" button in {Recordings->Recorded}.' => 'Aufnahmen können durch Klick auf "Archiv" in {Recordings->Recorded} hinzugefügt werden.',
   'You can add recordings to archive list by clicking on the "archive" button and then go to {Recordings->Archive}.' => 'Aufnahmen können durch Klick auf "Archiv" zur Liste in {Recordings->Archive} hinzugefügt werden.',
   'Your request is invalid.' => 'Die Anfrage ist ungültig.',
-  '{Refresh} recording options after changing them. MythTV takes a while to refresh recording rules.' => '{Refresh} Sie die Aufnahmeoptionen nachdem sie bearbeitet wurden. MythTV braucht kurz um die Aufnahmeregeln zu aktualisieren.',
   'are required' => 'sind benötigt',
+  '{Refresh} recording options after changing them. MythTV takes a while to refresh recording rules.' => '{Refresh} Sie die Aufnahmeoptionen nachdem sie bearbeitet wurden. MythTV braucht kurz um die Aufnahmeregeln zu aktualisieren.',
 );

@@ -17,7 +17,7 @@
             <td><?= Yii::t('app', 'Rating') ?></td><td><span id="recordingRating"></span></td>
         </tr>
         <tr>
-            <td><?= Yii::t('app', 'Filesize (Gb)') ?></td><td><span id="recordingFilesize"></span></td>
+            <td><?= Yii::t('app', 'Filesize (GB)') ?></td><td><span id="recordingFilesize"></span></td>
         </tr>    
     </table>
 </div>
