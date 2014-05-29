@@ -19,12 +19,16 @@ echo CHtml::link($imghtml, array('guide/view'));
         echo '</p>';
         echo '<p>';
         echo '<i>';
-        echo CHtml::linkButton(
-                Yii::t('app', 'Refresh recording options'), 
-                array('submit' => Yii::app()->createUrl('guide/detail', array('chanid' => $data['chanid'], 'starttime' => $data['starttime'])))
-            );
-        echo ' ';
-        echo Yii::t('app', 'after changing them. MythTV takes a while to refresh recording rules.');
+    
+        echo Yii::t('app', '{Refresh} recording options after changing them. MythTV takes a while to refresh recording rules.', 
+            array(
+                '{Refresh}' => CHtml::link(
+                    Yii::t('app', 'Refresh'),
+                    Yii::app()->createUrl('guide/detail', array('chanid' => $data['chanid'], 'starttime' => $data['starttime']))
+                )
+            )
+        );
+
         echo '</i>';
         
         echo '</p>';
