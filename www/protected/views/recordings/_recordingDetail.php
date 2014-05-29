@@ -24,7 +24,7 @@ echo CHtml::link($imghtml, array('Recordings/index'));
             <td><?= Yii::t('app', 'Rating') ?></td><td><span id="recordingRating"><?= $model->stars ?></span></td>
         </tr>
         <tr>
-            <td><?= Yii::t('app', 'Filesize (Gb)') ?></td><td><span id="recordingFilesize"><?= $model->filesizeGb ?></span></td>
+            <td><?= Yii::t('app', 'Filesize (GB)') ?></td><td><span id="recordingFilesize"><?= $model->filesizeGb ?></span></td>
         </tr>    
     </table>
 </div>
