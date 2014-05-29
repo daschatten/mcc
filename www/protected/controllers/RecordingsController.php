@@ -6,7 +6,7 @@ class RecordingsController extends MController
     {
         return array(
             array('allow', 'actions' => array('index', 'recordingInfo', 'recordingInfoFull'), 'roles' => array('o_recorded_view')),
-            array('allow', 'actions' => array('upcoming'), 'roles' => array('o_upcoming_view')),
+            array('allow', 'actions' => array('upcoming', 'upcomingFeed'), 'roles' => array('o_upcoming_view')),
             array('allow', 'actions' => array('archive', 'addToArchive', 'clearArchive'), 'roles' => array('o_archive_use')),
             array('deny', 'users' => array('*')),
         );
