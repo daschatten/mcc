@@ -7,7 +7,7 @@ $this->pageTitle=Yii::app()->name;
 echo '<h2>'.Yii::t('app', 'Backend status').'</h2>';
 echo '<ul>';
 echo '<li>'.Yii::t('app', 'Version').": ".$data['backendstatus']->body{'version'}.'</li>';
-echo '<li>'.Yii::t('app', 'Date').": ".$data['backendstatus']->body{'ISODate'}.'</li>';
+echo '<li>'.Yii::t('app', 'Date').": ".Yii::app()->dateFormatter->formatDateTime(strftime($data['backendstatus']->body{'ISODate'}), "short", "short").'</li>';
 echo '<li>'.Yii::t('app', 'Load 1 Minute').": ".round((float)str_replace(",", ".", $data['backendstatus']->body->MachineInfo->Load{'avg1'}), 2).'</li>';
 echo '<li>'.Yii::t('app', 'Load 5 Minutes').": ".round((float)str_replace(",", ".", $data['backendstatus']->body->MachineInfo->Load{'avg5'}), 2).'</li>';
 echo '<li>'.Yii::t('app', 'Load 15 Minutes').": ".round((float)str_replace(",", ".", $data['backendstatus']->body->MachineInfo->Load{'avg15'}), 2).'</li>';
