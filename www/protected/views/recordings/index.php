@@ -1,15 +1,18 @@
 <?php
 
-echo '<p>';
-echo Yii::t('app', 'You can add recordings to archive list by clicking on the "archive" button and then go to {Recordings->Archive}.', 
-    array(
-        '{Recordings->Archive}' => CHtml::link(
-            Yii::t('app', 'Recordings')." -> ".Yii::t('app', 'Archive'),
-            $this->createUrl('Recordings/archive')
-        ),
-    )
-    );
-echo '</p>';
+if(Yii::app()->user->checkAccess("o_archive_use"))
+{
+    echo '<p>';
+    echo Yii::t('app', 'You can add recordings to archive list by clicking on the "archive" button and then go to {Recordings->Archive}.', 
+        array(
+            '{Recordings->Archive}' => CHtml::link(
+                Yii::t('app', 'Recordings')." -> ".Yii::t('app', 'Archive'),
+                $this->createUrl('Recordings/archive')
+            ),
+        )
+        );
+    echo '</p>';
+}
 
 
 $this->renderPartial('_recordingInfo');
