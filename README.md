@@ -6,7 +6,7 @@ MythTV Control Center - An alternative to the standard mythtv webinterface mythw
 Notes
 -----
 
-This web application is considered 'alpha' at the moment, use it on your own risk. Regularly backup your mythtv database!
+Regularly backup your mythtv database!
 
 Features
 --------
