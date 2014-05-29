@@ -48,7 +48,7 @@ return array (
   'Delete' => 'Löschen',
   'Delete recording rule' => 'Aufnahmeregel löschen',
   'Description' => 'Beschreibung',
-  'Destination path' => 'Ziel-Pfad',
+  'Destination path' => 'Zielpfad',
   'Detail' => 'Details',
   'Device' => 'Gerät',
   'Directory' => 'Verzeichnis',
