@@ -99,11 +99,12 @@ MCC config:
 ```
 cd /var/www/mcc/www/protected/config
 cp main.php.example main.php
-vim main.php
+cp console.php.example console.php
+vim main.php console.php
 ```
 
-* Search block starting with "'db'=>array(" and configure your mythtv database connection.
-* Set application parameter at bottom of config file to your needs (look at comments).
+* Search block starting with "'db'=>array(" and configure your mythtv database connection in both config files.
+* Set application parameter at bottom of config file to your needs (look at comments) in main.php.
 
 Database modifications:
 
