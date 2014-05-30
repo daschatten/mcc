@@ -9,27 +9,30 @@ return array(
 	// preloading 'log' component
 	'preload'=>array('log'),
 
+    // autoloading model and component classes
+	'import'=>array(
+		'application.models.*',
+		'application.models.mythtv.*',
+		'application.components.*',
+		'application.components.mythservices.*',
+	),
+
+
 	// application components
 	'components'=>array(
 		'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),
-		// uncomment the following to use a MySQL database
-		/*
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=testdrive',
+			'connectionString' => 'mysql:host=mythtv.db.host;dbname=mythtv',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
+			'username' => 'mcc',
+			'password' => 'mcc',
 			'charset' => 'utf8',
 		),
-		*/
-		'log'=>array(
+        'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
 				array(
 					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
+					'levels'=>'error, warning, trace',
 				),
 			),
 		),
