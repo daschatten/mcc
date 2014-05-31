@@ -6,7 +6,7 @@ echo CHtml::link($imghtml, array('guide/view'));
 <h4><?= $data['title'] ?></h4>
 <div id="programDetailContent">
     <i><span id="programSubtitle"><?= $data['subtitle'] ?></span></i>
-    <div id="programTime"><?= $data['starttimeloc'] ?></div>
+    <div id="programTime"><?= $data['starttimeloc'] ?> - <?= $data['endtimeloc'] ?></div>
     <div id="programChannel"><?= $data['channel'] ?></div>
     <div id="programRecStatus">
     <?php

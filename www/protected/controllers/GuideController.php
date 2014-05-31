@@ -134,7 +134,7 @@ class GuideController extends MController
             'starttime' => (string) $detail->StartTime,
             'endtime' => (string) $detail->EndTime,
             'starttimeloc' => Yii::app()->dateFormatter->formatDateTime((string) $detail->StartTime, 'short', 'short'),
-            'endtimeloc' => Yii::app()->dateFormatter->formatDateTime((string) $detail->EndTime, 'short', 'short'),
+            'endtimeloc' => Yii::app()->dateFormatter->formatDateTime((string) $detail->EndTime, null, 'short'),
             'recstatus' => ((int) $detail->Recording->Status == 0) ? "" : MythtvEnum::getRecStatusString((int) $detail->Recording->Status),
             'recstatusraw' => (int) $detail->Recording->Status,
             'recstatusclass' => MythtvEnum::getRecStatusClass((int) $detail->Recording->Status),
