@@ -137,6 +137,7 @@ return array(
         'archive.source.path' => '/mnt/src/',
         'archive.dest.path' => '/mnt/dest/',
         'status.summary.public' => true,                    // wether status summary page (start page) should be public visible
+        'guide.refresh.sleeptime' => '2000',
         /*
          * Each array in 'recordItems' defines a "One-Click" recording button.
          * 'name': Name to be displayed.
