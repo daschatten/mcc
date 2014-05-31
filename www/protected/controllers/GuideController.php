@@ -21,7 +21,7 @@ class GuideController extends MController
      *  Creates a guide for a single channel for a variable number of days.
      *  Params:
      *      $channum:   Channel number
-     *      start:      Startdate in format 'Y-m-d'
+     *      start:      Startdate as unix timestamp
      *      $daycount:  Number of days to display
      *      $partcount: Number of dayparts to display
      */
@@ -62,13 +62,17 @@ class GuideController extends MController
         // further calculations are made below
         if($start == null)
         {
-            $startdate = strtotime(date('Y-m-d'));
-        }else{
-            $startdate = strtotime($start);
+            if(Yii::app()->user->hasState('guide.start'))
+            {
+                $start = Yii::app()->user->getState('guide.start');
+            }else{
+                $start = time();
+            }
         }
+       
+        Yii::app()->user->setState('guide.start', $start);
 
-        // add time offset because mythtv treats given time as utc
-        $startdate = $startdate - $tzoffset;
+        $startdate = strtotime(date('Y-m-d', $start));
 
         // caluculate day parts length in seconds
         $partlength = round(24 / $partcount) * 3600;
@@ -89,9 +93,9 @@ class GuideController extends MController
             for($j=0;$j<$partcount;$j++)
             { 
                 // add 1 second to avoid programs which end at start of period, e.g. 00:00
-                $guidestart = date('Y-m-d H:i:s', $startdate + 1 + $i * 24 * 3600 + $j * $partlength);
+                $guidestart = date('Y-m-d H:i:s', $startdate + 1 + $i * 24 * 3600 + $j * $partlength - $tzoffset);
                 // subtract 1 second to avoid programs which start at next period, e.g. 00:00
-                $guideend = date('Y-m-d H:i:s', $startdate - 1 + $i * 24 * 3600 + $j * $partlength + $partlength);
+                $guideend = date('Y-m-d H:i:s', $startdate - 1 + $i * 24 * 3600 + $j * $partlength + $partlength - $tzoffset);
                 $part = array();
                 $part['start'] = $guidestart;
                 $part['end'] = $guideend;
@@ -116,6 +120,7 @@ class GuideController extends MController
                 'daycount' => $daycount,
                 'partcount' => $partcount,
                 'partlength' => $partlength,
+                'start' => $start,
                 ),
         ));
     }

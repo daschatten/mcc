@@ -13,7 +13,7 @@ function cmp($a, $b)
 $listdata = CHtml::listData(Channel::getVisibleChannelList(), 'channum', 'numname');
 $guideurl = Yii::app()->createUrl('guide/view');
 
-echo '<p>';
+echo '<div class="guide_chanselect">';
 // create search field
 $this->widget('ext.ESelect2.ESelect2',array(
     'model' => $data['searchModel'],
@@ -28,7 +28,16 @@ $this->widget('ext.ESelect2.ESelect2',array(
         'style' => 'width: 250px;',
     ),
 )); 
-echo '</p>';
+echo '</div>';
+
+echo '<div>';
+echo TbHtml::pager(array(
+    array('label' => '&larr; '.Yii::t('app', 'Previous week'), 'url' => Yii::app()->createUrl('guide/view', array('channum' => $data['channel']->channum, 'start' => $data['startdate'] - 24 * 3600 * 7)), 'previous' => true),
+    array('label' => Yii::t('app', 'Today'), 'url' => Yii::app()->createUrl('guide/view', array('channum' => $data['channel']->channum, 'start' => time()))),
+    array('label' => Yii::t('app', 'Next week').' &rarr;', 'url' => Yii::app()->createUrl('guide/view', array('channum' => $data['channel']->channum, 'start' => $data['startdate'] + 24 * 3600 * 7)), 'next' => true),
+));
+
+echo '</div>';
 
 $partrow = array();
 
@@ -44,7 +53,10 @@ foreach($data['programlist'] as $partlist)
     {
         $p =array();
         $p['day'] = $partlist['day'];
-        $p['data'] = $partlist['data'][$i]['data']->ProgramGuide->Channels[0]->Programs;
+        if(sizeof($partlist['data'][$i]['data']->ProgramGuide->Channels) > 0)
+        {
+            $p['data'] = $partlist['data'][$i]['data']->ProgramGuide->Channels[0]->Programs;
+        }
 
         $partrow[$i][] = $p;
     }
