@@ -68,7 +68,7 @@ foreach($list as $elem)
     }
 
     echo '<div 
-            class="'.$class.'" 
+            class="'.$class.' '.MythtvEnum::getRecStatusClass($p->Recording->Status).'" 
             style="height: '.$mypx.'px"
             onclick=\'location.href = "'.$this->createUrl('guide/detail', array('chanid' => $channel->chanid, 'starttime' => "$p->StartTime")).'"\'
             >';

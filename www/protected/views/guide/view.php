@@ -58,6 +58,16 @@ for($i=0;$i<$data['partcount'];$i++)
     $end = ($i * $data['partlength'] + $data['partlength']) / 3600;
     $tabs[] = array('label' => "$start - $end", 'content' => $content[$i]);
 }
+// add legend tab
+
+$legend = '
+    <div class="legend-color rs-recording">&nbsp</div><div class="legend-explanation">'.Yii::t('app', 'Current recording').'</div>
+    <div class="legend-color rs-will-record">&nbsp</div><div class="legend-explanation">'.Yii::t('app', 'Planned record').'</div>
+    <div class="legend-color rs-previous-recording">&nbsp</div><div class="legend-explanation">'.Yii::t('app', 'Planned at another time').'</div>
+    <div class="legend-color rs-current-recording">&nbsp</div><div class="legend-explanation">'.Yii::t('app', 'Already recorded').'</div>
+';
+
+$tabs[] = array('label' => Yii::t('app', 'Legend'), 'content' => $legend);
 
 // set last tab active
 if(Yii::app()->user->hasState('guide.tab.selected'))
@@ -72,7 +82,7 @@ if(Yii::app()->user->hasState('guide.tab.selected'))
 echo '<div class="weeksingleview2">';
 
 $this->widget('bootstrap.widgets.TbTabs', array(
-    'placement' => 'left',
+    'placement' => 'top',
     'tabs' => $tabs,
     'onShown' => 'function(event){ 
         console.log(event.target);
