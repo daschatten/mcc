@@ -45,7 +45,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'name' => 'starttime',
             'header' => Yii::t('app', 'Date'),
             'filter' => false,
-            'value' => 'Yii::app()->dateFormatter->formatDateTime($data->starttime, "short", "short")',
+            'value' => 'Yii::app()->dateFormatter->formatDateTime($data->localStarttime, "short", "short")',
         ),
         array(
             'name' => 'channel.name',

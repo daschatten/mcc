@@ -102,4 +102,15 @@ class Recorded extends BaseRecorded
             return "";
         }
     }
+
+    /**
+     * Returns starttime as unix timestamp in combination with timezone offset
+     */
+    public function getLocalStarttime()
+    {
+        // get timezone offset for date calculations because mythtv treats given time as utc
+        $tzoffset = timezone_offset_get(new DateTimeZone(Yii::app()->params['timezone']), new DateTime(null, new DateTimeZone('UTC')));
+
+        return strtotime($this->starttime) + $tzoffset;
+    }
 }
