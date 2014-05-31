@@ -162,8 +162,10 @@ class GuideController extends MController
     {
         $dvr = new ServiceDvr();
         $dvr->RemoveRecordSchedule($ruleid);
+        
+        return "true";
 
-        $this->actionDetail(Yii::app()->user->getState("rec.chanid"), Yii::app()->user->getState("rec.starttime"));
+        # $this->actionDetail(Yii::app()->user->getState("rec.chanid"), Yii::app()->user->getState("rec.starttime"));
     }
 
     public function actionRecord($template, $type = 1)

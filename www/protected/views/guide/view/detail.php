@@ -44,7 +44,8 @@ echo CHtml::link($imghtml, array('guide/view'));
                     echo TbHtml::tooltip( 
                         CHtml::ajaxButton(
                         $b['name'], 
-                        Yii::app()->createUrl('guide/record', array('template' => $b['rulename'], 'type' => $b['ruletype']))
+                        Yii::app()->createUrl('guide/record', array('template' => $b['rulename'], 'type' => $b['ruletype'])),
+                        array('success' => 'setTimeout(function() {location.reload(); }, '.Yii::app()->params['guide.refresh.sleeptime'].')')
                     ), '#', $b['description']);
                     echo '</span>';
                 }
@@ -54,9 +55,10 @@ echo CHtml::link($imghtml, array('guide/view'));
             {
                 echo '<span class="programRecButton">';
                 echo TbHtml::tooltip( 
-                    CHtml::htmlButton(
+                    CHtml::ajaxButton(
                         Yii::t('app', 'Delete recording rule'), 
-                        array('submit' => Yii::app()->createUrl('guide/delrecord', array('ruleid' => $data['recruleid'])))
+                        Yii::app()->createUrl('guide/delrecord', array('ruleid' => $data['recruleid'])),
+                        array('success' => 'setTimeout(function() {location.reload(); }, '.Yii::app()->params['guide.refresh.sleeptime'].')')
                     ), '#', Yii::t('app', 'Delete recording rule')
                 );
                 echo '</span>';
