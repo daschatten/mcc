@@ -13,6 +13,7 @@ function cmp($a, $b)
 $listdata = CHtml::listData(Channel::getVisibleChannelList(), 'channum', 'numname');
 $guideurl = Yii::app()->createUrl('guide/view');
 
+echo '<p>';
 // create search field
 $this->widget('ext.ESelect2.ESelect2',array(
     'model' => $data['searchModel'],
@@ -27,6 +28,7 @@ $this->widget('ext.ESelect2.ESelect2',array(
         'style' => 'width: 250px;',
     ),
 )); 
+echo '</p>';
 
 $partrow = array();
 

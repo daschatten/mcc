@@ -8,7 +8,7 @@ $channel = $data['channel'];
 
 //var_dump($programlist); exit;
 
-echo '<div>'.Yii::app()->dateFormatter->formatDatetime($day, 'short', null).'</div>';
+echo '<div class="dayrow_date">'.Yii::app()->dateFormatter->formatDatetime($day, 'short', null).'</div>';
 
 usort($programlist, 'cmp');
 

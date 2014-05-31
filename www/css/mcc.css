@@ -171,3 +171,8 @@
 .tdright{
     text-align:     right !important;
 }
+
+.dayrow_date{
+    border-bottom: 1px solid black;
+    background-color: #F8F8F8;
+}
