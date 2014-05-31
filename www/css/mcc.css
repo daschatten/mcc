@@ -171,3 +171,14 @@
 .tdright{
     text-align:     right !important;
 }
+
+.dayrow_date{
+    border-bottom: 1px solid black;
+    background-color: #F8F8F8;
+}
+
+.guide_chanselect{
+    float: left; 
+    margin-top: 20px;
+    margin-right: 20px;
+}

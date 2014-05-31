@@ -6,16 +6,20 @@ echo CHtml::link($imghtml, array('guide/view'));
 <h4><?= $data['title'] ?></h4>
 <div id="programDetailContent">
     <i><span id="programSubtitle"><?= $data['subtitle'] ?></span></i>
-    <div id="programTime"><?= $data['starttimeloc'] ?></div>
+    <div id="programTime"><?= $data['starttimeloc'] ?> - <?= $data['endtimeloc'] ?></div>
     <div id="programChannel"><?= $data['channel'] ?></div>
-    <div id="programRecStatus"><?= $data['recstatus'] ?></div>
+    <div id="programRecStatus">
+    <?php
+        echo Yii::t('app', 'Record status').': '.((empty($data['recstatus'])) ? Yii::t('app', 'Not planned') : $data['recstatus']);
+    ?>
+    </div>
 
 <?php 
     if(Yii::app()->user->checkAccess('o_record_rule_add') or Yii::app()->user->checkAccess('o_record_rule_del'))
     {
         echo '<div id="programRecOptions">';
         echo '<p>';
-        echo Yii::t('app', 'Recording options');
+        echo '<strong>'.Yii::t('app', 'Recording options').'</strong>';
         echo '</p>';
         echo '<p>';
         echo '<i>';
@@ -44,7 +48,8 @@ echo CHtml::link($imghtml, array('guide/view'));
                     echo TbHtml::tooltip( 
                         CHtml::ajaxButton(
                         $b['name'], 
-                        Yii::app()->createUrl('guide/record', array('template' => $b['rulename'], 'type' => $b['ruletype']))
+                        Yii::app()->createUrl('guide/record', array('template' => $b['rulename'], 'type' => $b['ruletype'])),
+                        array('success' => 'setTimeout(function() {location.reload(); }, '.Yii::app()->params['guide.refresh.sleeptime'].')')
                     ), '#', $b['description']);
                     echo '</span>';
                 }
@@ -54,9 +59,10 @@ echo CHtml::link($imghtml, array('guide/view'));
             {
                 echo '<span class="programRecButton">';
                 echo TbHtml::tooltip( 
-                    CHtml::htmlButton(
+                    CHtml::ajaxButton(
                         Yii::t('app', 'Delete recording rule'), 
-                        array('submit' => Yii::app()->createUrl('guide/delrecord', array('ruleid' => $data['recruleid'])))
+                        Yii::app()->createUrl('guide/delrecord', array('ruleid' => $data['recruleid'])),
+                        array('success' => 'setTimeout(function() {location.reload(); }, '.Yii::app()->params['guide.refresh.sleeptime'].')')
                     ), '#', Yii::t('app', 'Delete recording rule')
                 );
                 echo '</span>';
