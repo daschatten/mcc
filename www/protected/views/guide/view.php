@@ -90,7 +90,7 @@ if(Yii::app()->user->hasState('guide.tab.selected'))
     $tabnr = substr($tabid, -1);
     $tabs[$tabnr - 1]['active'] = true;
 }else{
-    $tabs[sizeof($tabs)-1]['active'] = true;
+    $tabs[sizeof($tabs)-2]['active'] = true;
 }
 
 echo '<div class="weeksingleview2">';
