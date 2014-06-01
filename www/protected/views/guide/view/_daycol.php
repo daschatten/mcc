@@ -1,14 +1,17 @@
 <?php
 
 $day = $data['day'];
+
+echo '<div class="dayrow_date">'.Yii::app()->dateFormatter->format('EE', $day).' '.Yii::app()->dateFormatter->formatDatetime($day, 'short', null).'</div>';
+
+if(empty($data['programlist']['data']))
+{
+    return;
+}
 $programlist = $data['programlist']['data'];
 $timestart = $data['timestart'];
 $timeend = $data['timeend'];
 $channel = $data['channel'];
-
-//var_dump($programlist); exit;
-
-echo '<div>'.Yii::app()->dateFormatter->formatDatetime($day, 'short', null).'</div>';
 
 usort($programlist, 'cmp');
 
@@ -68,7 +71,7 @@ foreach($list as $elem)
     }
 
     echo '<div 
-            class="'.$class.'" 
+            class="'.$class.' '.MythtvEnum::getRecStatusClass($p->Recording->Status).'" 
             style="height: '.$mypx.'px"
             onclick=\'location.href = "'.$this->createUrl('guide/detail', array('chanid' => $channel->chanid, 'starttime' => "$p->StartTime")).'"\'
             >';

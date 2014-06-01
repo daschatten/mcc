@@ -5,7 +5,7 @@
     <div id="programRecStatus"></div>
     <div id="programRecOptions">
     <?php
-        foreach(Yii::app()->params['recordItems'] as $b)
+        foreach(Config::get('recordItems') as $b)
         {
             echo CHtml::ajaxButton(
                 $b['name'], 

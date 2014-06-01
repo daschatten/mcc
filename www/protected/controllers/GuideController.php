@@ -21,14 +21,15 @@ class GuideController extends MController
      *  Creates a guide for a single channel for a variable number of days.
      *  Params:
      *      $channum:   Channel number
-     *      start:      Startdate in format 'Y-m-d'
+     *      start:      Startdate as unix timestamp
      *      $daycount:  Number of days to display
      *      $partcount: Number of dayparts to display
      */
     public function actionView($channum = null, $start = null, $daycount = 7, $partcount = 3)
     {
         // get timezone offset for date calculations because mythtv treats given time as utc
-        $tzoffset = timezone_offset_get(new DateTimeZone(Yii::app()->params['timezone']), new DateTime(null, new DateTimeZone('UTC')));
+        
+        $tzoffset = timezone_offset_get(new DateTimeZone(Config::get('timezone')), new DateTime(null, new DateTimeZone('UTC')));
 
         // fetch channel which should be displayed
         if($channum == null or $channum == '')
@@ -62,13 +63,17 @@ class GuideController extends MController
         // further calculations are made below
         if($start == null)
         {
-            $startdate = strtotime(date('Y-m-d'));
-        }else{
-            $startdate = strtotime($start);
+            if(Yii::app()->user->hasState('guide.start'))
+            {
+                $start = Yii::app()->user->getState('guide.start');
+            }else{
+                $start = time();
+            }
         }
+       
+        Yii::app()->user->setState('guide.start', $start);
 
-        // add time offset because mythtv treats given time as utc
-        $startdate = $startdate - $tzoffset;
+        $startdate = strtotime(date('Y-m-d', $start));
 
         // caluculate day parts length in seconds
         $partlength = round(24 / $partcount) * 3600;
@@ -89,9 +94,9 @@ class GuideController extends MController
             for($j=0;$j<$partcount;$j++)
             { 
                 // add 1 second to avoid programs which end at start of period, e.g. 00:00
-                $guidestart = date('Y-m-d H:i:s', $startdate + 1 + $i * 24 * 3600 + $j * $partlength);
+                $guidestart = date('Y-m-d H:i:s', $startdate + 1 + $i * 24 * 3600 + $j * $partlength - $tzoffset);
                 // subtract 1 second to avoid programs which start at next period, e.g. 00:00
-                $guideend = date('Y-m-d H:i:s', $startdate - 1 + $i * 24 * 3600 + $j * $partlength + $partlength);
+                $guideend = date('Y-m-d H:i:s', $startdate - 1 + $i * 24 * 3600 + $j * $partlength + $partlength - $tzoffset);
                 $part = array();
                 $part['start'] = $guidestart;
                 $part['end'] = $guideend;
@@ -116,6 +121,7 @@ class GuideController extends MController
                 'daycount' => $daycount,
                 'partcount' => $partcount,
                 'partlength' => $partlength,
+                'start' => $start,
                 ),
         ));
     }
@@ -134,7 +140,7 @@ class GuideController extends MController
             'starttime' => (string) $detail->StartTime,
             'endtime' => (string) $detail->EndTime,
             'starttimeloc' => Yii::app()->dateFormatter->formatDateTime((string) $detail->StartTime, 'short', 'short'),
-            'endtimeloc' => Yii::app()->dateFormatter->formatDateTime((string) $detail->EndTime, 'short', 'short'),
+            'endtimeloc' => Yii::app()->dateFormatter->formatDateTime((string) $detail->EndTime, null, 'short'),
             'recstatus' => ((int) $detail->Recording->Status == 0) ? "" : MythtvEnum::getRecStatusString((int) $detail->Recording->Status),
             'recstatusraw' => (int) $detail->Recording->Status,
             'recstatusclass' => MythtvEnum::getRecStatusClass((int) $detail->Recording->Status),
@@ -162,8 +168,10 @@ class GuideController extends MController
     {
         $dvr = new ServiceDvr();
         $dvr->RemoveRecordSchedule($ruleid);
+        
+        return "true";
 
-        $this->actionDetail(Yii::app()->user->getState("rec.chanid"), Yii::app()->user->getState("rec.starttime"));
+        # $this->actionDetail(Yii::app()->user->getState("rec.chanid"), Yii::app()->user->getState("rec.starttime"));
     }
 
     public function actionRecord($template, $type = 1)

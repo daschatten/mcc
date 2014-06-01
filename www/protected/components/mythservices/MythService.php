@@ -8,15 +8,15 @@ class MythService
 
     public function __construct()
     {
-        Yii::trace("[MythService] Setting 'mythbackenduri' to '".Yii::app()->params['mythbackendUri']."'");
-        $this->mythbackenduri = Yii::app()->params['mythbackendUri'];
+        Yii::trace("[MythService] Setting 'mythbackenduri' to '".Config::get('mythbackendUri')."'");
+        $this->mythbackenduri = Config::get('mythbackendUri');
     }
 
     public static function staticGet($uri, $type='Xml')
     {
-        $uri = Yii::app()->params['mythbackendUri'].$uri;
+        $uri = Config::get('mythbackendUri').$uri;
 
-        Yii::trace("[MythService::staticGet]".Yii::app()->params['mthbackendUri']." uri: '$uri'");
+        Yii::trace("[MythService::staticGet]".Config::get('mythbackendUri')." uri: '$uri'");
 
         try{
             if($type == 'Json')

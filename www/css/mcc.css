@@ -108,16 +108,28 @@
     background-color: #FFEEEE;
 }
 
-.rs-recorded{
+.rs-recorded, .rs-current-recording{
     background-color: #EEFFEE;
 }
 
 .rs-will-record{
-    background-color: #EEEEFF;
+    background-color: #FFEEDD;
 }
 
-.rs-previous-recording, .rs-current-recording, .rs-earlier-recording{
+.rs-previous-recording, .rs-earlier-recording{
     background-color: #EEFFFF;
+}
+
+.legend-color{
+    margin-bottom: 5px;
+    width: 48px;
+    float: left;
+    border: 1px solid black;
+}
+
+.legend-explanation{
+    margin-bottom: 10px;
+    margin-left: 60px;
 }
 
 .weeksingleview2 .day{
@@ -158,4 +170,15 @@
 
 .tdright{
     text-align:     right !important;
+}
+
+.dayrow_date{
+    border-bottom: 1px solid black;
+    background-color: #F8F8F8;
+}
+
+.guide_chanselect{
+    float: left; 
+    margin-top: 20px;
+    margin-right: 20px;
 }
