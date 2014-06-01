@@ -170,9 +170,9 @@ class RecordingsController extends MController
                 'isempty' => $isempty,
                 'models' => $models,
                 'errors' => $errors,
-                'method' => ($method == null) ? Yii::app()->params['archive.method'] : $method,
-                'src' => ($src == null) ? Yii::app()->params['archive.source.path'] : $src,
-                'dest' => ($dest == null) ? Yii::app()->params['archive.dest.path'] : $dest,
+                'method' => ($method == null) ? Config::get('archive.method') : $method,
+                'src' => ($src == null) ? Config::get('archive.source.path') : $src,
+                'dest' => ($dest == null) ? Config::get('archive.dest.path') : $dest,
                 ),
         ));
     }

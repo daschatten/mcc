@@ -142,6 +142,7 @@ return array (
   'Subtitle' => 'Untertitel',
   'Tasks' => 'Aufgaben',
   'The following items generated errors' => 'Die folgenden Einträge erzeugten Fehler',
+  'The required config item \'{name}\' could not be found! Please visit {url} for further informations.' => 'Der benötigte Konfigurationseintrag \'{name}\' konnte nicht gefunden werden! Bitte besuchen Sie {url} für weitergehende Informationen.',
   'Time' => 'Zeit',
   'Title' => 'Titel',
   'To archive selected recordings copy the following commands and paste them in your shell. Make sure that source and destination directories are correct. You can set method and paths below and default values in config file.' => 'Um die gewählten Aufnahmen zu archivieren einfach die folgenden Kommandos kopieren und in eine Shell einfügen. Es muß sichergestellt werden, daß die Quell- und Zielpfade korrekt sind. Die Kopiermethode und die Pfade können unten eingestellt und die Standardwerte in der Konfigurationsdatei gesetzt werden.',

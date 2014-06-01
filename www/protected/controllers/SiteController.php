@@ -29,7 +29,7 @@ class SiteController extends MController
             array('allow', 'actions' => array('error'), 'users' => array('*')),
         );
 
-        if(Yii::app()->params['home.public'])
+        if(Config::get('home.public'))
         {
             $rules[] = array('allow', 'actions' => array('index'), 'users' => array('*'));
         }else{
