@@ -26,6 +26,7 @@ class SiteController extends MController
         $rules = array(
             array('allow', 'actions' => array('login'), 'users' => array('*')),
             array('allow', 'actions' => array('logout'), 'users' => array('@')),
+            array('allow', 'actions' => array('error'), 'users' => array('*')),
         );
 
         if(Yii::app()->params['home.public'])
