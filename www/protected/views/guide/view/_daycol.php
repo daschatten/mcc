@@ -15,8 +15,6 @@ $channel = $data['channel'];
 
 usort($programlist, 'cmp');
 
-//print_r($programlist); exit;
-
 $list = array();
 $total_length = 0;
 $total_px = 600;
@@ -62,6 +60,7 @@ foreach($list as $elem)
     $p = $elem['p']; 
     $my_percent = round($elem['length'] * 100 / $total_length, 2);
     $mypx = round($min_px + ($avail_px / 100 * $my_percent), 2);
+    $starttime = Yii::app()->dateformatter->formatDateTime(strtotime($p->StartTime),null, 'short');
 
     if($i == count($list))
     {
@@ -75,8 +74,7 @@ foreach($list as $elem)
             style="height: '.$mypx.'px"
             onclick=\'location.href = "'.$this->createUrl('guide/detail', array('chanid' => $channel->chanid, 'starttime' => "$p->StartTime")).'"\'
             >';
-    echo "<p>$p->Title</p>";
-    // echo date("G", strtotime("$p->StartTime")).":".date("G", strtotime("$p->EndTime"));
+    echo "<span class='guide_item_starttime'>$starttime</span><span class='guide_item_title'>$p->Title</span><span class='guide_item_subtitle'>$p->SubTitle</span>";
     echo '</div>';
     $i++;
 }
