@@ -64,12 +64,6 @@ class Config
                 'description' => Yii::t('app', 'Uri to mythbackend webservice.'),
             ),
 
-            'utcoffset' => array(
-                'default' => -3600, 
-                'required' => false,
-                'description' => Yii::t('app', 'Deprecated'),
-            ),
-
             'timezone' => array(
                 'default' => 'Europe/Berlin', 
                 'required' => false,
