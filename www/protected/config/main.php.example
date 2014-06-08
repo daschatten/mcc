@@ -144,7 +144,7 @@ return array(
          * 'rulename': Rule name you defined in mythtv. Can also be found in database in table 'record', each entry with type '11' should be a template.
          * 'ruletype': 
          *      1 = record this (at the time specified)
-         *      3 = record each (record each episode)
+         *      4 = record each (record each episode)
          *      6 = record once (record once at any time)
          *      11 = template (should not be used here)
          */
