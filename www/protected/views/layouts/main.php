@@ -83,8 +83,13 @@
                         ),
 
                         array(
-                            'label' => Yii::t('app', 'Users'), 
+                            'label' => Yii::t('app', 'Admin'), 
                             'items' => array(
+                                array(
+                                    'label' => Yii::t('app', 'Settings'), 
+                                    'url' => array('/config/check'), 
+                                    'visible' => Yii::app()->user->checkAccess('o_manage_settings')
+                                ),
                                 array(
                                     'label' => Yii::t('app', 'Users'), 
                                     'url' => array('/user/admin'), 
