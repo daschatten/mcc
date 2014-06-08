@@ -115,7 +115,7 @@
                                     'url' => array('/auth/operation/index'), 
                                     'visible' => Yii::app()->user->checkAccess('o_manage_operations')
                                 )),
-                            'visible' => Yii::app()->user->checkAccess('') or Yii::app()->user->checkAccess('') or Yii::app()->user->checkAccess('')
+                            'visible' => Yii::app()->user->checkAccess('o_manage_settings') or Yii::app()->user->checkAccess('o_manage_users') or Yii::app()->user->checkAccess('o_manage_assignments') or Yii::app()->user->checkAccess('o_manage_roles') or Yii::app()->user->checkAccess('o_manage_tasks') or Yii::app()->user->checkAccess('o_manage_operations')
                         ),
 
 				        array(
