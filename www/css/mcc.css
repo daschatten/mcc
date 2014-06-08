@@ -182,3 +182,16 @@
     margin-top: 20px;
     margin-right: 20px;
 }
+
+.guide_item_starttime{
+    margin-right: 5px;
+}
+
+.guide_item_title{
+    margin-right: 5px;
+}
+
+.guide_item_subtitle{
+    font-size: 0.9em;
+    font-style: italic;
+}
