@@ -195,3 +195,63 @@
     font-size: 0.9em;
     font-style: italic;
 }
+
+.config_value_set.legend-color{
+    background-color: #AAFFAA !important;
+    margin-right: 10px;
+}
+
+.config_value_set input{
+    background-color: #AAFFAA !important;
+}
+
+.config_value_notset.legend-color{
+    background-color: #FFFFAA !important;
+    margin-right: 10px;
+}
+
+.config_value_notset input{
+    background-color: #FFFFAA !important;
+}
+
+.config_value_required.legend-color{
+    background-color: #FFAAAA !important;
+    margin-right: 10px;
+}
+
+.config_value_required input{
+    background-color: #FFAAAA !important;
+}
+
+.config_key{
+    font-weight: bold;
+    float: left;
+    margin: 15px;
+    width: 200px;
+    vertical-align: middle;
+}
+
+.config_textfield{
+    font-style: italic;
+    float: left;
+    margin: 10px;
+}
+
+.config_default{
+    float: left;
+    font-style: italic;
+    margin: 15px;
+}
+
+.config_notice{
+    color: red;
+    clear: both;
+    margin: 15px;
+    margin-left: 490px;
+}
+
+.config_description{
+    clear: both;
+    margin: 15px;
+    margin-left: 490px;
+}
