@@ -1,4 +1,3 @@
-
 <?php
 $imghtml=CHtml::image('/images/arrow-left.png', Yii::t('app', 'Back to recordings list')).Yii::t('app', 'Back to recordings list');
 echo CHtml::link($imghtml, array('Recordings/index'));
@@ -30,7 +29,7 @@ echo CHtml::link($imghtml, array('Recordings/index'));
 </div>
 
 <div id="recordingInfoImage">
-    <img id="recordingImage" class="img-polaroid" src="<?= DsConfig::get('mediaUrl').'/'.$model->basename.'.png' ?>" />
+    <img id="recordingImage" class="img-polaroid" src="<?= $imageurl ?>" />
 </div>
 
 <div id="recordingInfoDescription">

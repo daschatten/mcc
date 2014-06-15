@@ -13,12 +13,6 @@ $dsparams = array(
                 'description' => Yii::t('app', 'Default page size for grid views.'),
             ),
 
-            'mediaUrl' => array(
-                'default' => 'http://mcc.example.local/media/', 
-                'required' => true,
-                'description' => Yii::t('app', 'This url is used to display recordings images.'),
-            ),
-
             'mythbackendUri' => array(
                 'default' => 'http://mythtv.example.local:6544', 
                 'required' => true,

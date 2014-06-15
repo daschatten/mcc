@@ -55,7 +55,10 @@ class RecordingsController extends MController
             throw new CHttpException(404,'The specified recording cannot be found.');
         }
 
-        $this->render('_recordingDetail', array('model' => $model));
+        $content = new ServiceContent();
+        $imageurl = $content->GetPreviewImage(true, $model->chanid, $model->starttime);
+
+        $this->render('_recordingDetail', array('model' => $model, 'imageurl' => $imageurl));
     }
 
     public function actionRecordingInfoAjax($pk)
