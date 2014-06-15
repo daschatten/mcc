@@ -14,11 +14,12 @@ $this->layout = "blank";
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),
+    'focus'=>'input[type="text"]:first',
 )); ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password'); ?>
+		<?php echo $form->passwordField($model,'password', array('autofocus' => true)); ?>
 		<?php echo $form->error($model,'password'); ?>
 	</div>
 
