@@ -5,7 +5,7 @@
     <div id="programRecStatus"></div>
     <div id="programRecOptions">
     <?php
-        foreach(Config::get('recordItems') as $b)
+        foreach(DsConfig::get('recordItems') as $b)
         {
             echo CHtml::ajaxButton(
                 $b['name'], 

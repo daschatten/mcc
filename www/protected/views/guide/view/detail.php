@@ -42,14 +42,14 @@ echo CHtml::link($imghtml, array('guide/view'));
         {
             if(Yii::app()->user->checkAccess('o_record_rule_add'))
             {
-                foreach(Config::get('recordItems') as $b)
+                foreach(DsConfig::get('recordItems') as $b)
                 {
                     echo '<span class="programRecButton">';
                     echo TbHtml::tooltip( 
                         CHtml::ajaxButton(
                         $b['name'], 
                         Yii::app()->createUrl('guide/record', array('template' => $b['rulename'], 'type' => $b['ruletype'])),
-                        array('success' => 'setTimeout(function() {location.reload(); }, '.Config::get('guide.refresh.sleeptime').')')
+                        array('success' => 'setTimeout(function() {location.reload(); }, '.DsConfig::get('guide_refresh_sleeptime').')')
                     ), '#', $b['description']);
                     echo '</span>';
                 }
@@ -62,7 +62,7 @@ echo CHtml::link($imghtml, array('guide/view'));
                     CHtml::ajaxButton(
                         Yii::t('app', 'Delete recording rule'), 
                         Yii::app()->createUrl('guide/delrecord', array('ruleid' => $data['recruleid'])),
-                        array('success' => 'setTimeout(function() {location.reload(); }, '.Config::get('guide.refresh.sleeptime').')')
+                        array('success' => 'setTimeout(function() {location.reload(); }, '.DsConfig::get('guide_refresh_sleeptime').')')
                     ), '#', Yii::t('app', 'Delete recording rule')
                 );
                 echo '</span>';

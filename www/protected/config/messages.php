@@ -20,6 +20,7 @@ return array(
                 '/web/js',
                 '/models/mythtv/_base',
                 '/extensions',
+                '/modules',
         ),
         'sort' => true,
 );

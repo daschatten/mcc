@@ -29,7 +29,7 @@ class SiteController extends MController
             array('allow', 'actions' => array('error'), 'users' => array('*')),
         );
 
-        if(Config::get('home.public'))
+        if(DsConfig::get('home_public'))
         {
             $rules[] = array('allow', 'actions' => array('index'), 'users' => array('*'));
         }else{

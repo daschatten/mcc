@@ -23,7 +23,6 @@
 </head>
 
 <body>
-
 <div class="container" id="page">
 
 	<div>
@@ -87,7 +86,7 @@
                             'items' => array(
                                 array(
                                     'label' => Yii::t('app', 'Settings'), 
-                                    'url' => array('/config/check'), 
+                                    'url' => array('/dsconfig/dsConfig/check'), 
                                     'visible' => Yii::app()->user->checkAccess('o_manage_settings')
                                 ),
                                 array(
@@ -143,7 +142,13 @@
 		)); ?><!-- breadcrumbs -->
 	<?php endif?>
     
-    <div id="content">
+    <?php
+        foreach(Yii::app()->user->getFlashes() as $key => $message) {
+            echo '<div class="flash-' . $key . '">' . $message . "</div>\n";
+        }
+   ?>                
+
+   <div id="content">
     	<?php echo $content; ?>
     </div>
 

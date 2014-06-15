@@ -21,7 +21,7 @@ class Recorded extends BaseRecorded
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
             'pagination'=>array(
-                'pageSize'=>Config::get('defaultPageSize'),
+                'pageSize'=>DsConfig::get('defaultPageSize'),
             ),
             'sort'=>array(
                 'defaultOrder'=>'starttime DESC',
@@ -109,7 +109,7 @@ class Recorded extends BaseRecorded
     public function getLocalStarttime()
     {
         // get timezone offset for date calculations because mythtv treats given time as utc
-        $tzoffset = timezone_offset_get(new DateTimeZone(Config::get('timezone')), new DateTime(null, new DateTimeZone('UTC')));
+        $tzoffset = timezone_offset_get(new DateTimeZone(DsConfig::get('timezone')), new DateTime(null, new DateTimeZone('UTC')));
 
         return strtotime($this->starttime) + $tzoffset;
     }

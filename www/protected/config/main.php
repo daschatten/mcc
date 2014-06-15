@@ -5,8 +5,36 @@
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
-return array(
-	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
+
+$files = array('/etc/mcc/db.php', '/etc/mcc/params.php', '/etc/mcc/record.php');
+
+foreach($files as $file)
+{
+    if(file_exists($file))
+    {
+        include($file);
+    }
+}
+
+// Check if arrays $db and $params exist. If not create empty ones.
+
+if(!isset($db) OR !is_array($db))
+{
+    $db = array();
+}
+
+if(!isset($params) OR !is_array($params))
+{
+    $params = array();
+}
+
+if(isset($recordItems) AND is_array($recordItems))
+{
+    $params['recordItems'] = $recordItems;
+}
+
+$config = array(
+	'basePath' =>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'MCC - MythTV Control Center',
 
 	// preloading 'log' component
@@ -28,6 +56,7 @@ return array(
         'application.modules.auth.*',
         'application.modules.auth.components.*',
 		'application.components.mythservices.*',
+        'application.modules.dsconfig.components.*',
 	),
 
 	'modules'=>array(
@@ -35,15 +64,14 @@ return array(
 		/*
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
-			'password'=>'mygii',
+			'password'=>'put a password here',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
             'generatorPaths' => array(
                         'ext.giix-core', // giix generators
                         'bootstrap.gii', // yiistrap generators
             ),
-		),
-        */
+		),*/
         'auth' => array(
             'strictMode' => true, // when enabled authorization items cannot be assigned children of the same type.
             'userClass' => 'User', // the name of the user model class.
@@ -51,6 +79,13 @@ return array(
             'userNameColumn' => 'username', // the name of the user name column.
             'defaultLayout' => 'application.views.layouts.main', // the layout used by the module.
             'viewDir' => null, // the path to view files to use with this module. 
+        ),
+        'dsconfig' => array(
+            'useYiiAuth' => true,
+            'yiiAuthItem' => 'o_manage_settings',
+            'paramsFile' => '/etc/mcc/params.php',
+            'dbFile' => '/etc/mcc/db.php',
+            'dbLockFile' => '/etc/mcc/dblock',
         ),
 	),
 
@@ -69,7 +104,7 @@ return array(
         ),
 		'user'=>array(
 			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
+			//'allowAutoLogin'=>true,
             'class' => 'auth.components.AuthWebUser',
 		),
 		// uncomment the following to enable URLs in path-format
@@ -83,17 +118,10 @@ return array(
 			),
 		),
 		
-		'db'=>array(
-			'connectionString' => 'mysql:host=mythtv.db.host;dbname=mythtv',
-			'emulatePrepare' => true,
-			'username' => 'mcc',
-			'password' => 'mcc',
-			'charset' => 'utf8',
-		),
-		
+		'db' => $db,		
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
-			'errorAction'=>'site/error',
+            'class' => 'DsErrorHandler',
 		),
 		'log'=>array(
 			'class'=>'CLogRouter',
@@ -118,41 +146,22 @@ return array(
             'language' => 'en_en',
         ),
 	),
-
+    
     'behaviors'=>array(
         'onbeginRequest'=>array('class'=>'application.components.StartupBehavior'),
     ),
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
-	'params'=>array(
-		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',              // webmaster mail address (not used ATM)
-        'defaultPageSize' => 10,                            // default paging size
-        'mediaUrl' => 'http://mcc.example.com/media/',      // url where the mythtv recordings dir is available (only one storage group is supported ATM)
-        'mythbackendUri' => 'http://<mythtv.host>:6544',    // url to mythbackend webservice
-        'timezone' => 'Europe/Berlin',
-        'archive.method' => 'rsync -avz --progress',
-        'archive.source.path' => '/mnt/src/',
-        'archive.dest.path' => '/mnt/dest/',
-        'home.public' => true,                              // wether status summary page (start page) should be public visible
-        'guide.refresh.sleeptime' => '2000',
-        /*
-         * Each array in 'recordItems' defines a "One-Click" recording button.
-         * 'name': Name to be displayed.
-         * 'rulename': Rule name you defined in mythtv. Can also be found in database in table 'record', each entry with type '11' should be a template.
-         * 'ruletype': 
-         *      1 = record this (at the time specified)
-         *      4 = record each (record each episode)
-         *      6 = record once (record once at any time)
-         *      11 = template (should not be used here)
-         */
-        'recordItems' => array(
-            array(  'name' => 'Default',
-                    'rulename' => 'Default (Template)',
-                    'ruletype' => '1',
-                    'description' => 'Put description here',
-            ),
-        ),
-	),
+	'params' => $params,
 );
+
+// include custom settings from /etc/mcc/custom.php
+
+if(file_exists('/etc/mcc/custom.php'))
+{
+    include '/etc/mcc/custom.php';
+}
+
+
+return $config;

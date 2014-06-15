@@ -30,7 +30,7 @@ echo CHtml::link($imghtml, array('Recordings/index'));
 </div>
 
 <div id="recordingInfoImage">
-    <img id="recordingImage" class="img-polaroid" src="<?= Config::get('mediaUrl').'/'.$model->basename.'.png' ?>" />
+    <img id="recordingImage" class="img-polaroid" src="<?= DsConfig::get('mediaUrl').'/'.$model->basename.'.png' ?>" />
 </div>
 
 <div id="recordingInfoDescription">
