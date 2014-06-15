@@ -1,0 +1,97 @@
+.config_value_set.legend-color{
+    background-color: #AAFFAA !important;
+    margin-right: 10px;
+}
+
+.config_value_set input{
+    background-color: #AAFFAA !important;
+}
+
+.config_value_notset.legend-color{
+    background-color: #FFFFAA !important;
+    margin-right: 10px;
+}
+
+.config_value_notset input{
+    background-color: #FFFFAA !important;
+}
+
+.config_value_required.legend-color{
+    background-color: #FFAAAA !important;
+    margin-right: 10px;
+}
+
+.config_value_required input{
+    background-color: #FFAAAA !important;
+}
+
+.config_key{
+    font-weight: bold;
+    float: left;
+    margin: 15px;
+    width: 200px;
+    vertical-align: middle;
+}
+
+.config_textfield{
+    font-style: italic;
+    float: left;
+    margin: 10px;
+}
+
+.config_default{
+    float: left;
+    font-style: italic;
+    margin: 15px;
+}
+
+.config_notice{
+    clear: both;
+    margin: 15px;
+    margin-left: 490px;
+}
+
+.config_description{
+    clear: both;
+    margin: 15px;
+    margin-left: 490px;
+}
+
+.config_check_fail{
+    color: red;
+    clear: both;
+    margin: 15px;
+    margin-left: 490px;
+}
+
+.config_check_success{
+    color: green;
+    clear: both;
+    margin: 15px;
+    margin-left: 490px;
+}
+
+.config_check_unknown{
+    color: black;
+    clear: both;
+    margin: 15px;
+    margin-left: 490px;
+}
+
+.image_error{
+    background-image: url('../images/dialog-error.png');
+    background-repeat: no-repeat;
+    padding-left: 20px;
+}
+
+.image_ok{
+    background-image: url('../images/task-complete.png');
+    background-repeat: no-repeat;
+    padding-left: 20px;
+}
+
+.image_note{
+    background-image: url('../images/dialog-information.png');
+    background-repeat: no-repeat;
+    padding-left: 20px;
+}
