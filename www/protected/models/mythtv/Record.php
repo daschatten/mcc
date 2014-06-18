@@ -4,6 +4,18 @@ Yii::import('application.models.mythtv._base.BaseRecord');
 
 class Record extends BaseRecord
 {
+
+    const kNotRecording = 0;
+    const kDontRecord = 1;
+    const kOverrideRecord = 2;
+    const kSingleRecord = 3;
+    const kOneRecord = 4;
+    const kWeeklyRecord = 6;
+    const kDailyRecord = 8;
+    const kAllRecord = 9;
+    const kTemplateRecord = 0;
+    const kDefault = 11;
+
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
 	}
@@ -84,5 +96,52 @@ class Record extends BaseRecord
             throw new Exception("Webservice request '$dvr->EnableRecordSchedule($model->recordid)' failed!");
         }
 
+    }
+
+    public static function getTemplates()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->condition = "type = :type";
+        $criteria->params = array(
+            ':type' => 11,
+        );
+        $criteria->order = 'title ASC';
+
+        $modellist = Record::model()->findAll($criteria);
+
+        return $modellist;
+    }
+
+    public static function recordTypes()
+    {
+        // See mythtv/libs/libmyth/recordingtypes.cpp
+        // Types seem no correct... template is 11 according
+        // to table content.
+        return array(
+            '0' => Yii::t('app', 'Not recording'),
+            '1' => Yii::t('app', 'Do not record'),
+            '2' => Yii::t('app', 'Override record'),
+            '3' => Yii::t('app', 'Record this showing'),
+            '4' => Yii::t('app', 'Record one showing'),
+            '6' => Yii::t('app', 'Record weekly'),
+            '8' => Yii::t('app', 'Record daily'),
+            '9' => Yii::t('app', 'Record all showings'),
+//            '0' => Yii::t('app', 'Template '),
+            '11' => Yii::t('app', 'Template recording rule'),
+        );
+    }
+
+    public function typeName($typeid)
+    {
+        $type = ($typeid === null) ? (int) $this->type : $typeid;
+
+        $typelist = self::recordTypes();
+
+        if(array_key_exists($type, $typelist))
+        {
+            return $typelist[$type];
+        }else{
+            return Yii::t('app', 'Unknown');
+        }
     }
 }
