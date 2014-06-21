@@ -6,7 +6,7 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
-$files = array('/etc/mcc/db.php', '/etc/mcc/params.php', '/etc/mcc/record.php');
+$files = array('/etc/mcc/db.php', '/etc/mcc/params.php');
 
 foreach($files as $file)
 {
@@ -26,11 +26,6 @@ if(!isset($db) OR !is_array($db))
 if(!isset($params) OR !is_array($params))
 {
     $params = array();
-}
-
-if(isset($recordItems) AND is_array($recordItems))
-{
-    $params['recordItems'] = $recordItems;
 }
 
 $config = array(

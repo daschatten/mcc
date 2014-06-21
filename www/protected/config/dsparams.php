@@ -58,16 +58,5 @@ $dsparams = array(
                 'required' => false,
                 'description' => Yii::t('app', 'After changing recording rules the application waits this amount of milliseconds before refreshing the page. This is required because mythtv takes it\'s time to schedule recordings.'),
             ),
-
-            'recordItems' => array(
-                'default' => array(
-                    array(  'name' => 'Default',
-                            'rulename' => 'Default (Template)',
-                            'ruletype' => '1',
-                            'description' => 'Put description here',
-                    ),
-                ), 'required' => false,
-                'description' => Yii::t('app', 'Configure one click recording buttons (should be moved to database soon).'),
-            ),
         );
 
