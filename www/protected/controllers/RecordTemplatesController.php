@@ -1,7 +1,21 @@
 <?php
 
-class RecordTemplatesController extends GxController {
+class RecordTemplatesController extends GxController
+{
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
 
+    public function accessRules()
+    {
+        return array(
+            array('allow', 'roles' => array('o_manage_recordtemplates')),
+            array('deny', 'users' => array('*')),
+        );
+    }
 
 	public function actionView($id) {
 		$this->render('view', array(

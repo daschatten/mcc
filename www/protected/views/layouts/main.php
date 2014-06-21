@@ -90,6 +90,11 @@
                                     'visible' => Yii::app()->user->checkAccess('o_manage_settings')
                                 ),
                                 array(
+                                    'label' => Yii::t('app', 'Record templates'), 
+                                    'url' => array('/recordTemplates'), 
+                                    'visible' => Yii::app()->user->checkAccess('o_manage_recordtemplates')
+                                ),
+                                array(
                                     'label' => Yii::t('app', 'Users'), 
                                     'url' => array('/user/admin'), 
                                     'visible' => Yii::app()->user->checkAccess('o_manage_users')
@@ -114,7 +119,7 @@
                                     'url' => array('/auth/operation/index'), 
                                     'visible' => Yii::app()->user->checkAccess('o_manage_operations')
                                 )),
-                            'visible' => Yii::app()->user->checkAccess('o_manage_settings') or Yii::app()->user->checkAccess('o_manage_users') or Yii::app()->user->checkAccess('o_manage_assignments') or Yii::app()->user->checkAccess('o_manage_roles') or Yii::app()->user->checkAccess('o_manage_tasks') or Yii::app()->user->checkAccess('o_manage_operations')
+                            'visible' => Yii::app()->user->checkAccess('o_manage_settings') or Yii::app()->user->checkAccess('o_manage_users') or Yii::app()->user->checkAccess('o_manage_assignments') or Yii::app()->user->checkAccess('o_manage_roles') or Yii::app()->user->checkAccess('o_manage_tasks') or Yii::app()->user->checkAccess('o_manage_operations') or Yii::app()->user->checkAccess('o_manage_recordtemplates')
                         ),
 
 				        array(

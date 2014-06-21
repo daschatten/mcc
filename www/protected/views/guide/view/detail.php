@@ -42,16 +42,21 @@ echo CHtml::link($imghtml, array('guide/view'));
         {
             if(Yii::app()->user->checkAccess('o_record_rule_add'))
             {
-                foreach(DsConfig::get('recordItems') as $b)
+                if(sizeof($templates) == 0)
                 {
-                    echo '<span class="programRecButton">';
-                    echo TbHtml::tooltip( 
-                        CHtml::ajaxButton(
-                        $b['name'], 
-                        Yii::app()->createUrl('guide/record', array('template' => $b['rulename'], 'type' => $b['ruletype'])),
-                        array('success' => 'setTimeout(function() {location.reload(); }, '.DsConfig::get('guide_refresh_sleeptime').')')
-                    ), '#', $b['description']);
-                    echo '</span>';
+                    echo Yii::t('app', 'No record templates defined!');
+                }else{
+                    foreach($templates as $t)
+                    {
+                        echo '<span class="programRecButton">';
+                        echo TbHtml::tooltip( 
+                            CHtml::ajaxButton(
+                            $t->name, 
+                            Yii::app()->createUrl('guide/record', array('template' => $t->record_id, 'type' => $t->type)),
+                            array('success' => 'setTimeout(function() {location.reload(); }, '.DsConfig::get('guide_refresh_sleeptime').')')
+                        ), '#', $t->description);
+                        echo '</span>';
+                    }
                 }
             }
         }else{

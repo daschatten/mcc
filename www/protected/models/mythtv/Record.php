@@ -40,9 +40,9 @@ class Record extends BaseRecord
     public static function addRecord($template, $program, $type = 1)
     {
         $criteria = new CDbCriteria();
-        $criteria->condition = "title = :title";
+        $criteria->condition = "recordId = :recordId";
         $criteria->params = array(
-            ':title' => $template,
+            ':recordId' => $template,
         );
 
         $model = Record::model()->find($criteria);
@@ -117,6 +117,7 @@ class Record extends BaseRecord
         // See mythtv/libs/libmyth/recordingtypes.cpp
         // Types seem no correct... template is 11 according
         // to table content.
+        /* This is somehow really wrong.
         return array(
             '0' => Yii::t('app', 'Not recording'),
             '1' => Yii::t('app', 'Do not record'),
@@ -128,6 +129,12 @@ class Record extends BaseRecord
             '9' => Yii::t('app', 'Record all showings'),
 //            '0' => Yii::t('app', 'Template '),
             '11' => Yii::t('app', 'Template recording rule'),
+        );
+        */
+
+        return array(
+            '4' => Yii::t('app', 'Record all showings'),
+            '6' => Yii::t('app', 'Record one showing'),
         );
     }
 
