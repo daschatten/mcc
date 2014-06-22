@@ -23,4 +23,4 @@
 
 ## First login
 
-Login as 'Admin' with PIN '0000'. Create users, assign roles! And change admin PIN!
+Login as 'Admin' with PIN '0000'. Create users, assign roles! And change admin PIN! And do not forget to create record templates (admin menu).
