@@ -1,7 +1,28 @@
 #!/bin/sh
 
-mkdir /var/www/mcc/www/assets
-mkdir /var/www/mcc/www/protected/runtime
+echo ""
+echo "Checking for user root..."
+
+if ! [ $(id -u) = 0 ]; then
+   echo "You must be root to do this." 1>&2
+    echo ""
+   exit 100
+else
+    echo "Ok, we are root."
+    echo ""
+fi
+
+echo "Setting up directories and permissions"
+echo ""
+
+if [ ! -d "/var/www/mcc/www/assets" ]; then
+    mkdir /var/www/mcc/www/assets
+fi
+
+if [ ! -d "/var/www/mcc/www/protected/runtime" ]; then
+    mkdir /var/www/mcc/www/protected/runtime
+fi
+
 chown www-data:www-data /var/www/mcc/www/assets
 chown www-data:www-data /var/www/mcc/www/protected/runtime
 
@@ -11,7 +32,10 @@ chown www-data:www-data /var/www/mcc/www/protected/config/params.php
 touch /var/www/mcc/www/protected/config/db.php
 chown www-data:www-data /var/www/mcc/www/protected/config/db.php
 
-mkdir /etc/mcc
+if [ ! -d "/etc/mcc" ]; then
+    mkdir /etc/mcc
+fi
+
 touch /etc/mcc/db.php
 touch /etc/mcc/params.php
 touch /etc/mcc/custom.php
@@ -19,4 +43,17 @@ touch /etc/mcc/record.php
 
 chown -R www-data:www-data /etc/mcc/
 
+echo "Upgrading database"
+echo ""
+
 /var/www/mcc/www/protected/yiic migrate --interactive=0
+
+echo "Configuring webserver"
+echo ""
+
+cp /var/www/mcc/extra/mcc.conf.apache /etc/apache2/conf.d/
+/etc/init.d/apache2 reload
+
+
+echo "Done!"
+echo ""
