@@ -36,6 +36,10 @@ if [ ! -d "/etc/mcc" ]; then
     mkdir /etc/mcc
 fi
 
+if [ ! -e "/etc/mcc/db.php" ]; then
+    cp /var/www/mcc/extra/db.php.init /etc/mcc/db.php
+fi
+
 touch /etc/mcc/db.php
 touch /etc/mcc/params.php
 touch /etc/mcc/custom.php
@@ -50,6 +54,16 @@ echo ""
 
 echo "Configuring webserver"
 echo ""
+
+if [ -e "/etc/php5/cli/conf.d/suhosin.ini" ]; then
+
+    RES=`grep 'suhosin.executor.include.whitelist = phar' /etc/php5/cli/conf.d/suhosin.ini | wc -l`
+
+    if [ $RES = 0 ]; then
+        echo "Applying suhosin whitelist entry for 'phar'"
+        echo "suhosin.executor.include.whitelist = phar" >> /etc/php5/cli/conf.d/suhosin.ini
+    fi
+fi
 
 cp /var/www/mcc/extra/mcc.conf.apache /etc/apache2/conf.d/
 /etc/init.d/apache2 reload
