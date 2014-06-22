@@ -18,3 +18,5 @@ touch /etc/mcc/custom.php
 touch /etc/mcc/record.php
 
 chown -R www-data:www-data /etc/mcc/
+
+/var/www/mcc/www/protected/yiic migrate --interactive=0
