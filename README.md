@@ -6,6 +6,7 @@ MythTV Control Center - An alternative to the standard mythtv webinterface mythw
 
 * Regularly backup your mythtv database!
 * Read https://github.com/daschatten/mcc/blob/develop/docs/security.md
+* Read https://github.com/daschatten/mcc/blob/develop/docs/faq.md
 
 ## Features
 
