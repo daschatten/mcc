@@ -133,6 +133,7 @@ class Record extends BaseRecord
         */
 
         return array(
+            '1' => Yii::t('app', 'Record this showing'),
             '4' => Yii::t('app', 'Record all showings'),
             '6' => Yii::t('app', 'Record one showing'),
         );
