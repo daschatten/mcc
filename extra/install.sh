@@ -65,7 +65,7 @@ if [ -e "/etc/php5/cli/conf.d/suhosin.ini" ]; then
     fi
 fi
 
-cp /var/www/mcc/extra/mcc.conf.apache /etc/apache2/conf.d/
+cp /var/www/mcc/extra/mcc.conf.apache /etc/apache2/conf.d/mcc
 /etc/init.d/apache2 reload
 
 
