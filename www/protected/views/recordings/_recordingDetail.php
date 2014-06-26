@@ -1,5 +1,5 @@
 <?php
-$imghtml=CHtml::image('/images/arrow-left.png', Yii::t('app', 'Back to recordings list')).Yii::t('app', 'Back to recordings list');
+$imghtml=CHtml::image(Yii::app()->getBaseUrl(true).'/images/arrow-left.png', Yii::t('app', 'Back to recordings list')).Yii::t('app', 'Back to recordings list');
 echo CHtml::link($imghtml, array('Recordings/index'));
 ?>
 
