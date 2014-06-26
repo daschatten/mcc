@@ -14,7 +14,7 @@
 
 ## .tar.bz2 packages
 
-* Get package from https://github.com/daschatten/mcc
+* Get package from https://github.com/daschatten/mcc/releases
 * Unpack package to '/var/www/':
 ```bash
 cd /var/www
