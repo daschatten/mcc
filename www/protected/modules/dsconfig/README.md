@@ -31,7 +31,16 @@ Parameter description:
 * 'dbFile': file which holds 'db' array, read and write permission is required.
 * 'dbLockFile': file which locks access to database configuration page. Remove this to gain access to database configuration page if locked. Read and write permission is required.
 
-Example main.php:
+Add error handler to main.php:
+
+```php
+        'errorHandler'=>array(
+            'class' => 'DsErrorHandler',
+        ),
+
+```
+
+Add configuration arrays to main.php, e.g.:
 
 ```php
 $files = array('/etc/myapp/db.php', '/etc/myapp/params.php'); 
@@ -65,3 +74,23 @@ if(!isset($params) OR !is_array($params))
 'params' => $params,
 
 ```
+
+Add parameter definition to 'protected/config/dsparams.php' (params definition) and 'protected/config/dsdb.php' (database definition). See 'protected/modules/dsconfig/extras' for examples.
+
+# Development
+
+## Translation
+
+Use yii translation method with module identifier:
+
+```php
+Yii::t('dsconfigModule.app', 'String to translate')
+```
+
+Run command to update strings in 'protected':
+
+```
+./yiic message modules/dsconfig/config/messages.php
+```
+
+Translate strings in 'modules/dsconfig/messages'.
