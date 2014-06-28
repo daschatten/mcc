@@ -23,14 +23,11 @@ echo CHtml::beginForm();
 
 foreach($items as $key => $item)
 {
-    if($key == "recordItems")
-        continue;
-
-    $value = (in_array($key, Yii::app()->params->keys)) ? Yii::app()->params[$key] : '';
+    $value = (in_array($key, Yii::app()->params->keys)) ? Yii::app()->params[$key] : $item['default'];
     $notice = '';
     $class = 'config_value_notset';
 
-    if($value !== $item['default'] AND $value !== '')
+    if($value !== $item['default'])
     {
         $class = 'config_value_set';
     }
