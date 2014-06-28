@@ -58,7 +58,7 @@ class DsConfigController extends CController
 
         foreach($items as $key => $item)
         {
-            if(isset($_POST[$key]) AND $_POST[$key] != '')
+            if(isset($_POST[$key]))
             {
                 $params[$key] = $_POST[$key];
             }
