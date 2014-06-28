@@ -1,0 +1,7 @@
+<?php $db = array (
+  'connectionString' => 'mysql:host=mythtv.example.local;dbname=mythtv',
+  'emulatePrepare' => '1',
+  'username' => 'mcc',
+  'password' => 'mcc',
+  'charset' => 'utf8',
+); ?>

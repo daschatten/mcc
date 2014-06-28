@@ -29,7 +29,7 @@ class GuideController extends MController
     {
         // get timezone offset for date calculations because mythtv treats given time as utc
         
-        $tzoffset = timezone_offset_get(new DateTimeZone(Config::get('timezone')), new DateTime(null, new DateTimeZone('UTC')));
+        $tzoffset = timezone_offset_get(new DateTimeZone(DsConfig::get('timezone')), new DateTime(null, new DateTimeZone('UTC')));
 
         // fetch channel which should be displayed
         if($channum == null or $channum == '')
@@ -130,6 +130,7 @@ class GuideController extends MController
     {
         $guide = new ServiceGuide();
         $detail = $guide->GetProgramDetails(false, $starttime, $chanid);
+        $templates = RecordTemplates::model()->findAll();
 
         $a = array(
             'channel' => (string) $detail->Channel->ChannelName,
@@ -153,7 +154,11 @@ class GuideController extends MController
         Yii::app()->user->setState("rec.endtime",(string) $detail->EndTime);
         Yii::app()->user->setState("rec.chanid",(string) $detail->Channel->ChanId);
 
-        $this->render('view/detail', array('data' => $a));
+        $this->render('view/detail', array(
+                                        'data' => $a,
+                                        'templates' => $templates,
+                                        )
+        );
     }
 
     public function actionActivetab($tabid)

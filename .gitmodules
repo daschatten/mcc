@@ -1,6 +1,0 @@
-[submodule "www/protected/extensions/efullcalendar"]
-	path = www/protected/extensions/efullcalendar
-	url = https://github.com/reinsle/efullcalendar.git
-[submodule "www/protected/extensions/ESelect2"]
-	path = www/protected/extensions/ESelect2
-	url = https://github.com/anggiaj/ESelect2.git

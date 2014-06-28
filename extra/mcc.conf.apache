@@ -1,0 +1,6 @@
+Alias /mcc /var/www/mcc/www
+
+<Directory /var/www/mcc/www>
+        Options FollowSymLinks
+        DirectoryIndex index.php
+</Directory>

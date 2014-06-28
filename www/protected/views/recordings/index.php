@@ -30,7 +30,6 @@ $this->widget('bootstrap.widgets.TbGridView', array(
                                 $("#recordingTitle").html(data["title"])
                                 $("#recordingSubtitle").html(data["subtitle"])
                                 $("#recordingDescription").html(data["description"])
-                                $("#recordingImage").attr("src", "'.Config::get('mediaUrl').'" + data["basename"] + ".png");
                                 $("#recordingDate").html(data["starttime"])
                                 $("#recordingLength").html(data["length"])
                                 $("#recordingEpisodeString").html(data["episodeString"])

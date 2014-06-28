@@ -55,7 +55,10 @@ class RecordingsController extends MController
             throw new CHttpException(404,'The specified recording cannot be found.');
         }
 
-        $this->render('_recordingDetail', array('model' => $model));
+        $content = new ServiceContent();
+        $imageurl = $content->GetPreviewImage(true, $model->chanid, $model->starttime);
+
+        $this->render('_recordingDetail', array('model' => $model, 'imageurl' => $imageurl));
     }
 
     public function actionRecordingInfoAjax($pk)
@@ -170,9 +173,9 @@ class RecordingsController extends MController
                 'isempty' => $isempty,
                 'models' => $models,
                 'errors' => $errors,
-                'method' => ($method == null) ? Config::get('archive.method') : $method,
-                'src' => ($src == null) ? Config::get('archive.source.path') : $src,
-                'dest' => ($dest == null) ? Config::get('archive.dest.path') : $dest,
+                'method' => ($method == null) ? DsConfig::get('archive_method') : $method,
+                'src' => ($src == null) ? DsConfig::get('archive_source_path') : $src,
+                'dest' => ($dest == null) ? DsConfig::get('archive_dest_path') : $dest,
                 ),
         ));
     }

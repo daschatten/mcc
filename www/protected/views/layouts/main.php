@@ -23,7 +23,6 @@
 </head>
 
 <body>
-
 <div class="container" id="page">
 
 	<div>
@@ -83,8 +82,18 @@
                         ),
 
                         array(
-                            'label' => Yii::t('app', 'Users'), 
+                            'label' => Yii::t('app', 'Admin'), 
                             'items' => array(
+                                array(
+                                    'label' => Yii::t('app', 'Settings'), 
+                                    'url' => array('/dsconfig/dsConfig/check'), 
+                                    'visible' => Yii::app()->user->checkAccess('o_manage_settings')
+                                ),
+                                array(
+                                    'label' => Yii::t('app', 'Record templates'), 
+                                    'url' => array('/recordTemplates'), 
+                                    'visible' => Yii::app()->user->checkAccess('o_manage_recordtemplates')
+                                ),
                                 array(
                                     'label' => Yii::t('app', 'Users'), 
                                     'url' => array('/user/admin'), 
@@ -110,7 +119,7 @@
                                     'url' => array('/auth/operation/index'), 
                                     'visible' => Yii::app()->user->checkAccess('o_manage_operations')
                                 )),
-                            'visible' => Yii::app()->user->checkAccess('') or Yii::app()->user->checkAccess('') or Yii::app()->user->checkAccess('')
+                            'visible' => Yii::app()->user->checkAccess('o_manage_settings') or Yii::app()->user->checkAccess('o_manage_users') or Yii::app()->user->checkAccess('o_manage_assignments') or Yii::app()->user->checkAccess('o_manage_roles') or Yii::app()->user->checkAccess('o_manage_tasks') or Yii::app()->user->checkAccess('o_manage_operations') or Yii::app()->user->checkAccess('o_manage_recordtemplates')
                         ),
 
 				        array(
@@ -138,7 +147,13 @@
 		)); ?><!-- breadcrumbs -->
 	<?php endif?>
     
-    <div id="content">
+    <?php
+        foreach(Yii::app()->user->getFlashes() as $key => $message) {
+            echo '<div class="flash-' . $key . '">' . $message . "</div>\n";
+        }
+   ?>                
+
+   <div id="content">
     	<?php echo $content; ?>
     </div>
 
