@@ -84,7 +84,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'buttons' => array(
                 'download' => array(
                     'label' => Yii::t('app', 'Archive'),
-                    'imageUrl' => '/images/server-database.png',
+                    'imageUrl' => Yii::app()->getBaseUrl(true).'/images/server-database.png',
                     'url' => 'Yii::app()->createUrl("Recordings/addToArchive", array("pk"=>$data->chanid.",".$data->starttime))',
                     'click' => 'js:function(){
                             $.ajax({
