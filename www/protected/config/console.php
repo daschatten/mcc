@@ -38,6 +38,7 @@ return array(
 		'application.models.mythtv.*',
 		'application.components.*',
 		'application.components.mythservices.*',
+        'ext.giix-components.*', // giix components
 	),
 
 
