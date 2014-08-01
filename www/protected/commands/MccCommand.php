@@ -22,7 +22,7 @@ class MccCommand extends CConsoleCommand
         {
             echo 'No recording rules found'."\n";
         }else{
-            echo sizeof($list).' recordings found:'."\n";
+            echo sizeof($list).' recording rules found:'."\n";
 
             foreach($list as $item)
             {
@@ -44,7 +44,7 @@ class MccCommand extends CConsoleCommand
 
         if(sizeof($list) == 0)
         {
-            echo 'No recording rules found'."\n";
+            echo 'No recordings found'."\n";
         }else{
             echo sizeof($list).' recordings found:'."\n";
 
