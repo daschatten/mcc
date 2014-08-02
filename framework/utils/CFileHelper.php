@@ -58,7 +58,7 @@ class CFileHelper
 		$level=-1;
 		extract($options);
 		if(!is_dir($dst))
-			self::mkdir($dst,$options,true);
+			self::createDirectory($dst,isset($options['newDirMode'])?$options['newDirMode']:null,true);
 
 		self::copyDirectoryRecursive($src,$dst,'',$fileTypes,$exclude,$level,$options);
 	}
@@ -66,22 +66,41 @@ class CFileHelper
 	/**
 	 * Removes a directory recursively.
 	 * @param string $directory to be deleted recursively.
+	 * @param array $options for the directory removal. Valid options are:
+	 * <ul>
+	 * <li>traverseSymlinks: boolean, whether symlinks to the directories should be traversed too.
+	 * Defaults to `false`, meaning that the content of the symlinked directory would not be deleted.
+	 * Only symlink would be removed in that default case.</li>
+	 * </ul>
+	 * Note, options parameter is available since 1.1.15
 	 * @since 1.1.14
 	 */
-	public static function removeDirectory($directory)
+	public static function removeDirectory($directory,$options=array())
 	{
+		if(!isset($options['traverseSymlinks']))
+			$options['traverseSymlinks']=false;
 		$items=glob($directory.DIRECTORY_SEPARATOR.'{,.}*',GLOB_MARK | GLOB_BRACE);
 		foreach($items as $item)
 		{
 			if(basename($item)=='.' || basename($item)=='..')
 				continue;
 			if(substr($item,-1)==DIRECTORY_SEPARATOR)
-				self::removeDirectory($item);
+			{
+				if(!$options['traverseSymlinks'] && is_link(rtrim($item,DIRECTORY_SEPARATOR)))
+					unlink(rtrim($item,DIRECTORY_SEPARATOR));
+				else
+					self::removeDirectory($item,$options);
+			}
 			else
 				unlink($item);
 		}
-		if(is_dir($directory))
-			rmdir($directory);
+		if(is_dir($directory=rtrim($directory,'\\/')))
+		{
+			if(is_link($directory))
+				unlink($directory);
+			else
+				rmdir($directory);
+		}
 	}
 
 	/**
@@ -100,6 +119,7 @@ class CFileHelper
 	 * Level 0 means searching for only the files DIRECTLY under the directory;
 	 * level N means searching for those directories that are within N levels.
  	 * </li>
+ 	 * <li>absolutePaths: boolean, whether to return absolute paths or relative ones, defaults to true.</li>
 	 * </ul>
 	 * @return array files found under the directory. The file list is sorted.
 	 */
@@ -108,8 +128,9 @@ class CFileHelper
 		$fileTypes=array();
 		$exclude=array();
 		$level=-1;
+		$absolutePaths=true;
 		extract($options);
-		$list=self::findFilesRecursive($dir,'',$fileTypes,$exclude,$level);
+		$list=self::findFilesRecursive($dir,'',$fileTypes,$exclude,$level,$absolutePaths);
 		sort($list);
 		return $list;
 	}
@@ -136,9 +157,11 @@ class CFileHelper
 	protected static function copyDirectoryRecursive($src,$dst,$base,$fileTypes,$exclude,$level,$options)
 	{
 		if(!is_dir($dst))
-			self::mkdir($dst,$options,false);
+			self::createDirectory($dst,isset($options['newDirMode'])?$options['newDirMode']:null,false);
 
 		$folder=opendir($src);
+		if($folder===false)
+			throw new Exception('Unable to open directory: ' . $src);
 		while(($file=readdir($folder))!==false)
 		{
 			if($file==='.' || $file==='..')
@@ -174,24 +197,28 @@ class CFileHelper
 	 * Level -1 means searching for all directories and files under the directory;
 	 * Level 0 means searching for only the files DIRECTLY under the directory;
 	 * level N means searching for those directories that are within N levels.
+	 * @param boolean $absolutePaths whether to return absolute paths or relative ones
 	 * @return array files found under the directory.
 	 */
-	protected static function findFilesRecursive($dir,$base,$fileTypes,$exclude,$level)
+	protected static function findFilesRecursive($dir,$base,$fileTypes,$exclude,$level,$absolutePaths)
 	{
 		$list=array();
-		$handle=opendir($dir);
+		$handle=opendir($dir.$base);
+		if($handle===false)
+			throw new Exception('Unable to open directory: ' . $dir);
 		while(($file=readdir($handle))!==false)
 		{
 			if($file==='.' || $file==='..')
 				continue;
-			$path=$dir.DIRECTORY_SEPARATOR.$file;
-			$isFile=is_file($path);
+			$path=substr($base.DIRECTORY_SEPARATOR.$file,1);
+			$fullPath=$dir.DIRECTORY_SEPARATOR.$path;
+			$isFile=is_file($fullPath);
 			if(self::validatePath($base,$file,$isFile,$fileTypes,$exclude))
 			{
 				if($isFile)
-					$list[]=$path;
+					$list[]=$absolutePaths?$fullPath:$path;
 				elseif($level)
-					$list=array_merge($list,self::findFilesRecursive($path,$base.'/'.$file,$fileTypes,$exclude,$level-1));
+					$list=array_merge($list,self::findFilesRecursive($dir,$base.'/'.$file,$fileTypes,$exclude,$level-1,$absolutePaths));
 			}
 		}
 		closedir($handle);
@@ -292,18 +319,18 @@ class CFileHelper
 	 * For avoidance of umask side-effects chmod is used.
 	 *
 	 * @param string $dst path to be created
-	 * @param array $options newDirMode element used, must contain access bitmask
+	 * @param integer $mode the permission to be set for newly created directories, if not set - 0777 will be used
 	 * @param boolean $recursive whether to create directory structure recursive if parent dirs do not exist
 	 * @return boolean result of mkdir
 	 * @see mkdir
 	 */
-	private static function mkdir($dst,array $options,$recursive)
+	public static function createDirectory($dst,$mode=null,$recursive=false)
 	{
+		if($mode===null)
+			$mode=0777;
 		$prevDir=dirname($dst);
 		if($recursive && !is_dir($dst) && !is_dir($prevDir))
-			self::mkdir(dirname($dst),$options,true);
-
-		$mode=isset($options['newDirMode']) ? $options['newDirMode'] : 0777;
+			self::createDirectory(dirname($dst),$mode,true);
 		$res=mkdir($dst, $mode);
 		@chmod($dst,$mode);
 		return $res;
