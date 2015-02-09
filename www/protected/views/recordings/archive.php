@@ -53,7 +53,7 @@ foreach($data['models'] as $model)
         $name = $name." - ".$model->subtitle;
     }
     
-    echo $data['method']." ".$data['src'].$model->basename."' '".$data['dest'].$name.".mpg'\n";
+    echo $data['method']." '".$data['src'].$model->basename."' '".$data['dest'].$name.".mpg'\n";
 }
 
 echo "</pre>";
